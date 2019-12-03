@@ -1,0 +1,101 @@
+//
+//  main.m
+//  AdventOfCode
+//
+//  Created by Herman, Michael on 11/23/18.
+//  Copyright © 2018 com.thehermans. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        
+        NSInteger frequencyShift = 0;
+        NSMutableArray *frequencyPosEvenArray = [NSMutableArray array];
+        NSMutableArray *frequencyNegEvenArray = [NSMutableArray array];
+        NSMutableArray *frequencyPosOddArray = [NSMutableArray array];
+        NSMutableArray *frequencyNegOddArray = [NSMutableArray array];
+        NSString *frequencyShiftString = [[NSString alloc] init];
+        int looper = 0;
+        int incrementer = 0;
+        // get a reference to our file
+        NSString *myPath =@"/Users/michael.herman/tmp/advent_day1.txt";
+        
+        //        NSLog(@"%@",myPath);
+        
+        
+        // read the contents into a string
+        NSString *myFile = [[NSString alloc]initWithContentsOfFile:myPath encoding:NSUTF8StringEncoding error:nil];
+        //        NSString *myFile =@"+3, +3, +4, -2, -4";
+        
+        // display our file
+        //        NSLog(@"Our file contains this: %@", myFile);
+        
+        NSArray *mySplit = [myFile componentsSeparatedByString:@"\n"];
+        //        NSLog(@"%d",(long)[mySplit count]);
+        
+        while (looper == 0) {
+            //                NSLog(@"Before if, Found frequency: %d",[frequencyArray containsObject:frequencyShiftString]);
+            for (int i=0; i<[mySplit count]; i++) {
+                
+                frequencyShift += [mySplit[i] integerValue];
+                frequencyShiftString = [@(frequencyShift) stringValue];
+                NSLog(@"%d,%@, %d,%ld,%d",i,mySplit[i],incrementer,(long)frequencyShift,[frequencyArray containsObject:frequencyShiftString]);
+                //                NSLog(@"%@",frequencyShiftString);
+                
+                
+                if (incrementer>0) {
+                    if (frequencyShift % 2 == 0) {
+                        if (frequencyShift>=0) {
+                            if ([frequencyPosEvenArray containsObject:frequencyShiftString]) {
+                                //finish here;
+                            } else {
+                                if ([frequencyNegEvenArray containsObject:frequencyShiftString]) {
+                                    //finish here;
+                            }
+                        }
+                    }
+                    
+
+                 
+                    NSLog(@"Found the dup %d,%@,%@",i,mySplit[i],frequencyShiftString);
+                    ////                    NSLog(@"Found frequency: %d",[frequencyArray containsObject:frequencyShiftString]);
+                    looper++;
+                    break;
+                }
+                
+                if (frequencyShift%2 == 0) {
+                    if (frequencyShift>=0) {
+                        [frequencyPosEvenArray addObject:frequencyShiftString];
+                    } else {
+                        [frequencyNegEvenArray addObject:frequencyShiftString];
+                    }
+                }
+                else {
+                    if (frequencyShift>=0) {
+                        [frequencyPosOddArray addObject:frequencyShiftString];
+                    } else {
+                        [frequencyNegOddArray addObject:frequencyShiftString];
+                }
+
+                    
+                    
+//                [frequencyArray addObject:frequencyShiftString];
+            }
+            
+            //            NSLog(@"%@",frequencyArray);
+            
+            incrementer++;
+            //            if (incrementer ==2) {
+            //                looper++;
+            //            };
+        }
+        
+        
+        
+        return 0;
+    }
+}
+
+

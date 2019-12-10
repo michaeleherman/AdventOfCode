@@ -6,22 +6,22 @@
 int massCalc(int mass);
 
 int main(void) {
-    FILE *fp = fopen("data.txt","r");
+    FILE *fp = fopen("/Users/michael.herman/Documents/Code/AdventOfCode/2019/Day01/data.txt","r");
     
     char chunk[128];
 
-    int mass=0; 
+    int mass=0;
     long long totalMass=0;
 
 //Loop through file
     while(fgets(chunk, sizeof(chunk),  fp)!= NULL) {
-        fputs(chunk, stdout);
+//        fputs(chunk, stdout);
         mass = strtol(chunk,NULL,10);
         while (mass>0) {
             mass = massCalc(mass);                          //Calculate Mass
             totalMass += mass;                              //Increment total mass
-            printf("mass is %d\n", mass);
-            printf("Total mass is %lli\n", totalMass);  
+//            printf("mass is %d\n", mass);
+//            printf("Total mass is %lli\n", totalMass);
         }
     }
 
@@ -36,3 +36,4 @@ int massCalc(int mass) {
     else
         return localMass;
 }
+

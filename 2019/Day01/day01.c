@@ -11,10 +11,10 @@ int main(void) {
     char chunk[128];
 
     int mass=0;
-    long long totalMass=0;
+    int totalMass=0;
 
 //Loop through file
-    while(fgets(chunk, sizeof(chunk),  fp)!= NULL) {
+    while(fgets(chunk, sizeof(chunk), (FILE*) fp)!= NULL) {
 //        fputs(chunk, stdout);
         mass = strtol(chunk,NULL,10);
         while (mass>0) {
@@ -26,7 +26,7 @@ int main(void) {
     }
 
     fclose(fp);
-    printf("Total mass is %lli\n", totalMass);
+    printf("Total mass is %d\n", totalMass);
 }
 
 int massCalc(int mass) {

@@ -12,6 +12,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+//    char str[res];
+//
+//    while (fscanf(filePtr, "%s\n", tmpStr) != EOF) {
+//
+//  main.c
+//  AdventOfCode
+//
+//  Created by Michael Herman on 12/3/19.
+//  Copyright © 2019 Michael Herman. All rights reserved.
+//
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <math.h>
 
 int main(int argc, const char *argv[])
@@ -93,14 +107,16 @@ int main(int argc, const char *argv[])
 
     printf("%d, %d, %d, %d, %d, %d\n", maxR, maxL, maxU, maxD, xLength, yLength);
 
-    int matrix[xLength][yLength];
-    memset(matrix, 0, sizeof(matrix[0][0]) * xLength * yLength);
-
-    int xPos = xLength / 2;
-    int yPos = yLength / 2;
-
+    int **matrix;
+    matrix = malloc(1 * sizeof(int));
+    
+    int xPos = 0;
+    int yPos = 0;
+    
+    
     for (int i = 0; i <= counter; i++)
     {
+        matrix[i] = malloc((i+1) * sizeof(int));
         printf("Current value: %s\n", wireArray[i]);
         direction = wireArray[i][0];
         char tmpDistance[4];
@@ -109,10 +125,11 @@ int main(int argc, const char *argv[])
         switch (direction)
         {
         case 'R':
-           { int pos = 0;
-            for (pos = xPos; pos < xPos + distance; pos++)
+           {
+            for (int j = 0; j < 2; j++)
             {
-                matrix[pos][yPos] += 1;
+                matrix[j] = malloc(2 * sizeof(int));
+                matrix[i][j] =
                 printf("%d,%d = %d\n",pos, yPos, matrix[pos][yPos]);
             }
             xPos = pos;

@@ -12,24 +12,38 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "functions.h"
 
-struct element {
+struct element
+{
     char direction;
     int distance;
+};
+
+struct element getDirection(char *token);
+
+int main()
+{
+
+    struct element myData = {0};
+
+    char *testString = "L123";
+
+    printf("in main\n");
+
+    myData = getDirection(testString);
+    // getDirection(testString);
+
+    printf("Returned structure values: %c, %d\n", myData.direction, myData.distance);
 }
-;
 
-int main () {
+struct element getDirection(char *token)
+{
+    struct element tmpData;
 
-struct element myData = { 0 };
+    tmpData.direction = token[0];
 
-char* testString = "L123";
-
-printf("in main\n");
-
-myData = getDirection(testString);
-// getDirection(testString);
-
-printf("%c, %d", myData.direction, myData.distance);
+    //set temp variable for distance
+    char tmpDistance[4];
+    tmpData.distance = atoi(memcpy(tmpDistance, &token[1], 4));
+    return tmpData;
 }

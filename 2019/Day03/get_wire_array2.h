@@ -1,15 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "functions.h"
+
 
 struct wireArrayStruct getWireArray(char *wire);
 
+// struct wireArrayStruct {
+//     int counter;
+//     char **tmpArray;
+// };
+
+struct wirePoint {
+    char direction;
+    int distance;
+}
+
 struct wireArrayStruct getWireArray(char *wire)
 {
-    struct wireArrayStruct tmpStruct;
+    // struct wireArrayStruct tmpStruct;
     char *token;
-    static char **tmpWireArray;
+    char **tmpWireArray;
     int counter = 0;
 
     token = strtok(wire, ",");
@@ -25,11 +35,11 @@ struct wireArrayStruct getWireArray(char *wire)
         counter++;
     }
 
-    printf("size of wirearray %lu\n", sizeof(tmpWireArray[0]));
+    struct wirePoint points[counter];
 
-    for (int i = 0; i < counter; i++)
-    {
-        printf("%d, %s\n", i, tmpWireArray[i]);
+    for (int i = 0; i<counter;i++){
+        
+
     }
 
     tmpStruct.counter = counter;
@@ -37,3 +47,4 @@ struct wireArrayStruct getWireArray(char *wire)
 
     return tmpStruct;
 }
+// void *getDirection (char token[]);

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        ".ssh_alias": "shellscript",
+        "get_wire_array.h": "c"
+    }
+}

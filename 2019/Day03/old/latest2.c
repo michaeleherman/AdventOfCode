@@ -13,6 +13,7 @@
 #include "fill_matrix.h"
 #include "split_value.h"
 
+
 int main()
 {
 
@@ -28,7 +29,7 @@ int main()
 
     //Get the wire text strings turned into arrays
     struct wireArrayStruct wireArray0 = getWireArray(wires[0]);
-    struct wireArrayStruct wireArray1 = getWireArray(wires[1]);
+    // struct wireArrayStruct wireArray1 = getWireArray(wires[1]);
 
 
     int xAxis = 0;
@@ -48,7 +49,12 @@ int main()
     xAxis = xAxis *2;
     yAxis = yAxis *2;
 
-    fillmatrix(xAxis, yAxis, wireArray0);
+    struct matrixStruct arrayStruct = fillmatrix(xAxis, yAxis, wireArray0);
+
+    for (int i = 0; i<arrayStruct.counter; i++) {
+        printf("%d, %d\n", arrayStruct.matrixArray[i][0],arrayStruct.matrixArray[i][1]);
+    }
+
 
     return 0;
 }

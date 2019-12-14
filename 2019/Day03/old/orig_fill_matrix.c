@@ -1,8 +1,12 @@
-#include "split_value.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include "get_wire_array.h"
 #include "fill_matrix.h"
+#include "split_value.h"
 
-void fillmatrix(int xAxis, int yAxis, struct wireArrayStruct tmpWireArray)
+
+
+void fillmatrix(int xAxis, int yAxis, struct wireArrayStruct tmpStruct)
 {
     int matrix[xAxis][yAxis];
 
@@ -12,9 +16,9 @@ void fillmatrix(int xAxis, int yAxis, struct wireArrayStruct tmpWireArray)
     int xLength = 0;
     int yLength = 0;
 
-    for (int i = 0; i <= tmpWireArray.counter; i++)
+    for (int i = 0; i < tmpStruct.counter; i++)
     {
-        struct DirDist tmpValue = splitDirDist(tmpWireArray.tmpArray[i]);
+        struct DirDist tmpValue = splitDirDist(tmpStruct.tmpArray[i]);
         char direction = tmpValue.direction;
         int distance = tmpValue.distance;
 
@@ -66,4 +70,6 @@ void fillmatrix(int xAxis, int yAxis, struct wireArrayStruct tmpWireArray)
         }
         }
     }
+
+    printf("HIT THE END!");
 }

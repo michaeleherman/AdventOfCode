@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        ".ssh_alias": "shellscript",
+        "get_wire_array.h": "c",
+        "fill_matrix.h": "c",
+        "split_value.h": "c",
+        "stdlib.h": "c"
+    }
+}

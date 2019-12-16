@@ -78,7 +78,7 @@ int main()
         counter++;
     }
 
-    printf("exiting first half - points are %d\n",pointsCounter);
+    printf("exiting first half - points are %d\n", pointsCounter);
 
     // for (int i = 0; i < pointsCounter; i++)
     // {
@@ -109,15 +109,20 @@ int main()
             for (int j = 0; j < pointsCounter; j++)
             {
                 // printf("%d %d token values are %s %d, %d\n", i, j, token1, matrix[j][0], matrix[j][1]);
-                if (matrix[j][0] == xCoordinate && matrix[j][1] == yCoordinate)
+                if (matrix[j][0] == xCoordinate)
                 {
-                    if (matrix[j][0] == 0 && matrix[j][1] == 0) {
-                        break;
-                    }
-                    int tmpDistance = abs(xCoordinate) + abs(yCoordinate);
-                    printf("Found a match!! %d, %d: %d\n", xCoordinate, yCoordinate, tmpDistance);
-                    (tmpDistance < shortestDistance) && (shortestDistance = tmpDistance);
-                    // j = pointsCounter;
+                    if
+                        (matrix[j][1] == yCoordinate)
+                        {
+                            if (matrix[j][0] == 0 && matrix[j][1] == 0)
+                            {
+                                break;
+                            }
+                            int tmpDistance = abs(xCoordinate) + abs(yCoordinate);
+                            printf("Found a match!! %d, %d: %d\n", xCoordinate, yCoordinate, tmpDistance);
+                            (tmpDistance < shortestDistance) && (shortestDistance = tmpDistance);
+                            // j = pointsCounter;
+                        }
                 }
             }
             switch (direction)
@@ -145,4 +150,3 @@ int main()
     printf("shortest distance is %d\n", shortestDistance);
     return 0;
 }
-

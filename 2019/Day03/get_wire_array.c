@@ -62,7 +62,7 @@ struct wireArrayStruct getWireArray(char wire[])
     }
 
     tmpStruct.tmpArray = matrix;
-    tmpStruct.counter = counter;
+    tmpStruct.counter = pointsCounter;
 
     return tmpStruct;
 }

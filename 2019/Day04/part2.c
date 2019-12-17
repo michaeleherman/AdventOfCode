@@ -38,6 +38,17 @@ int main()
                     }
                     else
                     {
+                        newInt = 0;
+                        for (int z = 0; z < 6; z++)
+                        {
+
+                            newInt = 10 * newInt + counter[z];
+                        }
+                        if (newInt == endInt)
+                        {
+                            break;
+                        }
+                        printf("int is %d\n", newInt);
                         break;
                     }
                 }
@@ -61,18 +72,6 @@ int main()
                     pos++;
                 }
             }
-
-            newInt = 0;
-            for (int z = 0; z < 6; z++)
-            {
-
-                newInt = 10 * newInt + counter[z];
-            }
-            if (newInt == endInt)
-            {
-                break;
-            }
-            printf("int is %d\n", newInt);
         }
 
         // if (newInt >= endInt)

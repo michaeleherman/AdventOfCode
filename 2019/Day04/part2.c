@@ -2,87 +2,119 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
-int main()
+int makeNewInt(int *intArray)
+{
+    int tmpInt = 0;
+    for (int x = 0; x < 6; x++)
+    {
+
+        tmpInt = 10 * tmpInt + intArray[x];
+    }
+
+    return tmpInt;
+}
+
+int backFill(int *intArray, int startPos)
 {
 
-    // int startInt = 367479;
-    int startInt = 399000;
-    int endInt = 893698;
-    int validCount = 0;
-    int newInt = startInt;
-
-    int counter[6];
-
-    for (int i = 5; i >= 0; i--)
+    for (int i = startPos; i < 6; i++)
     {
-        counter[i] = startInt % 10;
-        startInt = startInt / 10;
-    };
 
-    while (newInt <= endInt)
-    {
-        for (int pos = 5; pos >= 0; pos--)
-        {
-            int currPos = counter[pos];
-            int nextPos = counter[pos - 1];
-
-            if (pos == 0)
-            {
-                counter[5] = (counter[5] + 1) % 10;
-                for (int i = 5; i >= 0; i--)
-                {
-                    if (counter[i] == 0)
-                    {
-                        counter[i - 1] = (counter[i - 1] + 1) % 10;
-                    }
-                    else
-                    {
-                        newInt = 0;
-                        for (int z = 0; z < 6; z++)
-                        {
-
-                            newInt = 10 * newInt + counter[z];
-                        }
-                        if (newInt == endInt)
-                        {
-                            break;
-                        }
-                        printf("int is %d\n", newInt);
-                        break;
-                    }
-                }
-            }
-            else if (currPos >= nextPos)
-            {
-
-                continue;
-            }
-            // else if (currPos == 0)
-            // {
-            //     counter[pos - 1] = counter[pos - 1] % 10;
-            //     continue;
-            // }
-            else if (currPos < nextPos)
-            {
-
-                while (pos < 6)
-                {
-                    counter[pos] = counter[pos - 1];
-                    pos++;
-                }
-            }
-        }
-
-        // if (newInt >= endInt)
-        // {
-        //     break;
-        // }
+        intArray[i] = intArray[startPos - 1];
     }
 
     return 0;
 }
 
-// for (int i = 0; i < 6; i++){
-//     printf ("%d %d\n", i, counter[i]);
-// }
+int *splitInt(int tmpInt)
+{
+    static int tmpArray[6];
+    for (int j = 5; j >= 0; j--)
+    {
+        tmpArray[j] = tmpInt % 10;
+        tmpInt = tmpInt / 10;
+    }
+
+    return tmpArray;
+}
+
+int main()
+{
+
+    int startInt = 367479;
+    int endInt = 893698;
+    // int startInt = 444550;
+    // int endInt = 444556;
+    int validCount = 0;
+    clock_t start, end;
+
+    start = clock();
+
+    while (startInt <= endInt)
+    {
+        bool lesserValue = false;
+        int dupValueCount = 0;
+        int dupValue;
+        int dupGroupExists = 0;
+        int newInt = 0;
+
+        // printf("Value is: %d\n", i);
+        //Split digit into array
+
+        int *intArray = splitInt(startInt);
+
+        for (int k = 5; k > 0; k--)
+        {
+            int kMinusOne = intArray[k - 1];
+            int currK = intArray[k];
+
+            if (currK < kMinusOne)
+            {
+                *intArray = backFill(intArray, k);
+                startInt = makeNewInt(intArray);
+                break;
+            }
+
+            if (currK > kMinusOne)
+            {
+                continue;
+            }
+
+            if (currK == kMinusOne)
+            {
+                if (dupValueCount == 0)
+                {
+                    dupValueCount++;
+                    dupGroupExists = 1;
+                    dupValue = kMinusOne;
+                }
+                else if (dupValueCount == 1 && kMinusOne == dupValue)
+                {
+                    dupGroupExists = 0;
+                }
+            }
+        }
+
+        if (lesserValue != true && dupGroupExists == 1)
+        {
+            printf("Valid value is %d\n", startInt);
+            validCount++;
+        }
+
+        if (newInt == 0)
+        {
+            startInt++;
+        }
+    }
+
+    end = clock();
+
+    printf("Count of valid is %d\n", validCount);
+
+    // Calculating total time taken by the program.
+    double time_taken = (end - start);
+    printf("start: %ld end: %ld Time taken: %f\n seconds", start, end, time_taken / CLOCKS_PER_SEC);
+    return 0;
+}

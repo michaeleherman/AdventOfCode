@@ -19,10 +19,7 @@ int main()
     {
         pos = 5;
 
-        if (odo[pos] == 0)
-        {
-            pos--;
-        }
+   
 
         odo[pos] = (odo[pos] + 1) % 10;
 

@@ -33,6 +33,26 @@ int restoreInt(int *arr)
     return tmpInt;
 }
 
+bool checkForDups(int *arr)
+{
+    int dupsArray[10];
+    memset(dupsArray, 0, 10*sizeof(arr[0]));
+    for (int i = 5; i >=0; i--)
+    {
+        dupsArray[arr[i]]++;
+
+    }
+
+    for (int k = 0; k < 10; k++)
+    {
+        if (dupsArray[k] == 2)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main()
 {
 
@@ -40,11 +60,14 @@ int main()
     // int currentInt = 399000;
     int endInt = 893698;
     int digitArray[6];
+    bool dups = false;
+    int dupDigit = 0;
 
     while (currentInt <= endInt)
     {
 
         parseInt(currentInt, digitArray);
+        dups = checkForDups(digitArray);
 
         for (int i = 5; i > 0; i--)
         {
@@ -54,11 +77,9 @@ int main()
             {
                 lessThan(digitArray, i);
             }
-
-            if (digitArray[i] == )
-
         }
 
+        
         currentInt = restoreInt(digitArray);
     }
     return 0;

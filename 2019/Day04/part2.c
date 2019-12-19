@@ -35,17 +35,19 @@ int restoreInt(int *arr)
 
 bool checkForDups(int *arr)
 {
-    int dupsArray[10];
-    memset(dupsArray, 0, 10*sizeof(arr[0]));
-    for (int i = 5; i >=0; i--)
+    int currentDups[10];
+    memset(currentDups, 0, 10 * sizeof(int));
+    for (int i = 5; i >= 0; i--)
     {
-        dupsArray[arr[i]]++;
-
+        if (arr[i] == arr[i - 1])
+        {
+            currentDups[arr[i]] = currentDups[arr[i]] + 1;
+        }
     }
 
-    for (int k = 0; k < 10; k++)
+    for (int j = 0; j < 10; j++)
     {
-        if (dupsArray[k] == 2)
+        if (currentDups[j] == 1)
         {
             return true;
         }
@@ -56,18 +58,22 @@ bool checkForDups(int *arr)
 int main()
 {
 
-    int currentInt = 367479;
+    int startingInt = 367479;
     // int currentInt = 399000;
+    // int startingInt = 367789;
     int endInt = 893698;
     int digitArray[6];
     bool dups = false;
     int dupDigit = 0;
+    int passwordCount = 0;
+    int currentInt = startingInt;
+    int priorInt = 0;
+    int outOfOrderPos = 99;
 
     while (currentInt <= endInt)
     {
 
         parseInt(currentInt, digitArray);
-        dups = checkForDups(digitArray);
 
         for (int i = 5; i > 0; i--)
         {
@@ -75,13 +81,32 @@ int main()
             // Less than case
             if (digitArray[i] < digitArray[i - 1])
             {
-                lessThan(digitArray, i);
+                outOfOrderPos = i;
             }
         }
 
-        
-        currentInt = restoreInt(digitArray);
+        if (outOfOrderPos != 99) {
+        lessThan(digitArray,outOfOrderPos);
+        }
+
+        outOfOrderPos = 99;
+
+        dups = checkForDups(digitArray);
+
+        priorInt = restoreInt(digitArray);
+        currentInt = priorInt + 1;
+
+        if (dups == true )
+        {
+            printf("Found a match: %d\n", priorInt);
+            passwordCount++;
+        }
+        else
+        {
+            printf("Not a match: %d\n", priorInt);
+        }
     }
+    printf("Total valid passwords: %d\n", passwordCount);
     return 0;
 }
 

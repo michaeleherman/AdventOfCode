@@ -2,119 +2,68 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <time.h>
 
-int makeNewInt(int *intArray)
+void lessThan(int *arr, int position)
+{
+
+    while (position < 6)
+    {
+        arr[position] = arr[position - 1];
+        position++;
+    }
+}
+
+void parseInt(int currentInt, int *arr)
+{
+    for (int i = 5; i >= 0; i--)
+    {
+        arr[i] = currentInt % 10;
+        currentInt = currentInt / 10;
+    };
+}
+
+int restoreInt(int *arr)
 {
     int tmpInt = 0;
-    for (int x = 0; x < 6; x++)
+    for (int i = 0; i < 6; i++)
     {
-
-        tmpInt = 10 * tmpInt + intArray[x];
+        tmpInt = 10 * tmpInt + arr[i];
     }
 
     return tmpInt;
 }
 
-int backFill(int *intArray, int startPos)
-{
-
-    for (int i = startPos; i < 6; i++)
-    {
-
-        intArray[i] = intArray[startPos - 1];
-    }
-
-    return 0;
-}
-
-int *splitInt(int tmpInt)
-{
-    static int tmpArray[6];
-    for (int j = 5; j >= 0; j--)
-    {
-        tmpArray[j] = tmpInt % 10;
-        tmpInt = tmpInt / 10;
-    }
-
-    return tmpArray;
-}
-
 int main()
 {
 
-    int startInt = 367479;
+    int currentInt = 367479;
+    // int currentInt = 399000;
     int endInt = 893698;
-    // int startInt = 444550;
-    // int endInt = 444556;
-    int validCount = 0;
-    clock_t start, end;
+    int digitArray[6];
 
-    start = clock();
-
-    while (startInt <= endInt)
+    while (currentInt <= endInt)
     {
-        bool lesserValue = false;
-        int dupValueCount = 0;
-        int dupValue;
-        int dupGroupExists = 0;
-        int newInt = 0;
 
-        // printf("Value is: %d\n", i);
-        //Split digit into array
+        parseInt(currentInt, digitArray);
 
-        int *intArray = splitInt(startInt);
-
-        for (int k = 5; k > 0; k--)
+        for (int i = 5; i > 0; i--)
         {
-            int kMinusOne = intArray[k - 1];
-            int currK = intArray[k];
 
-            if (currK < kMinusOne)
+            // Less than case
+            if (digitArray[i] < digitArray[i - 1])
             {
-                *intArray = backFill(intArray, k);
-                startInt = makeNewInt(intArray);
-                break;
+                lessThan(digitArray, i);
             }
 
-            if (currK > kMinusOne)
-            {
-                continue;
-            }
+            if (digitArray[i] == )
 
-            if (currK == kMinusOne)
-            {
-                if (dupValueCount == 0)
-                {
-                    dupValueCount++;
-                    dupGroupExists = 1;
-                    dupValue = kMinusOne;
-                }
-                else if (dupValueCount == 1 && kMinusOne == dupValue)
-                {
-                    dupGroupExists = 0;
-                }
-            }
         }
 
-        if (lesserValue != true && dupGroupExists == 1)
-        {
-            printf("Valid value is %d\n", startInt);
-            validCount++;
-        }
-
-        if (newInt == 0)
-        {
-            startInt++;
-        }
+        currentInt = restoreInt(digitArray);
     }
-
-    end = clock();
-
-    printf("Count of valid is %d\n", validCount);
-
-    // Calculating total time taken by the program.
-    double time_taken = (end - start);
-    printf("start: %ld end: %ld Time taken: %f\n seconds", start, end, time_taken / CLOCKS_PER_SEC);
     return 0;
 }
+
+// for (int i = 0; i < 6; i++){
+//     printf ("%d %d\n", i, counter[i]);
+// }

@@ -6,8 +6,8 @@
 int main()
 {
 
-    // int startInt = 367479;
-    int startInt = 399000;
+    int startInt = 367479;
+    // int startInt = 399000;~~
     int endInt = 893698;
     int validCount = 0;
     int newInt = startInt;
@@ -27,9 +27,9 @@ int main()
             int currPos = counter[pos];
             int nextPos = counter[pos - 1];
 
-            if (counter[pos]== 0)
+            if (pos == 0)
             {
-                counter[pos] = (counter[pos] + 1) % 10;
+                counter[5] = (counter[5] + 1) % 10;
                 for (int i = 5; i >= 0; i--)
                 {
                     if (counter[i] == 0)
@@ -38,17 +38,6 @@ int main()
                     }
                     else
                     {
-                        newInt = 0;
-                        for (int z = 0; z < 6; z++)
-                        {
-
-                            newInt = 10 * newInt + counter[z];
-                        }
-                        if (newInt == endInt)
-                        {
-                            break;
-                        }
-                        printf("int is %d\n", newInt);
                         break;
                     }
                 }
@@ -72,6 +61,18 @@ int main()
                     pos++;
                 }
             }
+
+            newInt = 0;
+            for (int z = 0; z < 6; z++)
+            {
+
+                newInt = 10 * newInt + counter[z];
+            }
+            if (newInt == endInt)
+            {
+                break;
+            }
+            printf("int is %d\n", newInt);
         }
 
         // if (newInt >= endInt)

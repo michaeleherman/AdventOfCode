@@ -1,31 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "functions.h"
+#include <stdarg.h>
 
-void opcode1(int pos1, int pos2, int destPos, int *intCodes)
-{
-}
-
-void opcode2(int pos1, int pos2, int destPos, int *intCodes)
-{
-}
-
-void opcode3(int input, int storagePos, int *intCodes)
-{
-}
-
-void opcode4(int outputPos, int *intCodes)
-{
-    printf("Output is: %d", intCodes[outputPos]);
-}
-
-void parameterMode(int opcode)
-{
-    int opcodeLength = sizeof(opcode);
-    int tmpArr[opcodeLength];
-    int parameter = opcode % 100
-    for 
-}
+// Global Variables
 
 int main()
 {
@@ -33,8 +12,8 @@ int main()
     // int strLength = strlen(str);
     // char str[] = "1002,4,3,4,33";
     int *intCodes;
-    int *tmpIntCodes;
     int systemId;
+    int *tmpIntCodes;
 
     char *token = strtok(str, ",");
     int counter = 0;
@@ -45,7 +24,6 @@ int main()
 
     while (token != NULL)
     {
-        //        printf("Loop counter: %d\n",counter);
         intCodes[counter] = atoi(token);
         tmpIntCodes = realloc(intCodes, (counter + 2) * sizeof(int));
         if (tmpIntCodes != NULL)
@@ -63,40 +41,7 @@ int main()
 
     for (int i = 0; i <= counter; i++)
     {
-        switch (intCodes[i])
-        {
-        case 1:
-        {
-            opcode1(intCodes[i + 1], intCodes[i + 2], intCodes[i + 3], intCodes);
-            i += 4;
-            break;
-        }
-        case 2:
-        {
-            opcode1(intCodes[i + 1], intCodes[i + 2], intCodes[i + 3], intCodes);
-            i += 4;
-            break;
-        }
-        case 3:
-        {
-            printf("Please enter the system ID: ");
-            scanf("%d", &systemId);
-            opcode3(systemId, intCodes[i + 1], intCodes);
-            i += 2;
-        }
-        case 4:
-        {
-            printf("Output is: %d", intCodes[i + 1]);
-            if (i = counter -1)
-            {
-                break;
-            }
-        }
-        default:
-        { parameterMode ()
-        }
-        }
+       i = switcher(i, systemId, intCodes);
     }
-
-    return 0;
-}
+        return 0;
+    }

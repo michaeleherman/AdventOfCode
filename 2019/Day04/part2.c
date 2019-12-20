@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 
 void lessThan(int *arr, int position)
 {
@@ -57,6 +58,9 @@ bool checkForDups(int *arr)
 
 int main()
 {
+    clock_t start, end;
+
+    start = clock();
 
     int startingInt = 367479;
     // int currentInt = 399000;
@@ -69,6 +73,7 @@ int main()
     int currentInt = startingInt;
     int priorInt = 0;
     int outOfOrderPos = 99;
+    int loopCounter = 0;
 
     while (currentInt <= endInt)
     {
@@ -85,8 +90,9 @@ int main()
             }
         }
 
-        if (outOfOrderPos != 99) {
-        lessThan(digitArray,outOfOrderPos);
+        if (outOfOrderPos != 99)
+        {
+            lessThan(digitArray, outOfOrderPos);
         }
 
         outOfOrderPos = 99;
@@ -96,7 +102,7 @@ int main()
         priorInt = restoreInt(digitArray);
         currentInt = priorInt + 1;
 
-        if (dups == true )
+        if (dups == true)
         {
             printf("Found a match: %d\n", priorInt);
             passwordCount++;
@@ -105,8 +111,15 @@ int main()
         {
             printf("Not a match: %d\n", priorInt);
         }
+
+        loopCounter++;
     }
     printf("Total valid passwords: %d\n", passwordCount);
+    printf("Total loops: %d\n", loopCounter);
+    end = clock();
+    double time_taken = end - start;
+    printf("start: %ld end: %ld Time taken: %f\n", start, end, time_taken/CLOCKS_PER_SEC);
+
     return 0;
 }
 

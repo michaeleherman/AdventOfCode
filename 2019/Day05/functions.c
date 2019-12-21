@@ -4,9 +4,9 @@
 #include <stdarg.h>
 #include "functions.h"
 
-void printStuff(int pos, int instruction, int val1, int val2, int val3)
+void printStuff(const char source[14], int pos, int instruction, int val1, int val2, int val3)
 {
-    printf("Position: %d\n", pos);
+    printf("Source function: %s Position: %d\n", source, pos);
     printf("Instruction: %d\n", instruction);
     printf("Values to use: %d, %d\n", val1, val2);
     printf("Destination Position: %d\n\n\n", val3);
@@ -14,7 +14,7 @@ void printStuff(int pos, int instruction, int val1, int val2, int val3)
 
 void opcode4(int outputPos, int *intCodes)
 {
-    printf("Output is: %d", intCodes[intCodes[outputPos]]);
+    printf("Output is: %d\n", outputPos);
 }
 
 void parameterMode(int pos, int *intCodes, int systemId)
@@ -40,17 +40,16 @@ void parameterMode(int pos, int *intCodes, int systemId)
 
     pos1 = (paramOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
     pos2 = (paramTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
-    printf("Current start POS: %d\n", pos);
     if (instruction == 1)
     {
-        (intCodes[intCodes[pos + 3]] = intCodes[pos1] + intCodes[pos2]);
+        (intCodes[intCodes[pos + 3]] = pos1 + pos2);
     }
     else if (instruction == 2)
     {
-        (intCodes[intCodes[pos + 3]] = intCodes[pos1] * intCodes[pos2]);
+        (intCodes[intCodes[pos + 3]] = pos1 * pos2);
     }
 
-    printStuff(pos, instruction, pos1, pos2, intCodes[pos + 3]);
+    // printStuff(__FUNCTION__, pos, instruction, pos1, pos2, intCodes[pos + 3]);
 }
 
 int switcher(int pos, int systemId, int *intCodes)
@@ -60,12 +59,14 @@ int switcher(int pos, int systemId, int *intCodes)
     case 1:
     {
         intCodes[intCodes[pos + 3]] = intCodes[intCodes[pos + 1]] + intCodes[intCodes[pos + 2]];
+        // printStuff(__FUNCTION__, pos, 1, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
         pos += 3;
         break;
     }
     case 2:
     {
         intCodes[intCodes[pos + 3]] = intCodes[intCodes[pos + 1]] * intCodes[intCodes[pos + 2]];
+        // printStuff(__FUNCTION__, pos, 2, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
         pos += 3;
         break;
     }
@@ -74,12 +75,14 @@ int switcher(int pos, int systemId, int *intCodes)
         printf("Please enter the system ID: ");
         scanf("%d", &systemId);
         intCodes[intCodes[pos + 1]] = systemId;
+        // printStuff(__FUNCTION__, pos, 3, intCodes[intCodes[pos + 1]], -1, -1);
         pos += 1;
         break;
     }
     case 4:
     {
-        printf("Output is: %d\n", intCodes[intCodes[pos + 1]]);
+        opcode4(intCodes[intCodes[pos + 1]], intCodes);
+        // printStuff(__FUNCTION__, pos, 4, intCodes[intCodes[pos + 1]], -1, -1);
         pos += 1;
         break;
     }

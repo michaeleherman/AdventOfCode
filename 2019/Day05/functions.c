@@ -12,6 +12,32 @@ void printStuff(const char source[14], int pos, int instruction, int val1, int v
     printf("Destination Position: %d\n\n\n", val3);
 }
 
+void opcode1(int pos1, int pos1Mode, int pos2, int pos2Mode, int pos3, int *intCodes)
+{
+
+    pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
+    pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
+
+    intCodes[intCodes[pos3]] = pos1 + pos2;
+}
+
+void opcode2(int pos1, int pos1Mode, int pos2, char pos2Mode, int pos3, int *intCodes)
+{
+
+    pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
+    pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
+
+    intCodes[intCodes[pos3]] = pos1 * pos2;
+}
+
+void opcode3(int pos, int *intCodes)
+{
+    int systemId;
+    printf("Please enter the system ID: ");
+    scanf("%d", &systemId);
+    intCodes[intCodes[pos + 1]] = systemId;
+}
+
 void opcode4(int outputPos, int *intCodes)
 {
     printf("Output is: %d\n", outputPos);
@@ -31,22 +57,23 @@ void parameterMode(int pos, int *intCodes, int systemId)
     char charOne[2];
     char charTwo[2];
 
-    int paramOne = 0;
-    int paramTwo = 0;
+    int modeOne = 0;
+    int modeTwo = 0;
     int pos1, pos2 = 0;
 
-    paramOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));
-    paramTwo = atoi(strncpy(charTwo, &opCodeString[0], sizeof(char)));
+    modeOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));
+    modeTwo = atoi(strncpy(charTwo, &opCodeString[0], sizeof(char)));
 
-    pos1 = (paramOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
-    pos2 = (paramTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
+    pos1 = (modeOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
+    pos2 = (modeTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
     if (instruction == 1)
     {
-        (intCodes[intCodes[pos + 3]] = pos1 + pos2);
+        opcode1(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
+        // (intCodes[intCodes[pos + 3]] = pos1 + pos2);
     }
     else if (instruction == 2)
     {
-        (intCodes[intCodes[pos + 3]] = pos1 * pos2);
+        opcode2(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
     }
 
     // printStuff(__FUNCTION__, pos, instruction, pos1, pos2, intCodes[pos + 3]);
@@ -58,23 +85,22 @@ int switcher(int pos, int systemId, int *intCodes)
     {
     case 1:
     {
-        intCodes[intCodes[pos + 3]] = intCodes[intCodes[pos + 1]] + intCodes[intCodes[pos + 2]];
+        opcode1(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
         // printStuff(__FUNCTION__, pos, 1, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
         pos += 3;
         break;
     }
     case 2:
     {
-        intCodes[intCodes[pos + 3]] = intCodes[intCodes[pos + 1]] * intCodes[intCodes[pos + 2]];
+        opcode2(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
         // printStuff(__FUNCTION__, pos, 2, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
         pos += 3;
         break;
     }
     case 3:
     {
-        printf("Please enter the system ID: ");
-        scanf("%d", &systemId);
-        intCodes[intCodes[pos + 1]] = systemId;
+        opcode3(pos, intCodes);
+
         // printStuff(__FUNCTION__, pos, 3, intCodes[intCodes[pos + 1]], -1, -1);
         pos += 1;
         break;

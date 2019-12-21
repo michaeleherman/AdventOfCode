@@ -127,7 +127,7 @@ void parameterMode(int pos, int *intCodes)
     // printStuff(__FUNCTION__, pos, instruction, pos1, pos2, intCodes[pos + 3]);
 }
 
-int switcher(int pos, int *intCodes)
+int switcher(int pos, int *intCodes, int modeOne, int modeTwo)
 {
     switch (intCodes[pos])
     {

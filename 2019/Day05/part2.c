@@ -43,7 +43,7 @@ int main()
 
     for (int i = 0; i <= counter; i++)
     {
-       i = switcher(i, systemId, intCodes, modeOne, modeTwo);
+       i = switcher(i, intCodes, modeOne, modeTwo);
     }
         return 0;
     }

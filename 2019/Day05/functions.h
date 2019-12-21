@@ -18,4 +18,4 @@ void opcode8(int pos, int *intCodes);
 
 void parameterMode(int pos, int *intCodes);
 
-int switcher(int pos, int *intCodes);
+int switcher(int pos, int *intCodes, int modeOne, int modeTwo);

@@ -1,4 +1,4 @@
-
+void printStuff(int pos, int instruction, int val1, int val2, int val3);
 
 void opcode4(int outputPos, int *intCodes);
 

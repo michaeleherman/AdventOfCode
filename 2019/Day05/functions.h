@@ -8,9 +8,9 @@ void opcode3(int pos, int *intCodes);
 
 void opcode4(int outputPos, int *intCodes);
 
-void opcode5(int pos, int *intCodes);
+int opcode5(int pos, int *intCodes);
 
-void opcode6(int pos, int *intCodes);
+int opcode6(int pos, int *intCodes);
 
 void opcode7(int pos, int *intCodes);
 
@@ -18,4 +18,4 @@ void opcode8(int pos, int *intCodes);
 
 void parameterMode(int pos, int *intCodes);
 
-int switcher(int pos, int *intCodes, int modeOne, int modeTwo);
+int switcher(int pos, int *intCodes);

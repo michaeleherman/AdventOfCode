@@ -12,77 +12,93 @@ void printStuff(const char source[14], int pos, int instruction, int val1, int v
     printf("Destination Position: %d\n\n\n", val3);
 }
 
-void opcode1(int pos1, int pos1Mode, int pos2, int pos2Mode, int pos3, int *intCodes)
+int opcode1(int pos1, int pos1Mode, int pos2, int pos2Mode, int pos3, int *intCodes)
 {
 
     pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
     pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
 
     intCodes[intCodes[pos3]] = pos1 + pos2;
+
+    return pos3 + 1;
 }
 
-void opcode2(int pos1, int pos1Mode, int pos2, char pos2Mode, int pos3, int *intCodes)
+int opcode2(int pos1, int pos1Mode, int pos2, char pos2Mode, int pos3, int *intCodes)
 {
 
     pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
     pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
 
     intCodes[intCodes[pos3]] = pos1 * pos2;
+
+    return pos3 + 1;
 }
 
-void opcode3(int pos, int *intCodes)
+int opcode3(int pos, int *intCodes)
 {
     int systemId;
     printf("Please enter the system ID: ");
     scanf("%d", &systemId);
     intCodes[intCodes[pos + 1]] = systemId;
+
+    return pos + 2;
 }
 
-void opcode4(int outputPos, int *intCodes)
+int opcode4(int pos, int outputPos, int *intCodes)
 {
     printf("Output is: %d\n", outputPos);
+
+    return pos + 2;
 }
 
 //Jump if true
 int opcode5(int pos, int *intCodes)
 {
 
-    if (intCodes[intCodes[pos + 1]] != 0)
+    if (intCodes[pos + 1] != 0)
     {
-        intCodes[pos] = intCodes[intCodes[pos + 2]];
+        pos = intCodes[pos + 2];
+    }
+    else
+    {
+        pos += 3;
     }
 
-    pos += 2;
     return pos;
 }
 
 //Jump if false
 int opcode6(int pos, int *intCodes)
 {
-    if (intCodes[intCodes[pos + 1]] == 0)
+    if (intCodes[pos + 1] == 0)
     {
-        intCodes[pos] = intCodes[intCodes[pos + 2]];
+        pos = intCodes[pos + 2];
+    }
+    else
+    {
+        pos += 3;
     }
 
-    pos += 2;
     return pos;
 }
 
 //less than
-void opcode7(int pos, int *intCodes)
+int opcode7(int pos, int *intCodes)
 {
 
     intCodes[intCodes[pos + 3]] = (intCodes[intCodes[pos + 1]] < intCodes[intCodes[pos + 2]]) ? 1 : 0;
+    return pos + 4;
 }
 
 //equals
-void opcode8(int pos, int *intCodes)
+int opcode8(int pos, int *intCodes)
 {
 
     intCodes[intCodes[pos + 3]] = (intCodes[intCodes[pos + 1]] == intCodes[intCodes[pos + 2]]) ? 1 : 0;
+    return pos + 4;
 }
 
-void parameterMode(int pos, int *intCodes)
+int parameterMode(int pos, int *intCodes)
 {
     int currOpcode = intCodes[pos];
     int opcodeLength = sizeof(currOpcode);
@@ -110,22 +126,22 @@ void parameterMode(int pos, int *intCodes)
     {
     case 1:
     {
-        opcode1(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
+        pos = opcode1(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
         break;
     }
     case 2:
     {
-        opcode2(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
+        pos = opcode2(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
         break;
     }
     case 3:
     {
-        opcode3(pos, intCodes);
+        pos = opcode3(pos, intCodes);
         break;
     }
     case 4:
     {
-        opcode4(intCodes[intCodes[pos + 1]], intCodes);
+        pos = opcode4(pos, intCodes[intCodes[pos + 1]], intCodes);
         break;
     }
     case 5:
@@ -140,15 +156,16 @@ void parameterMode(int pos, int *intCodes)
     }
     case 7:
     {
-        opcode7(pos, intCodes);
+        pos = opcode7(pos, intCodes);
         break;
     }
     case 8:
     {
-        opcode8(pos, intCodes);
+        pos = opcode8(pos, intCodes);
         break;
     }
     }
+    return pos;
 }
 
 int switcher(int pos, int *intCodes)
@@ -157,31 +174,27 @@ int switcher(int pos, int *intCodes)
     {
     case 1:
     {
-        opcode1(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
+        pos = opcode1(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
         // printStuff(__FUNCTION__, pos, 1, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
-        pos += 3;
         break;
     }
     case 2:
     {
-        opcode2(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
+        pos = opcode2(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
         // printStuff(__FUNCTION__, pos, 2, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
-        pos += 3;
         break;
     }
     case 3:
     {
-        opcode3(pos, intCodes);
+        pos = opcode3(pos, intCodes);
 
         // printStuff(__FUNCTION__, pos, 3, intCodes[intCodes[pos + 1]], -1, -1);
-        pos += 1;
         break;
     }
     case 4:
     {
-        opcode4(intCodes[intCodes[pos + 1]], intCodes);
+        pos = opcode4(pos, intCodes[intCodes[pos + 1]], intCodes);
         // printStuff(__FUNCTION__, pos, 4, intCodes[intCodes[pos + 1]], -1, -1);
-        pos += 1;
         break;
     }
     case 5:
@@ -196,14 +209,12 @@ int switcher(int pos, int *intCodes)
     }
     case 7:
     {
-        opcode7(pos, intCodes);
-        pos += 3;
+        pos = opcode7(pos, intCodes);
         break;
     }
     case 8:
     {
-        opcode8(pos, intCodes);
-        pos += 3;
+        pos = opcode8(pos, intCodes);
         break;
     }
 
@@ -213,8 +224,7 @@ int switcher(int pos, int *intCodes)
     }
     default:
     {
-        parameterMode(pos, intCodes);
-        pos += 3;
+        pos = parameterMode(pos, intCodes);
     }
     }
     return pos;

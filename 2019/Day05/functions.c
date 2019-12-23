@@ -12,30 +12,27 @@ void printStuff(const char source[14], int pos, int instruction, int val1, int v
     printf("Destination Position: %d\n\n\n", val3);
 }
 
-int opcode1(int pos1, int pos1Mode, int pos2, int pos2Mode, int pos3, int *intCodes)
+int opcode1(int pos, int pos1, int pos2, int pos3, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
 
-    pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
-    pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
+    intCodes[pos3] = pos1 + pos2;
 
-    intCodes[intCodes[pos3]] = pos1 + pos2;
-
-    return pos3 + 1;
+    return pos + 4;
 }
 
-int opcode2(int pos1, int pos1Mode, int pos2, char pos2Mode, int pos3, int *intCodes)
+int opcode2(int pos, int pos1, int pos2, int pos3, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
 
-    pos1 = (pos1Mode == 0) ? (intCodes[intCodes[pos1]]) : (intCodes[pos1]);
-    pos2 = (pos2Mode == 0) ? (intCodes[intCodes[pos2]]) : (intCodes[pos2]);
+    intCodes[pos3] = pos1 * pos2;
 
-    intCodes[intCodes[pos3]] = pos1 * pos2;
-
-    return pos3 + 1;
+    return pos + 4;
 }
 
 int opcode3(int pos, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
     int systemId;
     printf("Please enter the system ID: ");
     scanf("%d", &systemId);
@@ -46,18 +43,19 @@ int opcode3(int pos, int *intCodes)
 
 int opcode4(int pos, int outputPos, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
     printf("Output is: %d\n", outputPos);
-
+    exit(0);
     return pos + 2;
 }
 
 //Jump if true
-int opcode5(int pos, int *intCodes)
+int opcode5(int pos, int pos1, int pos2, int *intCodes)
 {
-
-    if (intCodes[pos + 1] != 0)
+    // printf("In function %s\n", __FUNCTION__);
+    if (pos1 != 0)
     {
-        pos = intCodes[pos + 2];
+        pos = pos2;
     }
     else
     {
@@ -68,11 +66,12 @@ int opcode5(int pos, int *intCodes)
 }
 
 //Jump if false
-int opcode6(int pos, int *intCodes)
+int opcode6(int pos, int pos1, int pos2, int *intCodes)
 {
-    if (intCodes[pos + 1] == 0)
+    // printf("In function %s\n", __FUNCTION__);
+    if (pos1 == 0)
     {
-        pos = intCodes[pos + 2];
+        pos = pos2;
     }
     else
     {
@@ -83,23 +82,25 @@ int opcode6(int pos, int *intCodes)
 }
 
 //less than
-int opcode7(int pos, int *intCodes)
+int opcode7(int pos, int pos1, int pos2, int pos3, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
 
-    intCodes[intCodes[pos + 3]] = (intCodes[intCodes[pos + 1]] < intCodes[intCodes[pos + 2]]) ? 1 : 0;
+    intCodes[pos3] = (pos1 < pos2) ? 1 : 0;
     return pos + 4;
 }
 
 //equals
-int opcode8(int pos, int *intCodes)
+int opcode8(int pos, int pos1, int pos2, int pos3, int *intCodes)
 {
-
-    intCodes[intCodes[pos + 3]] = (intCodes[intCodes[pos + 1]] == intCodes[intCodes[pos + 2]]) ? 1 : 0;
+    // printf("In function %s\n", __FUNCTION__);
+    intCodes[pos3] = (pos1 == pos2) ? 1 : 0;
     return pos + 4;
 }
 
 int parameterMode(int pos, int *intCodes)
 {
+    // printf("In function %s\n", __FUNCTION__);
     int currOpcode = intCodes[pos];
     int opcodeLength = sizeof(currOpcode);
     char opCodeString[5] = {'\0'};
@@ -111,27 +112,33 @@ int parameterMode(int pos, int *intCodes)
 
     char charOne[2];
     char charTwo[2];
+    int pos1, pos2, pos3 = 0;
 
     int modeOne = 0;
-    int modeTwo = 0;
-    int pos1, pos2 = 0;
-
     modeOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));
-    modeTwo = atoi(strncpy(charTwo, &opCodeString[0], sizeof(char)));
+    pos1 = (modeOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
 
-    // pos1 = (modeOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
-    // pos2 = (modeTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
+    if (instruction != 3 && instruction != 4 && instruction != 99)
+    {
+
+        int modeTwo = 0;
+        modeTwo = atoi(strncpy(charTwo, &opCodeString[0], sizeof(char)));
+        pos2 = (modeTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
+    }
 
     switch (instruction)
     {
+
     case 1:
     {
-        pos = opcode1(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
+        pos3 = intCodes[pos + 3];
+        pos = opcode1(pos, pos1, pos2, pos3, intCodes);
         break;
     }
     case 2:
     {
-        pos = opcode2(pos + 1, modeOne, pos + 2, modeTwo, pos + 3, intCodes);
+        pos3 = intCodes[pos + 3];
+        pos = opcode2(pos, pos1, pos2, pos3, intCodes);
         break;
     }
     case 3:
@@ -141,90 +148,31 @@ int parameterMode(int pos, int *intCodes)
     }
     case 4:
     {
-        pos = opcode4(pos, intCodes[intCodes[pos + 1]], intCodes);
+
+        pos = opcode4(pos, pos1, intCodes);
         break;
     }
     case 5:
     {
-        pos = opcode5(pos, intCodes);
+        pos = opcode5(pos, pos1, pos2, intCodes);
         break;
     }
     case 6:
     {
-        pos = opcode6(pos, intCodes);
+        pos = opcode6(pos, pos1, pos2, intCodes);
         break;
     }
     case 7:
     {
-        pos = opcode7(pos, intCodes);
+        pos3 = intCodes[pos + 3];
+        pos = opcode7(pos, pos1, pos2, pos3, intCodes);
         break;
     }
     case 8:
     {
-        pos = opcode8(pos, intCodes);
+        pos3 = intCodes[pos + 3];
+        pos = opcode8(pos, pos1, pos2, pos3, intCodes);
         break;
-    }
-    }
-    return pos;
-}
-
-int switcher(int pos, int *intCodes)
-{
-    switch (intCodes[pos])
-    {
-    case 1:
-    {
-        pos = opcode1(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
-        // printStuff(__FUNCTION__, pos, 1, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
-        break;
-    }
-    case 2:
-    {
-        pos = opcode2(pos + 1, 0, pos + 2, 0, pos + 3, intCodes);
-        // printStuff(__FUNCTION__, pos, 2, intCodes[intCodes[pos + 1]], intCodes[intCodes[pos + 2]], intCodes[intCodes[pos + 3]]);
-        break;
-    }
-    case 3:
-    {
-        pos = opcode3(pos, intCodes);
-
-        // printStuff(__FUNCTION__, pos, 3, intCodes[intCodes[pos + 1]], -1, -1);
-        break;
-    }
-    case 4:
-    {
-        pos = opcode4(pos, intCodes[intCodes[pos + 1]], intCodes);
-        // printStuff(__FUNCTION__, pos, 4, intCodes[intCodes[pos + 1]], -1, -1);
-        break;
-    }
-    case 5:
-    {
-        pos = opcode5(pos, intCodes);
-        break;
-    }
-    case 6:
-    {
-        pos = opcode6(pos, intCodes);
-        break;
-    }
-    case 7:
-    {
-        pos = opcode7(pos, intCodes);
-        break;
-    }
-    case 8:
-    {
-        pos = opcode8(pos, intCodes);
-        break;
-    }
-
-    case 99:
-    {
-        exit(0);
-    }
-    default:
-    {
-        pos = parameterMode(pos, intCodes);
     }
     }
     return pos;

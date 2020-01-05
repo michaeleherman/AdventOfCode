@@ -13,7 +13,7 @@ typedef struct planet
 
 } s_planet;
 
-// struct planet *planets;
+struct planet *planets;
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
     FILE *file;
     // int counter = 0;
 
-    // planets = malloc(sizeof(struct planet));
+    planets = malloc(sizeof(struct planet));
 
     file = fopen("/Users/michael.herman/Documents/Code/AdventOfCode/2019/Day06/test_input.txt", "r");
 
@@ -42,6 +42,9 @@ int main()
         // planets[counter].string = strdup(buf);
         // printf("planet %d string is %s\n", counter, planets[counter].string);
         char *token = strtok(buf, ")");
+        if (strcmp(token, current->planet) != 0) {
+            current->end = true;
+        }
         // planets[counter]->planet = strdup(token);
 
         current->planet = strdup(token);

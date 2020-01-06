@@ -1,44 +1,55 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-
-typedef struct planet
-{
-    char *planet;
-    struct planet *indirectOrbiters;
-    char *directOrbiter;
-    bool end;
-
-} s_planet;
+#include "functions.h"
+#include "string.h"
 
 void parseFile(FILE *file)
 {
     char buf[10];
-    s_planet *head = NULL;
-    head = malloc(sizeof(s_planet));
-    // printf("Head is at: %p\n", &head);
-    s_planet *current = head;
+    int counter = 0;
+    s_planet *planets = malloc(sizeof(s_planet));
+    s_planet *current = planets;
+
+    char **orbitees = malloc(sizeof(char*));
+    char **orbiters = malloc(sizeof(char*));;
+
     while (fgets(buf, sizeof(buf), file) != NULL)
     {
-        // printf("current is %p\n", &current);
+
         buf[strlen(buf) - 1] = '\0';
-        // planets[counter].string = strdup(buf);
-        // printf("planet %d string is %s\n", counter, planets[counter].string);
         char *token = strtok(buf, ")");
-        // planets[counter]->planet = strdup(token);
-
-        current[counter].planet = strdup(token);
+        orbitees[counter] = strdup(token);
+        // current->planet = strdup(token);
         token = strtok(NULL, ")");
-        current[counter].directOrbiter = strdup(token);
-        // current->directOrbiter = malloc(sizeof(s_planet));
-        // current->child->planet = strdup(token);
-        // current->child->child = NULL;
-        // planets[counter]->end = false;
-
+        // current->orbits = malloc(sizeof(s_planet));
+        // current->orbits->planet = strdup(token);
+        // current->orbits->orbits = NULL;
+        orbiters[counter] = strdup(token);
+        // // printf("Planet: %s, subplanet %s\n", current[counter].planet, current[counter].orbiter);
         counter++;
-        // printf("current: %s, %p\n", current->planet, current->planet);
-        // current = current->child;
+        orbitees = realloc(orbitees, sizeof(char*)*(counter+1));
+        orbiters = realloc(orbiters, sizeof(char*)*(counter+1));
+        // current = current->orbits;
 
-        // planets = realloc(planets, (counter + 2) * sizeof(struct planet));
+
     }
+
+    // current = planets;
+    for (int i = 0; i < counter; i++)
+    {
+        printf("Planet: %s, subplanet %s\n", orbitees[i],orbiters[i]);
+        // current = current->orbits;
+    }
+
+    // findIndirect(planets);
 }
+
+// void findIndirect(s_planet *planets)
+// {
+//     printf("array size is %d\n", planets[0].arraySize);
+//     int counter = planets[0].arraySize;
+
+
+
+// }

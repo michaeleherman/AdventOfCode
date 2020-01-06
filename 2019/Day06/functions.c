@@ -35,21 +35,32 @@ void parseFile(FILE *file)
 
     }
 
-    // current = planets;
-    for (int i = 0; i < counter; i++)
-    {
-        printf("Planet: %s, subplanet %s\n", orbitees[i],orbiters[i]);
-        // current = current->orbits;
-    }
+    // // current = planets;
+    // for (int i = 0; i < counter; i++)
+    // {
+    //     printf("Planet: %s, subplanet %s\n", orbitees[i],orbiters[i]);
+    //     // current = current->orbits;
+    // }
 
-    // findIndirect(planets);
+    findIndirect(orbitees, orbiters, counter);
 }
 
-// void findIndirect(s_planet *planets)
-// {
-//     printf("array size is %d\n", planets[0].arraySize);
-//     int counter = planets[0].arraySize;
+void findIndirect(char **orbitees, char **orbiters, int counter)
+{
+    s_planet *planets = malloc(sizeof(s_planet));
+    s_planet *current = planets;
+
+    for (int i = 0; i < counter; i++) {
+        if (strcmp("COM", orbitees[i]) = 0){
+            continue;
+        }
+        current->planet = orbitees[i];
+        current->satellite = malloc(sizeof(s_planet));
+        current->satellite = orbiters[i];
+        
 
 
+    }
 
-// }
+
+}

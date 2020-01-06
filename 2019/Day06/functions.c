@@ -1,9 +1,6 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
+#include <stdio.h>
 #include <stdbool.h>
-#include "functions.h"
 
 typedef struct planet
 {
@@ -14,24 +11,9 @@ typedef struct planet
 
 } s_planet;
 
-// struct planet *planets;
-
-int main()
+void parseFile(FILE *file)
 {
-
-    FILE *file;
-    int counter = 0;
-
-    // planets = malloc(sizeof(struct planet));
-
-    file = fopen("/Users/michael.herman/Documents/Code/AdventOfCode/2019/Day06/test_input.txt", "r");
-
     char buf[10];
-    // char **fileArray;
-    // char **tmpArray;
-    // char *p;
-
-    // fileArray = malloc(sizeof(char*));
     s_planet *head = NULL;
     head = malloc(sizeof(s_planet));
     // printf("Head is at: %p\n", &head);
@@ -59,29 +41,4 @@ int main()
 
         // planets = realloc(planets, (counter + 2) * sizeof(struct planet));
     }
-
-    // qsort(planets, counter, sizeof(struct planet), planetComp);
-
-    // print_list()
-
-    // char *searchString = "COM";
-
-    // for (int i = 0; i < counter; i++)
-    s_planet *curr = head;
-
-    // printf("%p, %p\n", &head, &curr);
-    // printf("head planet: %s\n", head->planet);
-    // printf("curr planet: %s\n", curr->planet);
-    for (int i = 0; i < counter;i++)
-    {
-        // if (strcmp(planets[i].planet,searchString) == 0) {
-        // printf("starting mem loc: %p\n", curr->planet);
-        printf("Planet: %s, subplanet %s\n", curr[i].planet,curr[i].directOrbiter);
-        // curr = curr->child;
-        //  searchString = planets[i].child;
-        //  i = 0;
-        // }
-    }
-
-    return 0;
 }

@@ -1,11 +1,11 @@
 typedef struct planet
 {
     char *planet;
-    struct planet *orbits;
-    struct planet *satellite;
+    char *direct;
+    char **indirect;
 
 } s_planet;
 
 void parseFile(FILE *file);
 
-void findIndirect(char **orbitees, char **orbiters, int counter);
+void findIndirect(s_planet *planets,char **orbitees, char **orbiters, int counter);

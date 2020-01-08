@@ -10,7 +10,6 @@ void parseFile(FILE *file)
     int sizeOfPlanetsArray = 0;
     s_planet *planets = malloc(sizeof(s_planet));
 
-
     while (fgets(buf, sizeof(buf), file) != NULL)
     {
 
@@ -24,8 +23,23 @@ void parseFile(FILE *file)
         planets = realloc(planets, sizeof(s_planet) * (sizeOfPlanetsArray + 2));
     }
 
+    for (int i = 0; i < sizeOfPlanetsArray; i++)
+    {
+        int loopCounter = 0;
+        planets[i].indirect = malloc(2 * sizeof(char *));
+        int sizeOfIndirectArray = 0;
+        recurseIndirects(planets, i, sizeOfPlanetsArray, sizeOfIndirectArray, loopCounter);
+    }
 
-    recurseIndirects(planets, sizeOfPlanetsArray);
+    for (int i = 0; i < sizeOfPlanetsArray; i++) {
+        printf("Planet: %s, direct: %s\n", planets[i].planet,planets[i].direct);
+        int j = 0;
+        while ( planets[i].indirect[j] != '\0') {
+            printf("%s, ", planets[i].indirect[j]);
+            j++;
+        }
+        printf("\n\n");
+    }
 }
 
 void findDirect(s_planet *planets, int sizeOfPlanetsArray)
@@ -44,7 +58,7 @@ void findDirect(s_planet *planets, int sizeOfPlanetsArray)
 
                 planets[i].indirect[matches] = planets[j].direct;
                 // printf("match (%d) at %d on %s\n", matches,j, planets[j].direct);
-                printf("Planet is %s\n",planets[j].planet);
+                printf("Planet is %s\n", planets[j].planet);
                 printf("Indirects: ");
                 for (int k = 0; k <= matches; k++)
                 {
@@ -61,26 +75,25 @@ void findDirect(s_planet *planets, int sizeOfPlanetsArray)
             }
         }
     }
-
 }
 
-void recurseIndirects (s_planet *planets, int sizeOfPlanetsArray) {
-    int indirectArrayPos = 0;
-
-    if ( iPlanet == NULL) {
-        printf("no match");
-    } else {
-        for (int i = 0;i < sizeOfPlanetsArray; i++) {
-            if (strcmp(planets[i].planet, iPlanet) == 0) {
-                planets[i].indirect[indirectArrayPos] = iPlanet;
-                indirectArrayPos++;
-                planets[i].indirect = realloc(planets[i].indirect, (indirectArrayPos + 1) * sizeof(char *));
-                recurseIndirects(planets, iPlanet, sizeOfPlanetsArray)
-            }
-        }
-
+void recurseIndirects(s_planet *planets, int planetsArrayPosition, int sizeOfPlanetsArray, int sizeOfIndirectArray, int i)
+{
+    if (i == sizeOfPlanetsArray)
+    {
+        return;
     }
 
+    char *directPlanet = planets[planetsArrayPosition].direct;
 
+    if (strcmp(planets[i].planet, directPlanet) == 0)
+    {
+        planets[planetsArrayPosition].indirect[sizeOfIndirectArray] = directPlanet;
+        sizeOfIndirectArray++;
+        planets[planetsArrayPosition].indirect = realloc(planets[planetsArrayPosition].indirect, (sizeOfIndirectArray + 1) * sizeof(char *));
+    }
+    i++;
+    recurseIndirects(planets, planetsArrayPosition, sizeOfPlanetsArray, sizeOfIndirectArray, i);
 
+return;
 }

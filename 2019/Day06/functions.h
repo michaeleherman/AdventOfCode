@@ -11,4 +11,4 @@ void parseFile(FILE *file);
 
 void findDirect(s_planet *planets,int sizeOfPlanetArray);
 
-void recurseIndirects (s_planet *planets, int sizeOfPlanetsArray);
+void recurseIndirects (s_planet *planets, int planetsArrayPosition, int sizeOfPlanetsArray, int sizeOfIndirectArray, int i);

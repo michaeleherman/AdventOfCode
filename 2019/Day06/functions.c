@@ -7,71 +7,80 @@
 void parseFile(FILE *file)
 {
     char buf[10];
-    int counter = 0;
+    int sizeOfPlanetsArray = 0;
     s_planet *planets = malloc(sizeof(s_planet));
 
-    char **planetArray = malloc(sizeof(char *));
-    char **directArray = malloc(sizeof(char *));
 
     while (fgets(buf, sizeof(buf), file) != NULL)
     {
 
         buf[strlen(buf) - 1] = '\0';
         char *token = strtok(buf, ")");
-        planetArray[counter] = strdup(token);
-        planets[counter].planet = strdup(token);
-        // current->planet = strdup(token);
-        token = strtok(NULL, ")");
-        // current->orbits = malloc(sizeof(s_planet));
-        // current->orbits->planet = strdup(token);
-        // current->orbits->orbits = NULL;
-        directArray[counter] = strdup(token);
-        planets[counter].direct = strdup(token);
-        // // printf("Planet: %s, subplanet %s\n", current[counter].planet, current[counter].orbiter);
-        counter++;
-        planetArray = realloc(planetArray, sizeof(char *) * (counter + 1));
-        directArray = realloc(directArray, sizeof(char *) * (counter + 1));
-        planets = realloc(planets, sizeof(s_planet) * (counter + 2));
 
-        // current = current->orbits;
+        planets[sizeOfPlanetsArray].planet = strdup(token);
+        token = strtok(NULL, ")");
+        planets[sizeOfPlanetsArray].direct = strdup(token);
+        sizeOfPlanetsArray++;
+        planets = realloc(planets, sizeof(s_planet) * (sizeOfPlanetsArray + 2));
     }
 
-    // // current = planets;
-    // for (int i = 0; i < counter; i++)
-    // {
-    //     printf("Planet: %s, subplanet %s\n", planetArray[i],directArray[i]);
-    //     // current = current->orbits;
-    // }
 
-    findIndirect(planets, planetArray, directArray, counter);
+    recurseIndirects(planets, sizeOfPlanetsArray);
 }
 
-void findIndirect(s_planet *planets, char **planetArray, char **directArray, int counter)
+void findDirect(s_planet *planets, int sizeOfPlanetsArray)
 {
-
-    for (int i = 0; i < counter; i++)
+    printf("size of planets is: %lu\n", sizeof(planets));
+    for (int i = 0; i < sizeOfPlanetsArray; i++)
     {
         int matches = 0;
-        planets[i].indirect = malloc(matches * sizeof(char *));
+        planets[i].indirect = malloc(sizeof(char *));
 
-        for (int j = 0; j < counter; j++)
+        for (int j = 0; j < sizeOfPlanetsArray; j++)
         {
 
             if (strcmp(planets[j].planet, planets[i].direct) == 0)
             {
-                matches++;
+
                 planets[i].indirect[matches] = planets[j].direct;
-                for (int k = 0; k < matches; k++)
+                // printf("match (%d) at %d on %s\n", matches,j, planets[j].direct);
+                printf("Planet is %s\n",planets[j].planet);
+                printf("Indirects: ");
+                for (int k = 0; k <= matches; k++)
                 {
-                    printf("Indirect: %s", planets[i].indirect[k]);
-                    k++;
+
+                    printf("%s ", planets[i].indirect[k]);
                 }
-                planets[i].indirect = realloc(planets[i].indirect[i], (matches + 2) * sizeof(char *));
+                printf("\n\n");
+                matches++;
+                planets[i].indirect = realloc(planets[i].indirect, (matches + 1) * sizeof(char *));
             }
             else
             {
-                printf("Nothing found for %s\n", directArray[i]);
+                // printf("Nothing found at %d for %s\n", j, directArray[i]);
             }
         }
     }
+
+}
+
+void recurseIndirects (s_planet *planets, int sizeOfPlanetsArray) {
+    int indirectArrayPos = 0;
+
+    if ( iPlanet == NULL) {
+        printf("no match");
+    } else {
+        for (int i = 0;i < sizeOfPlanetsArray; i++) {
+            if (strcmp(planets[i].planet, iPlanet) == 0) {
+                planets[i].indirect[indirectArrayPos] = iPlanet;
+                indirectArrayPos++;
+                planets[i].indirect = realloc(planets[i].indirect, (indirectArrayPos + 1) * sizeof(char *));
+                recurseIndirects(planets, iPlanet, sizeOfPlanetsArray)
+            }
+        }
+
+    }
+
+
+
 }

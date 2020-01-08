@@ -4,8 +4,11 @@ typedef struct planet
     char *direct;
     char **indirect;
 
+
 } s_planet;
 
 void parseFile(FILE *file);
 
-void findIndirect(s_planet *planets,char **orbitees, char **orbiters, int counter);
+void findDirect(s_planet *planets,int sizeOfPlanetArray);
+
+void recurseIndirects (s_planet *planets, int sizeOfPlanetsArray);

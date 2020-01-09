@@ -73,14 +73,6 @@ void findDirect(s_planet *planets, int sizeOfPlanetsArray)
                 j = -1;
             }
 
-            if (j == sizeOfPlanetsArray -1 && loopcount < 2) {
-                currentPlanet = planets[i].indirect[indirectCount -1];
-                j = -1;
-                loopcount++;
-            } else {
-                break;
-            }
-
 
         }
     }

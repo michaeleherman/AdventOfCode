@@ -13,7 +13,7 @@ int main()
     FILE *file;
     int counter = 0;
 
-    file = fopen("/Users/michael/Code/AdventOfCode/2019/Day06/test_input.txt", "r");
+    file = fopen("/Users/michael/Documents/Code/AdventOfCode/2019/Day06/test_input.txt", "r");
 
     parseFile(file);
 

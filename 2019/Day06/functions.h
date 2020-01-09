@@ -4,7 +4,6 @@ typedef struct planet
     char *direct;
     char **indirect;
 
-
 } s_planet;
 
 void parseFile(FILE *file);

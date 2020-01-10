@@ -6,8 +6,14 @@ typedef struct planet
 
 } s_planet;
 
+typedef struct orbits 
+{
+    int iteration;
+    char **planets;
+} s_orbits;
+
 void parseFile(FILE *file);
 
 void findDirect(s_planet *planets,int sizeOfPlanetArray);
 
-void recurseIndirects (s_planet *planets, int planetsArrayPosition, int sizeOfPlanetsArray, int sizeOfIndirectArray, int i);
+void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int *itemToRemove);

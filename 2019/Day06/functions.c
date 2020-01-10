@@ -33,7 +33,6 @@ void parseFile(FILE *file)
 
     findDirect(planets, sizeOfPlanetsArray);
 
-
     int totalOrbits = 0;
     for (int i = 0; i < sizeOfPlanetsArray; i++)
     {
@@ -44,7 +43,7 @@ void parseFile(FILE *file)
             printf("%s  ", planets[i].indirect[j]);
             j++;
         }
-        printf("\nCount of orbits: %d\n", 1+j);
+        printf("\nCount of orbits: %d\n", 1 + j);
         totalOrbits += 1 + j;
         printf("\n\n");
     }
@@ -52,52 +51,87 @@ void parseFile(FILE *file)
     printf("Total orbits is: %d\n", totalOrbits);
 }
 
+// void findDirect(s_planet *planets, int sizeOfPlanetsArray)
+// {
+
+//     for (int i = 0; i < sizeOfPlanetsArray; i++)
+//     {
+//         int lastFoundLocation = -1;
+//         int  indirectCount = 0;
+//         planets[i].indirect = malloc(sizeof(s_planet));
+//         char *currentPlanet = planets[i].direct;
+//         for (int j = 0; j < sizeOfPlanetsArray; j++)
+//         {
+//              if (strcmp(currentPlanet, planets[j].planet) == 0)
+//             {
+//                 lastFoundLocation = j;
+//                 planets[i].indirect[indirectCount] = planets[j].direct;
+//                 indirectCount++;
+//                 planets[i].indirect = realloc(planets[i].indirect, (1 + indirectCount) * sizeof(s_planet));
+//                 currentPlanet = planets[j].direct;
+//                 j = -1;
+//             }
+
+//         }
+//     }
+// }
+
 void findDirect(s_planet *planets, int sizeOfPlanetsArray)
 {
-
+    s_orbits *orbits = malloc(sizeof(s_orbits));
+    int counter = 0;
+    int planetsAdded = 0;
     for (int i = 0; i < sizeOfPlanetsArray; i++)
     {
-        int lastFoundLocation = -1;
-        int  indirectCount = 0;
-        planets[i].indirect = malloc(sizeof(s_planet));
-        char *currentPlanet = planets[i].direct;
-        for (int j = 0; j < sizeOfPlanetsArray; j++)
+        bool matchFound = false;
+        orbits[counter].planets = malloc(sizeof(char *));
+        char *currentPlanet = planets[i].planet;
+        char *currentDirect = planets[i].direct;
+        orbits[counter].planets[0] = currentDirect;
+
+        for (int j = i + 1; j < sizeOfPlanetsArray; j++)
         {
-             if (strcmp(currentPlanet, planets[j].planet) == 0)
-            {   
-                lastFoundLocation = j;
-                planets[i].indirect[indirectCount] = planets[j].direct;
-                indirectCount++;
-                planets[i].indirect = realloc(planets[i].indirect, (1 + indirectCount) * sizeof(s_planet));
-                currentPlanet = planets[j].direct;
-                j = -1;
+            if (strcmp(currentPlanet, planets[j].planet) == 0)
+            {
+                matchFound = true;
+                planetsAdded++;
+                orbits[counter].planets[j] = planets[j].direct;
+                orbits[counter].planets = realloc(orbits[i].planets, sizeof(char *) * (planetsAdded + 1));
+                removeItem(planets, &sizeOfPlanetsArray, &i);
             }
+        }
+        if (matchFound == true)
+        {
+            orbits[counter].iteration = counter;
+            counter++;
+        }
 
-
+        if (matchFound == false)
+        {
+            removeItem(planets, &sizeOfPlanetsArray, &i);
         }
     }
 }
 
-void findDirect(s_planet *planets, int sizeOfPlanetsArray)
+void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int *itemToRemove)
 {
+    int tempSize = *sizeOfPlanetsArray;
+    int tempItem = *itemToRemove;
 
-    for (int i = 0; i < sizeOfPlanetsArray; i++)
-    {   
-        int *tmpArray = malloc(sizeof(int));
-        int tmpArrayCount = 0;
-        
-        int  indirectCount = 0;
-        planets[i].indirect = malloc(sizeof(s_planet));
-        char *currentPlanet = planets[i].direct;
-        for (int j = 0; j < sizeOfPlanetsArray; j++)
+    if (tempItem >= tempSize)
+    {
+        printf("Error - tried to delete nonexistent location");
+        exit(1);
+    }
+    else
+    {
+        for (int i = tempItem - 1; i < tempSize; i++)
         {
-             if (strcmp(currentPlanet, planets[j].planet) == 0)
-            {   
-                tmpArray[tmpArrayCount] = j;
-                tmpArray = realloc(tmpArray, sizeof(int) * (tmpArrayCount + 1));
-            }
-
-
+            planets[i] = planets[i + 1];
         }
+        tempSize--;
+        tempItem = -1;
+        *sizeOfPlanetsArray = tempSize;
+        *itemToRemove = tempItem;
     }
 }

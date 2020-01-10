@@ -12,6 +12,7 @@
 #include "split_value.h"
 #include "get_wire_array.h"
 #include <time.h>
+#include "sort.h"
 
 int main()
 {
@@ -54,6 +55,13 @@ int main()
     // }
     // // getchar();
 
+    bubbleSort(wire0Array,wire0Counter);
+
+    for (int i = 0; i<wire0Counter;i++){
+        printf("%d, %d\n", wire0Array[i][0], wire0Array[i][1]);
+    }
+exit(0);
+
     printf("exiting first halfn\n");
 
     int shortestDistance;
@@ -72,6 +80,7 @@ int main()
             int wire1Y = wire1Array[j][1];
             int wire1Length = wire1Array[j][2];
             // printf("wire1: %d,%d %d\n", wire1X, wire1Y, wire1Length);
+
 
             if (wire0X == wire1X)
             {

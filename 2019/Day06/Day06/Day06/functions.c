@@ -104,14 +104,12 @@ void findDirect(s_planet *planets, int sizeOfPlanetsArray, int comPosition)
                 tmpArrayCount++;
                 directTmpArray = realloc(directTmpArray, sizeof(char *) * (1 + tmpArrayCount));
                 totalOrbits += counter;
-                printf("Total Orbits %d\n", totalOrbits);
+                printf("Total Orbits %d", totalOrbits);
                 counter++;
                 removeItem(planets, &sizeOfPlanetsArray, i);
             }
         }
         planetTmpArray = directTmpArray;
-        free(directTmpArray);
-        directTmpArray = malloc(sizeof(char*));
     }
 }
 
@@ -127,7 +125,7 @@ void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int itemToRemove)
     }
     else
     {
-        for (int i = tempItem; i < tempSize; i++)
+        for (int i = tempItem - 1; i < tempSize; i++)
         {
             planets[i] = planets[i + 1];
         }
@@ -135,3 +133,4 @@ void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int itemToRemove)
         *sizeOfPlanetsArray = tempSize;
     }
 }
+

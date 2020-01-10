@@ -6,7 +6,7 @@ typedef struct planet
 
 } s_planet;
 
-typedef struct orbits 
+typedef struct orbits
 {
     int iteration;
     char **planets;

@@ -44,8 +44,8 @@ void parseFile(FILE *file)
             printf("%s  ", planets[i].indirect[j]);
             j++;
         }
-        printf("\nCount of orbits: %d\n", 2+j);
-        totalOrbits += 2 + j;
+        printf("\nCount of orbits: %d\n", 1+j);
+        totalOrbits += 1 + j;
         printf("\n\n");
     }
 
@@ -57,20 +57,44 @@ void findDirect(s_planet *planets, int sizeOfPlanetsArray)
 
     for (int i = 0; i < sizeOfPlanetsArray; i++)
     {
-        int loopcount = 0;
+        int lastFoundLocation = -1;
         int  indirectCount = 0;
         planets[i].indirect = malloc(sizeof(s_planet));
         char *currentPlanet = planets[i].direct;
         for (int j = 0; j < sizeOfPlanetsArray; j++)
         {
-            loopcount++;
              if (strcmp(currentPlanet, planets[j].planet) == 0)
-            {
+            {   
+                lastFoundLocation = j;
                 planets[i].indirect[indirectCount] = planets[j].direct;
                 indirectCount++;
                 planets[i].indirect = realloc(planets[i].indirect, (1 + indirectCount) * sizeof(s_planet));
                 currentPlanet = planets[j].direct;
                 j = -1;
+            }
+
+
+        }
+    }
+}
+
+void findDirect(s_planet *planets, int sizeOfPlanetsArray)
+{
+
+    for (int i = 0; i < sizeOfPlanetsArray; i++)
+    {   
+        int *tmpArray = malloc(sizeof(int));
+        int tmpArrayCount = 0;
+        
+        int  indirectCount = 0;
+        planets[i].indirect = malloc(sizeof(s_planet));
+        char *currentPlanet = planets[i].direct;
+        for (int j = 0; j < sizeOfPlanetsArray; j++)
+        {
+             if (strcmp(currentPlanet, planets[j].planet) == 0)
+            {   
+                tmpArray[tmpArrayCount] = j;
+                tmpArray = realloc(tmpArray, sizeof(int) * (tmpArrayCount + 1));
             }
 
 

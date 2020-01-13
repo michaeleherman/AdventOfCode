@@ -16,21 +16,26 @@ int main()
 
     printf("maxhash %d\n", maxHash);
 
-    planetsStruct = parseFile(file, maxHash);
+    planetsStruct = parseFile(file, maxHash+1);
 
-    
+    struct planet *planets = planetsStruct.planets;
+    int sizeOfPlanetsArray = planetsStruct.sizeOfPlanetsArray;
+    int comLocation = planetsStruct.comLocation;
 
-    for (int i = 0; i < maxHash; i++)
-    {
-        if (planetsStruct.planets[i].planet == NULL)
-        {
-            continue;
-        }
-        else
-        {
-            printf("%d - %s, %s\n", i, planetsStruct.planets[i].planet, planetsStruct.planets[i].direct);
-        }
-    }
+
+
+
+    // for (int i = 0; i < maxHash; i++)
+    // {
+    //     if (planetsStruct.planets[i].planet == NULL)
+    //     {
+    //         continue;
+    //     }
+    //     else
+    //     {
+    //         printf("%d - %s, %s\n", i, planetsStruct.planets[i].planet, planetsStruct.planets[i].direct);
+    //     }
+    // }
 
     return 0;
 }

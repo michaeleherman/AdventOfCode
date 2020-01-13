@@ -19,6 +19,8 @@ struct pfStruct parseFile(FILE *file,int maxHash);
 
 void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int itemToRemove);
 
-int countOrbits(s_planet *planets, int sizeOfPlanetsArray, char **planetArray, int sizeOfPlanetArray);
+int countOrbits(s_planet *planets, int sizeOfPlanetsArray, int *planetArray, int sizeOfPlanetArray);
 
 int getHash(char *planet);
+
+char *reverseHash(int hashValue);

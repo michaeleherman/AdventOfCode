@@ -9,7 +9,7 @@ struct pfStruct parseFile(FILE *file, int maxHash)
     struct pfStruct pf;
     char buf[10];
     int sizeOfPlanetsArray = 0;
-    s_planet *planets = malloc(sizeof(s_planet) * maxHash);
+    s_planet *planets = calloc(sizeof(s_planet) * maxHash,sizeof(int));
     int comLocation = 0;
 
     while (fgets(buf, sizeof(buf), file) != NULL) //Iterate through list, adding planet and direct to struct
@@ -43,7 +43,7 @@ struct pfStruct parseFile(FILE *file, int maxHash)
     return pf;
 }
 
-int countOrbits(s_planet *planets, int sizeOfPlanetsArray, char **planetArray, int sizeOfPlanetArray)
+int countOrbits(s_planet *planets, int sizeOfPlanetsArray, int *planetArray, int sizeOfPlanetArray)
 {
 
     bool continueLoop = true;
@@ -52,7 +52,7 @@ int countOrbits(s_planet *planets, int sizeOfPlanetsArray, char **planetArray, i
 
     while (continueLoop == true)
     {
-        char **directArray = malloc(sizeof(char *));
+        int *directArray = malloc(sizeof(int));
         int directArrayCounter = 0;
 
         for (int i = 0; i < sizeOfPlanetArray; i++)
@@ -64,12 +64,12 @@ int countOrbits(s_planet *planets, int sizeOfPlanetsArray, char **planetArray, i
                     directArray[directArrayCounter] = planets[j].direct;
                     removeItem(planets, &sizeOfPlanetsArray, j);
                     directArrayCounter++;
-                    directArray = realloc(directArray, sizeof(char *) * (directArrayCounter + 1));
+                    directArray = realloc(directArray, sizeof(int) * (directArrayCounter + 1));
                     j = -1;
                 }
             }
         }
-        planetArray = realloc(directArray, sizeof(char **) * directArrayCounter);
+        planetArray = realloc(directArray, sizeof(int) * directArrayCounter);
         // memcpy(planetArray, directArray, sizeof(char*)*sizeOfPlanetsArray);
         directArray = NULL;
         orbits += loopCounter * directArrayCounter;

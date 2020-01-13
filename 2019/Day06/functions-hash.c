@@ -4,12 +4,13 @@
 #include "functions-hash.h"
 #include "string.h"
 
-struct pfStruct parseFile(FILE *file,int maxHash)
+struct pfStruct parseFile(FILE *file, int maxHash)
 {
     struct pfStruct pf;
     char buf[10];
     int sizeOfPlanetsArray = 0;
     s_planet *planets = malloc(sizeof(s_planet) * maxHash);
+    int comLocation = 0;
 
     while (fgets(buf, sizeof(buf), file) != NULL) //Iterate through list, adding planet and direct to struct
     {                                             //in the array of structs
@@ -18,14 +19,22 @@ struct pfStruct parseFile(FILE *file,int maxHash)
         char *token = strtok(buf, ")");
         int hashValue = getHash(token);
 
-        planets[hashValue].planet = strdup(token); //using strdup to copy value
+        planets[hashValue].planet = strdup(token);
 
-        token = strtok(NULL, ")");
+        if (strcmp(token, "COM") != 0) //using strdup to copy value
+        {
+            token = strtok(NULL, ")");
 
-        planets[hashValue].direct = strdup(token);
-        printf("Planet and direct %s, %s\n", planets[sizeOfPlanetsArray].planet, planets[sizeOfPlanetsArray].direct);
-
-        sizeOfPlanetsArray++;
+            planets[hashValue].direct = strdup(token);
+            sizeOfPlanetsArray++;
+        }
+        else
+        {
+            token = strtok(NULL, ")");
+            planets[hashValue].direct = strdup(token);
+            sizeOfPlanetsArray++;
+            pf.comLocation = comLocation
+        }
     }
 
     pf.planets = planets;
@@ -117,13 +126,31 @@ int getHash(char *planet)
 
     strcat(c1, c2);
     strcat(c0, c1);
-    char * hashString = strcat(prefix,c0);
+    char *hashString = strcat(prefix, c0);
 
     int hashValue = atoi(hashString);
 
     return hashValue;
 
     // 1909090 will be the greatest value
-
 }
 
+char *reverseHash(int hashValue)
+{
+
+    char *hashChar[20];
+    char *c0;
+    char *c1;
+    char *c2;
+
+    sprintf(hashChar, "%d", hashValue);
+
+    c0 = atoi(strncpy(c0, hashChar[1], 2 * (sizeof(char))));
+    c1 = atoi(strncpy(c1, hashChar[3], 2 * (sizeof(char))));
+    c2 = atoi(strncpy(c2, hashChar[5], 2 * (sizeof(char))));
+
+    strcat(c1, c2);
+    strcat(c0, c1);
+
+    return c0;
+}

@@ -9,6 +9,7 @@ struct pfStruct
 {
     struct planet *planets;
     int sizeOfPlanetsArray;
+    int comLocation;
 };
 
 

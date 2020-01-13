@@ -22,7 +22,7 @@ struct pfStruct parseFile(FILE *file)
         token = strtok(NULL, ")");
 
         planets[sizeOfPlanetsArray].direct = strdup(token);
-        printf("Planet and direct %s, %s\n", planets[sizeOfPlanetsArray].planet, planets[sizeOfPlanetsArray].direct);
+        // printf("Planet and direct %s, %s\n", planets[sizeOfPlanetsArray].planet, planets[sizeOfPlanetsArray].direct);
 
         sizeOfPlanetsArray++;
         planets = realloc(planets, sizeof(s_planet) * (sizeOfPlanetsArray + 2));

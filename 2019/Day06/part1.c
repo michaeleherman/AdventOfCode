@@ -5,20 +5,34 @@
 #include <stdbool.h>
 #include "functions.h"
 
-    struct s_planet *planets;
+
+
 
 int main()
 {
-
     FILE *file;
-    int counter = 0;
+    file = fopen("./input.txt", "r");
+    struct pfStruct planetsStruct;
+    int countOfOrbits = 0;
+    struct s_planet *planets;
 
-    file = fopen("./test_input.txt", "r");
-    // file = fopen("/Users/michael.herman/Documents/Code/AdventOfCode/2019/Day06/test_input.txt", "r");
 
-    parseFile(file);
+    planetsStruct = parseFile(file);                    //Parse the file
+    struct planet *planets = planetsStruct.planets;     //asign shorter names
+    int sizeOfPlanetsArray = planetsStruct.sizeOfPlanetsArray;
 
-    // qsort(planets, counter, sizeof(struct planet), planetComp);
+    char **planetArray = malloc(sizeof(char*));
+    planetArray[0] = "COM";
 
-    return 0;
+    printf("Finished parsing - %d rows", sizeOfPlanetsArray);
+
+    countOfOrbits = countOrbits(planets, sizeOfPlanetsArray, planetArray, 1) + sizeOfPlanetsArray;
+
+    printf("Count of orbits is: %d\n", countOfOrbits);
+
+    // for (int i = 0; i< sizeOfPlanetsArray;i++) {
+    //     printf("%s, %s\n", planets[i].planet,planets[i].direct);
+    // }
+
+        return 0;
 }

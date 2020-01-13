@@ -1,31 +1,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "functions.h"
+#include "functions-hash.h"
 #include "string.h"
 
-struct pfStruct parseFile(FILE *file)
+struct pfStruct parseFile(FILE *file,int maxHash)
 {
     struct pfStruct pf;
     char buf[10];
     int sizeOfPlanetsArray = 0;
-    s_planet *planets = malloc(sizeof(s_planet));
+    s_planet *planets = malloc(sizeof(s_planet) * maxHash);
 
     while (fgets(buf, sizeof(buf), file) != NULL) //Iterate through list, adding planet and direct to struct
     {                                             //in the array of structs
 
         buf[strlen(buf) - 1] = '\0';
         char *token = strtok(buf, ")");
+        int hashValue = getHash(token);
 
-        planets[sizeOfPlanetsArray].planet = strdup(token); //using strdup to copy value
+        planets[hashValue].planet = strdup(token); //using strdup to copy value
 
         token = strtok(NULL, ")");
 
-        planets[sizeOfPlanetsArray].direct = strdup(token);
+        planets[hashValue].direct = strdup(token);
         printf("Planet and direct %s, %s\n", planets[sizeOfPlanetsArray].planet, planets[sizeOfPlanetsArray].direct);
 
         sizeOfPlanetsArray++;
-        planets = realloc(planets, sizeof(s_planet) * (sizeOfPlanetsArray + 2));
     }
 
     pf.planets = planets;
@@ -100,4 +100,30 @@ void removeItem(s_planet *planets, int *sizeOfPlanetsArray, int itemToRemove)
     }
 }
 
+int getHash(char *planet)
+{
+    char c0[8];
+    char c1[8];
+    char c2[8];
+    char prefix[8] = "1";
+
+    int i0 = planet[0];
+    int i1 = planet[1];
+    int i2 = planet[2];
+
+    sprintf(c0, "%d", i0);
+    sprintf(c1, "%d", i1);
+    sprintf(c2, "%d", i2);
+
+    strcat(c1, c2);
+    strcat(c0, c1);
+    char * hashString = strcat(prefix,c0);
+
+    int hashValue = atoi(hashString);
+
+    return hashValue;
+
+    // 1909090 will be the greatest value
+
+}
 

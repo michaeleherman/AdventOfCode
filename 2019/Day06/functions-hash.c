@@ -70,7 +70,6 @@ int countOrbits(s_planet *planets, int sizeOfPlanetsArray, int *planetArray, int
             }
         }
         planetArray = realloc(directArray, sizeof(int) * directArrayCounter);
-        // memcpy(planetArray, directArray, sizeof(char*)*sizeOfPlanetsArray);
         directArray = NULL;
         orbits += loopCounter * directArrayCounter;
         loopCounter++;
@@ -129,6 +128,8 @@ int getHash(char *planet)
     char *hashString = strcat(prefix, c0);
 
     int hashValue = atoi(hashString);
+
+    
 
     return hashValue;
 

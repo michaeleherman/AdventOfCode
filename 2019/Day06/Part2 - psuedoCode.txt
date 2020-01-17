@@ -1,0 +1,7 @@
+read file
+parse file into planets array, save YOU and SAN locations
+return planets
+using You and SAN locations, iterate through list
+adding child planets to linked list 
+test for intersection 
+when intersection point found, count backwards to you and san planets

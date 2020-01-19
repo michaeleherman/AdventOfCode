@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdbool.h>
-#include "functions2.h"
+#include "parseFile.h"
 #include <time.h>
 
 int main()
@@ -22,8 +22,12 @@ int main()
 
     
 
-    struct planet youPlanet;
-    struct planet santaPlanet;
+    // struct planet youPlanet;
+    // struct planet santaPlanet;
+    printf("Getting ready to print list\n");
+    for (int i = 0; i< 22;i++) {
+        printf("%s, %s - %d\n",planets[sizeOfPlanetsArray].planet,planets[sizeOfPlanetsArray].direct, planets[sizeOfPlanetsArray].hashValue);
+    }
 
     end = clock();
     double time_taken = end - start;

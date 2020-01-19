@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "functions-hash.h": "c"
+        "functions-hash.h": "c",
+        "parsefile.h": "c"
     }
 }

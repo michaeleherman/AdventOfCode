@@ -1,6 +1,5 @@
 typedef struct planet
 {
-    int hashValue;
     char *planet;
     char *direct;
 

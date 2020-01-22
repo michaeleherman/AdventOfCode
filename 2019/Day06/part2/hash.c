@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hash.h"
-#include "part2.h"
+#include "readfile.h"
 
 int hash(char *str) {
 

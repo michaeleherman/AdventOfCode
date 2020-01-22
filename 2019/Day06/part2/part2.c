@@ -4,6 +4,7 @@
 #include <time.h>
 #include "readfile.h"
 #include "hash.h"
+#include "part2.h"
 
 int main()
 {
@@ -21,10 +22,15 @@ int main()
     s_planets *planets = planetsStruct.planets;
     int planetsSize = planetsStruct.planetsSize;
 
-    for (int i = 0; i< planetsSize;i++) {
-        int hashValue = hash(planets[i].planet);
-        printf("%d - %d, %s, %s\n", i, hashValue, planets[i].planet,planets[i].direct); 
-    }
+    // for (int i = 0; i< planetsSize;i++) {
+    //     int hashValue = hash(planets[i].planet);
+    //     printf("%d - %d, %s, %s\n", i, hashValue, planets[i].planet,planets[i].direct); 
+    // }
+
+    insert(planets,planetsSize);
+
+    printf("Min hash %d\n", hash("000"));
+    printf("Max hash %d\n", hash("ZZZ") + 1);
 
 
     end = clock();

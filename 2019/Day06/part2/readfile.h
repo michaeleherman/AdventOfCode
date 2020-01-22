@@ -3,4 +3,10 @@ typedef struct planets {
     char *direct;
 } s_planets;
 
-s_planets *readFile ();
+typedef struct planetsStruct {
+    struct planets *planets;
+    int planetsSize;
+
+} r_planets;
+
+r_planets readFile ();

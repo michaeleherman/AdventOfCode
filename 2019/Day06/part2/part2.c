@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "readfile.h"
+#include "hash.h"
 
 int main()
 {
@@ -16,7 +17,14 @@ int main()
     clock_t start, end;
     start = clock();
 
-    readFile();
+    r_planets planetsStruct = readFile();
+    s_planets *planets = planetsStruct.planets;
+    int planetsSize = planetsStruct.planetsSize;
+
+    for (int i = 0; i< planetsSize;i++) {
+        int hashValue = hash(planets[i].planet);
+        printf("%d - %d, %s, %s\n", i, hashValue, planets[i].planet,planets[i].direct); 
+    }
 
 
     end = clock();

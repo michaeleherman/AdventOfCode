@@ -1,0 +1,2 @@
+int hash(char *str);
+

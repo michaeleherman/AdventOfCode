@@ -5,6 +5,8 @@
 #include "readfile.h"
 #include "hash.h"
 #include "part2.h"
+#include "linkedlist.h"
+#include "intersection.h"
 
 int main()
 {
@@ -25,13 +27,20 @@ int main()
 
     s_planets *hashOfPlanets = insert(planets,planetsSize); //takes planets array and hashes planet
 
-    for (int i = 0; i < maxHash -1; i++)
-    {
-        if (hashOfPlanets[i].planet != NULL)
-        {
-            printf("%d, %s - %s\n", i, hashOfPlanets[i].planet, hashOfPlanets[i].direct);
-        }
-    }
+    planet *you = makePlanetList(hashOfPlanets,"YOU");
+    planet *san = makePlanetList(hashOfPlanets,"SAN");
+
+    char *intersection = findIntersection(you,san);
+
+    printf("Intersection is %s\n", intersection);
+
+    // planet *current = you;
+    // while (current->next != NULL)
+    // {
+
+    //         printf("%s\n", current->planet);
+    //         current = current->next;
+    // }
 
     end = clock();
     double time_taken = end - start;

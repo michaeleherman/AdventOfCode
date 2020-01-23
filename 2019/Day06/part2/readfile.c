@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "readfile.h"
-#include "part2.h"
 
 r_planets readFile () {
 

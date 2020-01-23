@@ -1,4 +1,5 @@
-
+#ifndef readfile_planets
+#define readfile_planets
 typedef struct planets {
     char *planet;
     char *direct;
@@ -9,5 +10,7 @@ typedef struct planetsStruct {
     int planetsSize;
 
 } r_planets;
+
+#endif
 
 r_planets readFile();

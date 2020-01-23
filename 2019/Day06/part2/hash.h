@@ -1,14 +1,6 @@
-#ifndef _Guard
-
-#define _Guard
-typedef struct planets {
-    char *planet;
-    char *direct;
-} s_planets;
-
-#endif
+#include "readfile.h"
 
 int hash(char *str);
 
-void insert(s_planets *planetArray,int sizeOfPlanets);
+s_planets * insert(s_planets *planetArray, int sizeOfPlanets);
 

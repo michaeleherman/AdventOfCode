@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6B65583223DB5B9000512D9F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65583123DB5B9000512D9F /* main.c */; };
+		6B65584223DB5BC000512D9F /* part2.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65583B23DB5BC000512D9F /* part2.c */; };
+		6B65584323DB5BC000512D9F /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65583C23DB5BC000512D9F /* hash.c */; };
+		6B65584423DB5BC000512D9F /* readfile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65583E23DB5BC000512D9F /* readfile.c */; };
+		6B65584523DB5BC000512D9F /* linkedlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65583F23DB5BC000512D9F /* linkedlist.c */; };
+		6B65584623DB5BC000512D9F /* intersection.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B65584123DB5BC000512D9F /* intersection.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +30,16 @@
 /* Begin PBXFileReference section */
 		6B65582E23DB5B9000512D9F /* Day6-part2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day6-part2"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B65583123DB5B9000512D9F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		6B65583823DB5BBF00512D9F /* intersection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = intersection.h; path = ../../intersection.h; sourceTree = "<group>"; };
+		6B65583923DB5BBF00512D9F /* hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hash.h; path = ../../hash.h; sourceTree = "<group>"; };
+		6B65583A23DB5BBF00512D9F /* linkedlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linkedlist.h; path = ../../linkedlist.h; sourceTree = "<group>"; };
+		6B65583B23DB5BC000512D9F /* part2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = part2.c; path = ../../part2.c; sourceTree = "<group>"; };
+		6B65583C23DB5BC000512D9F /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hash.c; path = ../../hash.c; sourceTree = "<group>"; };
+		6B65583D23DB5BC000512D9F /* part2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = part2.h; path = ../../part2.h; sourceTree = "<group>"; };
+		6B65583E23DB5BC000512D9F /* readfile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = readfile.c; path = ../../readfile.c; sourceTree = "<group>"; };
+		6B65583F23DB5BC000512D9F /* linkedlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = linkedlist.c; path = ../../linkedlist.c; sourceTree = "<group>"; };
+		6B65584023DB5BC000512D9F /* readfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = readfile.h; path = ../../readfile.h; sourceTree = "<group>"; };
+		6B65584123DB5BC000512D9F /* intersection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = intersection.c; path = ../../intersection.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +73,16 @@
 			isa = PBXGroup;
 			children = (
 				6B65583123DB5B9000512D9F /* main.c */,
+				6B65583C23DB5BC000512D9F /* hash.c */,
+				6B65583923DB5BBF00512D9F /* hash.h */,
+				6B65584123DB5BC000512D9F /* intersection.c */,
+				6B65583823DB5BBF00512D9F /* intersection.h */,
+				6B65583F23DB5BC000512D9F /* linkedlist.c */,
+				6B65583A23DB5BBF00512D9F /* linkedlist.h */,
+				6B65583B23DB5BC000512D9F /* part2.c */,
+				6B65583D23DB5BC000512D9F /* part2.h */,
+				6B65583E23DB5BC000512D9F /* readfile.c */,
+				6B65584023DB5BC000512D9F /* readfile.h */,
 			);
 			path = "Day6-part2";
 			sourceTree = "<group>";
@@ -119,7 +144,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B65584623DB5BC000512D9F /* intersection.c in Sources */,
 				6B65583223DB5B9000512D9F /* main.c in Sources */,
+				6B65584323DB5BC000512D9F /* hash.c in Sources */,
+				6B65584223DB5BC000512D9F /* part2.c in Sources */,
+				6B65584423DB5BC000512D9F /* readfile.c in Sources */,
+				6B65584523DB5BC000512D9F /* linkedlist.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

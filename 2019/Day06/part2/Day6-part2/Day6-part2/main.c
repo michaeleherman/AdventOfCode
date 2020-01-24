@@ -7,9 +7,9 @@
 //
 
 #include <stdio.h>
+#include "part2.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    part2main();
     return 0;
 }

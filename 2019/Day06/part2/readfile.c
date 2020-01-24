@@ -6,7 +6,7 @@
 r_planets readFile () {
 
     FILE *file;
-    file = fopen("./test_input2.txt","r");
+    file = fopen("./input.txt","r");
     char buf[10];
     s_planets *planetsArray = malloc(sizeof(s_planets));
     int arraySize = 0;

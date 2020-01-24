@@ -8,7 +8,7 @@
 #include "linkedlist.h"
 #include "intersection.h"
 
-int main()
+int main(void)
 {
     //Read in file
     //Parse file into array of structs, hash key as index
@@ -23,7 +23,6 @@ int main()
     r_planets planetsStruct = readFile();  //reads file and parses into array
     s_planets *planets = planetsStruct.planets;
     int planetsSize = planetsStruct.planetsSize;
-    int maxHash = hash("ZZZ") + 1;
 
     s_planets *hashOfPlanets = insert(planets,planetsSize); //takes planets array and hashes planet
 

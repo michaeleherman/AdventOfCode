@@ -12,7 +12,6 @@ char * findIntersection (planet *headA, planet *headB) {
   
     // While both the pointers are not equal 
     while (strcmp(curr1->planet,curr2->planet)!=0) { 
-        printf("Loop %d\n",counter);
         counter++;
   
         // If the first pointer is null then 

@@ -11,3 +11,5 @@ typedef struct planet {
 #endif
 
 struct planet *makePlanetList(s_planets *hashOfPlanets, char *startPlanet);
+
+int findDistance(char *intersection, planet *tmpPlanet);

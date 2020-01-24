@@ -34,6 +34,12 @@ int main()
 
     printf("Intersection is %s\n", intersection);
 
+    int youDistance = findDistance(intersection,you);
+    int sanDistance = findDistance(intersection,san);
+
+    printf("You distance to intersection: %d\n", youDistance);
+    printf("Santa distance to intersection: %d\n", sanDistance);
+
     // planet *current = you;
     // while (current->next != NULL)
     // {

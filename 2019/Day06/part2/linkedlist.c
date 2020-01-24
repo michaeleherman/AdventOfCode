@@ -34,3 +34,17 @@ struct planet *makePlanetList(s_planets *hashOfPlanets,char * startPlanet) {
 
         return tmpPlanet;
 }
+
+int findDistance(char *intersection, planet *tmpPlanet) {
+
+        int distance = 0;
+        planet *current = tmpPlanet;
+
+        while (strcmp(current->planet,intersection) !=0) {
+                distance++;
+                current = current->next;
+        }
+
+
+        return distance;
+}

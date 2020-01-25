@@ -1,0 +1,1 @@
+int parameterMode(int pos, int *intCodes);

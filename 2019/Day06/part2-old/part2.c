@@ -13,9 +13,7 @@ int main()
     start = clock();
 
     FILE *file;
-    file = fopen("../part1/input.txt", "r");
-
-
+    file = fopen("./test_input2.txt", "r");
     struct pfStruct planetsStruct;
 
     planetsStruct = parseFile(file);                //Parse the file
@@ -23,17 +21,13 @@ int main()
     int sizeOfPlanetsArray = planetsStruct.sizeOfPlanetsArray;
 
     
-    
 
     // struct planet youPlanet;
     // struct planet santaPlanet;
-    // printf("Getting ready to print list\n");
-    for (int i = 0; i< sizeOfPlanetsArray;i++) {
-        printf("%d - %s, %s\n",i,planets[i].planet,planets[i].direct);
+    printf("Getting ready to print list\n");
+    for (int i = 0; i< 22;i++) {
+        printf("%s, %s - %d\n",planets[sizeOfPlanetsArray].planet,planets[sizeOfPlanetsArray].direct, planets[sizeOfPlanetsArray].hashValue);
     }
-
-    printf("Santa location is: %d\n", planetsStruct.sanLoc);
-    printf("You location is: %d\n", planetsStruct.youLoc);
 
     end = clock();
     double time_taken = end - start;

@@ -1,3 +1,6 @@
-int getHash(char *planet);
+#include "readfile.h"
 
-char *reverseHash(int hashValue);
+int hash(char *str);
+
+s_planets * insert(s_planets *planetArray, int sizeOfPlanets);
+

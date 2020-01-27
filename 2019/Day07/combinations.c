@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define n 5
 
@@ -78,12 +79,41 @@ void combinations(int *arr, int *pos)
     }
 }
 
-// void shift(int *arr, int size)
-// {
-//     int shiftedValue = arr[0];
-//     for (int i = 0; i < size - 1; i++)
-//     {
-//         arr[i] = arr[i + 1];
+// const permutator = (permutation) => {
+//     var length = permutation.length,
+//         result = [permutation.slice()],
+//         c = new Array(length).fill(0),
+//         i = 1, k, p;
+//     while (i < length) {
+//         if (c[i] < i) {
+//             k = i % 2 && c[i];
+//             p = permutation[i];
+//             permutation[i] = permutation[k];
+//             permutation[k] = p;
+//             ++c[i];
+//             i = 1;
+//             result.push(permutation.slice());
+//         } else {
+//             c[i] = 0;
+//             ++i;
+//         }
 //     }
-//     arr[size-1] = shiftedValue;
+//     return result;
 // }
+
+void permutator(int *arr, int length) {
+      
+    int *result[120][5];
+    int c[] = {0, 0, 0, 0, 0};
+    int i = 1;
+    int k, p;
+
+    while (i < length) {
+        if (c[i] < i) {
+          if ( k = i % 2 && c[i] == ) {
+
+          }
+        }
+    }
+
+}

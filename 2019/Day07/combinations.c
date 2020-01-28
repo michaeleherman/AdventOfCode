@@ -104,16 +104,16 @@ void combinations(int *arr, int *pos)
 void permutator(int *arr, int length) {
       
     int *result[120][5];
-    int c[] = {0, 0, 0, 0, 0};
+    int cSize = 5;
+    int c[cSize];
+    memset(c,0,sizeof(c[0]) * cSize);
     int i = 1;
     int k, p;
+    int resultCount = 0;
 
     while (i < length) {
         if (c[i] < i) {
-          if ( k = i % 2 && c[i] == ) {
 
-          }
-        }
+        } 
     }
-
 }

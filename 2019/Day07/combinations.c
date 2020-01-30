@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define n 5
 
@@ -12,27 +13,16 @@ void flip(int *arr, int *current);
 
 void combinations(int *arr, int *pos);
 
+void permutator(int *arr, int length);
+
+
+
 int main()
 {
-    int comboArray[120][5];
-    int *arr = malloc(sizeof(int) * n);
 
-    for (int i = 0; i < n; i++)
-    {
-        arr[i] = i;
-    }
+    int array[] = {0, 1, 2, 3, 4};
 
-    //point to end of array
-    int startPos = 4;
-
-    combinations(arr,&startPos);
-
-    startPos = 2;
-    flip(arr, &startPos);
-
-    startPos = 4;
-
-    combinations(arr,&startPos);
+    permutator(array,5);
 
     return 0;
 }
@@ -101,19 +91,41 @@ void combinations(int *arr, int *pos)
 //     return result;
 // }
 
-void permutator(int *arr, int length) {
-      
+void permutator(int *arr, int length)
+{
+
     int *result[120][5];
     int cSize = 5;
     int c[cSize];
-    memset(c,0,sizeof(c[0]) * cSize);
+    memset(c, 0, sizeof(c[0]) * cSize);
     int i = 1;
     int k, p;
     int resultCount = 0;
 
-    while (i < length) {
-        if (c[i] < i) {
+    while (i < length)
+    {
+        if (c[i] < i)
+        {
+            if (i % 2 == 0)
+            {
+                k = i % 2;
+            }
+            else
+            {
+                k = c[i];
+            }
+            p = arr[i];
+            arr[i] = arr[k];
+            arr[k] = p;
+            ++c[i];
+            i = 1;
+            *result[resultCount] = arr;
+            resultCount++;
+        }
 
-        } 
+        for (int i = 0; i< length;i++) {
+            printf("%d ",result[resultCount][i]);
+        }
+        printf("\n");
     }
 }

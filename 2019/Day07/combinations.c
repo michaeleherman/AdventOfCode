@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -17,20 +18,20 @@ void permutator(int *arr, int length);
 
 
 
-int main()
+int other()
 {
-
+    
     int array[] = {0, 1, 2, 3, 4};
-
+    
     permutator(array,5);
-
+    
     return 0;
 }
 
 void dispArray(int *arr)
 {
     int counter = 0;
-
+    
     while (counter < 5)
     {
         printf("%d ", arr[counter]);
@@ -57,7 +58,7 @@ void combinations(int *arr, int *pos)
     // int startpos = n - 1;
     int current = *pos;
     int next = current - 1;
-
+    
     for (int loop = 0; loop < 3; loop++)
     {
         dispArray(arr);
@@ -91,17 +92,18 @@ void combinations(int *arr, int *pos)
 //     return result;
 // }
 
-void permutator(int *arr, int length)
+struct comboStruct permutator(int *arr, int length)
 {
-
-    int *result[120][5];
+    combo c_results;
+    int result[120][5];
     int cSize = 5;
     int c[cSize];
     memset(c, 0, sizeof(c[0]) * cSize);
     int i = 1;
     int k, p;
-    int resultCount = 0;
-
+    int resultCount = 1;
+    memcpy(result[0], arr, sizeof(int)*cSize);
+    
     while (i < length)
     {
         if (c[i] < i)
@@ -119,13 +121,15 @@ void permutator(int *arr, int length)
             arr[k] = p;
             ++c[i];
             i = 1;
-            *result[resultCount] = arr;
+            memcpy(result[resultCount], arr, sizeof(int)*cSize);
             resultCount++;
+        } else {
+            c[i] = 0;
+            ++i;
         }
-
-        for (int i = 0; i< length;i++) {
-            printf("%d ",result[resultCount][i]);
-        }
-        printf("\n");
+        
+        
     }
+    
+    
 }

@@ -9,9 +9,6 @@
 #ifndef combinator_h
 #define combinator_h
 
-#include <stdio.h>
-#include <string.h>
-
 typedef struct comboStruct {
     int results[120][5];
     int resultsCount;
@@ -19,4 +16,4 @@ typedef struct comboStruct {
 
 #endif /* combinator_h */
 
-struct combo *permutator(int *arr, int length);
+struct combo * permutator(int *arr, int length);

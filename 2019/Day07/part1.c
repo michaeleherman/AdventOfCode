@@ -17,7 +17,9 @@ int main() {
     intCodes = parsedString.intcodes;
     int intCodesSize = parsedString.size;
 
-    permutator(arr, 5);
+    combo comboData = permutator(arr, 5);
+    
+
 
     for (int h = 0; h < 120;h++)
     {   for (int i = 0; i< 5;i++) {

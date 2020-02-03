@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B04D96123E4F0E400B1DC98 /* ampfeeder.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B04D96023E4F0E400B1DC98 /* ampfeeder.c */; };
 		6B6C96C323E3776D00CACA4B /* switchboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C96BC23E3776D00CACA4B /* switchboard.c */; };
 		6B6C96C523E3776D00CACA4B /* opcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C96BF23E3776D00CACA4B /* opcodes.c */; };
 		6B6C96C623E3776D00CACA4B /* inputparser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C96C023E3776D00CACA4B /* inputparser.c */; };
@@ -27,6 +28,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6B04D95F23E4F0E400B1DC98 /* ampfeeder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ampfeeder.h; sourceTree = "<group>"; };
+		6B04D96023E4F0E400B1DC98 /* ampfeeder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ampfeeder.c; sourceTree = "<group>"; };
+		6B04D96223E63DFE00B1DC98 /* pseudocode.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = pseudocode.md; sourceTree = "<group>"; };
 		6B6C96B123E3771A00CACA4B /* Day 7 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day 7"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6C96BB23E3776D00CACA4B /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = opcodes.h; path = ../../opcodes.h; sourceTree = "<group>"; };
 		6B6C96BC23E3776D00CACA4B /* switchboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = switchboard.c; path = ../../switchboard.c; sourceTree = "<group>"; };
@@ -78,6 +82,9 @@
 				6B6C96C123E3776D00CACA4B /* part1.c */,
 				6B6C96BC23E3776D00CACA4B /* switchboard.c */,
 				6B6C96C223E3776D00CACA4B /* switchboard.h */,
+				6B04D95F23E4F0E400B1DC98 /* ampfeeder.h */,
+				6B04D96023E4F0E400B1DC98 /* ampfeeder.c */,
+				6B04D96223E63DFE00B1DC98 /* pseudocode.md */,
 			);
 			path = "Day 7";
 			sourceTree = "<group>";
@@ -144,6 +151,7 @@
 				6B6C96C323E3776D00CACA4B /* switchboard.c in Sources */,
 				6B6C96C623E3776D00CACA4B /* inputparser.c in Sources */,
 				6B6C96C523E3776D00CACA4B /* opcodes.c in Sources */,
+				6B04D96123E4F0E400B1DC98 /* ampfeeder.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

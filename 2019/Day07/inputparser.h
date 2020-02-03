@@ -1,6 +1,12 @@
+#ifndef inputparser_h
+#define inputparser_h
+
 typedef struct opcodes {
     int *intcodes;
     int size;
 } opcodes;
 
-struct opcodes parse(char *str);
+
+#endif
+
+struct opcodes parse(void);

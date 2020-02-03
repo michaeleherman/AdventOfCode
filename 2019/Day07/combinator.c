@@ -12,17 +12,15 @@
 #include "combinator.h"
 
 
-struct combo * permutator(int *arr, int length) {
-        
-    combo *c_results = malloc(sizeof(combo));
-//    int c_results.result[120][5];
+combo permutator(int *arr, int length) {
+    combo s_results;
     int cSize = 5;
     int c[cSize];
     memset(c, 0, sizeof(c[0]) * cSize);
     int i = 1;
     int k, p;
     int resultsCount = 1;
-    memcpy(c_results->results[0], arr, sizeof(int)*cSize);
+    memcpy(s_results.results[0], arr, sizeof(int)*cSize);
     
     while (i < length)
     {
@@ -41,7 +39,7 @@ struct combo * permutator(int *arr, int length) {
             arr[k] = p;
             ++c[i];
             i = 1;
-            memcpy(c_results->results[resultsCount], arr, sizeof(int)*cSize);
+            memcpy(s_results.results[resultsCount], arr, sizeof(int)*cSize);
             resultsCount++;
         } else {
             c[i] = 0;
@@ -49,10 +47,10 @@ struct combo * permutator(int *arr, int length) {
         }
         
         if (resultsCount == 120) {
-            c_results->resultsCount = 120;
+            s_results.resultsCount = 120;
             break;
         }
     }
     
-    return c_results;
+    return s_results;
 }

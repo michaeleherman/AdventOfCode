@@ -29,7 +29,7 @@ int opcode2(int pos, int pos1, int pos2, int pos3, int *intCodes)
     return pos + 4;
 }
 
-int opcode3(int pos, int *intCodes)
+int opcode3(int input, int pos, int *intCodes)
 {
     // printf("In function %s\n", __FUNCTION__);
     int systemId;

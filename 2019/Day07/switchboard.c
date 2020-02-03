@@ -3,9 +3,20 @@
 #include <string.h>
 #include "switchboard.h"
 #include "opcodes.h"
+#include "inputparser.h"
 
-int parameterMode(int pos, int *intCodes)
+int parameterMode(void)
 {
+    opcodes opArray = parse();
+    int *intCodes = opArray.intcodes;
+    int intCodesSize = opArray.size;
+    int pos = tmpCodes.pos;
+    int opcode3Input;
+    
+    if (intCodes[pos] == 3) {
+        opcode3Input = tmpCodes.inputValue;
+    }
+    
     // printf("In function %s\n", __FUNCTION__);
     int currOpcode = intCodes[pos];
     int opcodeLength = sizeof(currOpcode);
@@ -49,7 +60,7 @@ int parameterMode(int pos, int *intCodes)
     }
     case 3:
     {
-        pos = opcode3(pos, intCodes);
+        pos = opcode3(opcode3Input, pos, intCodes);
         break;
     }
     case 4:

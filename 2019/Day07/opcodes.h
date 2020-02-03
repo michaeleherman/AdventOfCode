@@ -4,7 +4,7 @@ int opcode1(int pos, int pos1, int pos2, int pos3, int *intCodes);
 
 int opcode2(int pos, int pos1, int pos2, int pos3, int *intCodes);
 
-int opcode3(int pos, int *intCodes);
+int opcode3(int input,int pos, int *intCodes);
 
 int opcode4(int pos, int outputPos, int *intCodes);
 

@@ -16,4 +16,4 @@ typedef struct comboStruct {
 
 #endif /* combinator_h */
 
-struct combo * permutator(int *arr, int length);
+combo permutator(int *arr, int length);

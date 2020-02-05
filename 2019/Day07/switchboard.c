@@ -5,16 +5,13 @@
 #include "opcodes.h"
 #include "inputparser.h"
 
-int parameterMode(void)
+int parameterMode(int pos, int *intCodes, int inputValue)
 {
-    opcodes opArray = parse();
-    int *intCodes = opArray.intcodes;
-    int intCodesSize = opArray.size;
-    int pos = tmpCodes.pos;
+    
     int opcode3Input;
     
     if (intCodes[pos] == 3) {
-        opcode3Input = tmpCodes.inputValue;
+        opcode3Input = inputValue;
     }
     
     // printf("In function %s\n", __FUNCTION__);
@@ -29,7 +26,7 @@ int parameterMode(void)
 
     char charOne[2];
     char charTwo[2];
-    int pos1, pos2, pos3 = 0;
+    int pos1=0, pos2 = 0, pos3 = 0;
 
     int modeOne = 0;
     modeOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));

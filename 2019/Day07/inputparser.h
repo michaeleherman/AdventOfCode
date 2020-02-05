@@ -9,4 +9,4 @@ typedef struct opcodes {
 
 #endif
 
-struct opcodes parse(void);
+struct opcodes parse(char *str);

@@ -41,8 +41,10 @@ int ampInput(int *phaseSettings, int pSSize, int *intCodes, int iCodesSize){
                 }
             }
                 
-                totalThrust += parameterMode(tmpStruct);
+//                totalThrust += parameterMode(tmpStruct);
+            
             }
         }
+    return 0;
         
 }

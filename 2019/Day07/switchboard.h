@@ -5,4 +5,4 @@
 
 #endif
 
-int parameterMode(void);
+int parameterMode(int pos, int *intCodes, int inputValue);

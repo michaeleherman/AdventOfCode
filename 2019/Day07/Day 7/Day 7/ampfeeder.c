@@ -11,8 +11,7 @@
 #include "opcodes.h"
 
 
-int ampInput(int *phaseSettings, int pSSize, int *intCodes, int iCodesSize){
-    int totalThrust = 0;
+int ampInput(int phaseSettings[120][5], int pSSize, int *intCodes, int iCodesSize){
     
     //send first phase setting and inputSignal to switchboard
     //switchboard should return the thrust output
@@ -20,6 +19,8 @@ int ampInput(int *phaseSettings, int pSSize, int *intCodes, int iCodesSize){
     //send next phase setting and thrustinput to switchboard
     //loop it
     //return final thrust input back to main
+    
+    int totalThrust = 0;
     
     for (int i = 0; i < pSSize;i++) { //loop through amplifiers
         
@@ -39,12 +40,14 @@ int ampInput(int *phaseSettings, int pSSize, int *intCodes, int iCodesSize){
                 } else {
                     tmpStruct.inputValue = tmpInputs.thrustSignal;
                 }
+            } else {
+                tmpStruct.inputValue = -1;
             }
                 
-//                totalThrust += parameterMode(tmpStruct);
+                totalThrust += parameterMode(tmpStruct);
             
             }
         }
-    return 0;
+    return totalThrust;
         
 }

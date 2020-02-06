@@ -3,6 +3,7 @@
 
 #include "ampfeeder.h"
 
+
 #endif
 
-int parameterMode(int pos, int *intCodes, int inputValue);
+int parameterMode(intcodes tmpStruct);

@@ -5,10 +5,13 @@
 #include "opcodes.h"
 #include "inputparser.h"
 
-int parameterMode(int pos, int *intCodes, int inputValue)
+int parameterMode(intcodes tmpStruct)
 {
-    
-    int opcode3Input;
+    int *intCodes = tmpStruct.intCodes;
+    int pos = tmpStruct.pos;
+    int inputValue = tmpStruct.inputValue;
+    int opcode3Input = 0;
+
     
     if (intCodes[pos] == 3) {
         opcode3Input = inputValue;
@@ -62,8 +65,8 @@ int parameterMode(int pos, int *intCodes, int inputValue)
     }
     case 4:
     {
-
-        pos = opcode4(pos, pos1, intCodes);
+        int output;
+        output = opcode4(pos, pos1, intCodes);
         break;
     }
     case 5:

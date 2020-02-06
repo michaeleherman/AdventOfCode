@@ -1,3 +1,5 @@
+
+
 void printStuff(const char source[14], int pos, int instruction, int val1, int val2, int val3);
 
 int opcode1(int pos, int pos1, int pos2, int pos3, int *intCodes);

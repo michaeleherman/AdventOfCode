@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "switchboard.h"
 
 void printStuff(const char source[14], int pos, int instruction, int val1, int val2, int val3)
 {
@@ -32,19 +33,16 @@ int opcode2(int pos, int pos1, int pos2, int pos3, int *intCodes)
 int opcode3(int input, int pos, int *intCodes)
 {
     // printf("In function %s\n", __FUNCTION__);
-    int systemId;
-    printf("Please enter the system ID: ");
-    scanf("%d", &systemId);
-    intCodes[intCodes[pos + 1]] = systemId;
+
+    intCodes[intCodes[pos + 1]] = input;
 
     return pos + 2;
 }
 
 int opcode4(int pos, int outputPos, int *intCodes)
 {
-    // printf("In function %s\n", __FUNCTION__);
-    printf("Output is: %d\n", outputPos);
-    exit(0);
+
+    
     return pos + 2;
 }
 

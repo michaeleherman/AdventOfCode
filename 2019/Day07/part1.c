@@ -3,6 +3,7 @@
 #include "switchboard.h"
 #include "inputparser.h"
 #include "combinator.h"
+#include "ampfeeder.h"
 #include <string.h>
 
 int main() {
@@ -21,9 +22,9 @@ int main() {
     intCodesSize = opArray.size;
 
 
-    results = permutator(arr, 5); //gets the combinations of arr
+    results = permutator(arr, 5);
     
-    //send each array in results to ampfeeder
+    int maxThrust = ampInput(results.results,results.resultsCount,intCodes,intCodesSize);
     
     
     

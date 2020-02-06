@@ -25,3 +25,5 @@ typedef struct intcodes {
 
 
 #endif /* ampfeeder_h */
+
+int ampInput(int phaseSettings[120][5], int pSSize, int *intCodes, int iCodesSize);

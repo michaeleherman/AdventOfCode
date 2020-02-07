@@ -43,7 +43,7 @@ int opcode4(int pos, int outputPos, int *intCodes)
 {
 
     
-    return pos + 2;
+    return intCodes[intCodes[pos + 2]];
 }
 
 //Jump if true

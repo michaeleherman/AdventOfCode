@@ -7,6 +7,7 @@
 
 int parameterMode(intcodes tmpStruct)
 {
+
     int *intCodes = tmpStruct.intCodes;
     int pos = tmpStruct.pos;
     int inputValue = tmpStruct.inputValue;
@@ -67,7 +68,8 @@ int parameterMode(intcodes tmpStruct)
     {
         int output;
         output = opcode4(pos, pos1, intCodes);
-        break;
+        return output;
+        break;c
     }
     case 5:
     {
@@ -92,5 +94,7 @@ int parameterMode(intcodes tmpStruct)
         break;
     }
     }
+
+    
     return pos;
 }

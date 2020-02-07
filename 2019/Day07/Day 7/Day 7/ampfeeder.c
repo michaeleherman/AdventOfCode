@@ -32,7 +32,7 @@ int ampInput(int phaseSettings[120][5], int pSSize, int *intCodes, int iCodesSiz
         for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
             intcodes tmpStruct;
             tmpStruct.intCodes = intCodes;
-            tmpStruct.pos = intCodes[j];
+            tmpStruct.pos = j;
             if (intCodes[j] == 3) {
                 if (inputStep == 0) {
                     tmpStruct.inputValue = tmpInputs.inputSignal;
@@ -40,14 +40,19 @@ int ampInput(int phaseSettings[120][5], int pSSize, int *intCodes, int iCodesSiz
                 } else {
                     tmpStruct.inputValue = tmpInputs.thrustSignal;
                 }
-            } else {
+            } else if (intCodes[j] == 4) {
+                tmpStruct.inputValue = -1;
+                totalThrust += parameterMode(tmpStruct);
+
+            }
+                else {
                 tmpStruct.inputValue = -1;
             }
                 
-                totalThrust += parameterMode(tmpStruct);
+               j = parameterMode(tmpStruct)-1;
             
             }
         }
-    return totalThrust;
+    return 0;
         
 }

@@ -14,8 +14,9 @@
 
 combo permutator(int *arr, int length, int comboCount) {
     combo s_results;
-    s_results.results = malloc(sizeof(int));
+    s_results.results = malloc(sizeof(int)*comboCount);
     int cSize = 5;
+    s_results.results[0] = malloc(sizeof(int)*cSize);
     int c[cSize];
     memset(c, 0, sizeof(c[0]) * cSize);
     int i = 1;
@@ -40,7 +41,7 @@ combo permutator(int *arr, int length, int comboCount) {
             arr[k] = p;
             ++c[i];
             i = 1;
-            s_results.results = realloc(s_results.results, sizeof(int) * (resultsCount + 1));
+            s_results.results[resultsCount] = malloc(sizeof(int)*cSize);
             memcpy(s_results.results[resultsCount], arr, sizeof(int)*cSize);
             resultsCount++;
         } else {

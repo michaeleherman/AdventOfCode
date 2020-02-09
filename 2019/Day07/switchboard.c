@@ -20,7 +20,6 @@ int parameterMode(intcodes tmpStruct)
     
     // printf("In function %s\n", __FUNCTION__);
     int currOpcode = intCodes[pos];
-    int opcodeLength = sizeof(currOpcode);
     char opCodeString[5] = {'\0'};
 
     sprintf(opCodeString, "%04d", currOpcode);

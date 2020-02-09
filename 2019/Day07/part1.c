@@ -55,11 +55,15 @@ int main() {
         thrustArray = realloc(thrustArray, sizeof(int) * (i + 2));
     }
     
+    int maxThrust = getMax(thrustArray);
+    
     //print contents of thrustarray
     for (int i = 0; i< countOfAmpCombos;i++) {
         printf("%d\n",thrustArray[i]);
         
     }
+    
+    printf("Max thrust is: %d\n",maxThrust);
     
     
     

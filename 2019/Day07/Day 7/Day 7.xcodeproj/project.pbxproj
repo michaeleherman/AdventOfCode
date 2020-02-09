@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C73B64823EF7B850070C97C /* factorial.c in Sources */ = {isa = PBXBuildFile; fileRef = 4C73B64723EF7B850070C97C /* factorial.c */; };
+		4CAB76D823EFD2E600638816 /* getmax.c in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB76D723EFD2E600638816 /* getmax.c */; };
 		6B04D96123E4F0E400B1DC98 /* ampfeeder.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B04D96023E4F0E400B1DC98 /* ampfeeder.c */; };
 		6B6C96C323E3776D00CACA4B /* switchboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C96BC23E3776D00CACA4B /* switchboard.c */; };
 		6B6C96C523E3776D00CACA4B /* opcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B6C96BF23E3776D00CACA4B /* opcodes.c */; };
@@ -31,6 +32,8 @@
 /* Begin PBXFileReference section */
 		4C73B64623EF7B850070C97C /* factorial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = factorial.h; sourceTree = "<group>"; };
 		4C73B64723EF7B850070C97C /* factorial.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = factorial.c; sourceTree = "<group>"; };
+		4CAB76D623EFD2E600638816 /* getmax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = getmax.h; sourceTree = "<group>"; };
+		4CAB76D723EFD2E600638816 /* getmax.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = getmax.c; sourceTree = "<group>"; };
 		6B04D95F23E4F0E400B1DC98 /* ampfeeder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ampfeeder.h; sourceTree = "<group>"; };
 		6B04D96023E4F0E400B1DC98 /* ampfeeder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ampfeeder.c; sourceTree = "<group>"; };
 		6B04D96223E63DFE00B1DC98 /* pseudocode.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = pseudocode.md; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 				6B6C96BF23E3776D00CACA4B /* opcodes.c */,
 				6B6C96BB23E3776D00CACA4B /* opcodes.h */,
 				6B6C96C123E3776D00CACA4B /* part1.c */,
+				4CAB76D623EFD2E600638816 /* getmax.h */,
+				4CAB76D723EFD2E600638816 /* getmax.c */,
 				4C73B64623EF7B850070C97C /* factorial.h */,
 				4C73B64723EF7B850070C97C /* factorial.c */,
 				6B6C96BC23E3776D00CACA4B /* switchboard.c */,
@@ -158,6 +163,7 @@
 				6B6C96C623E3776D00CACA4B /* inputparser.c in Sources */,
 				6B6C96C523E3776D00CACA4B /* opcodes.c in Sources */,
 				6B04D96123E4F0E400B1DC98 /* ampfeeder.c in Sources */,
+				4CAB76D823EFD2E600638816 /* getmax.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,9 +14,9 @@
 
 combo permutator(int *arr, int length, int comboCount) {
     combo s_results;
-    s_results.results = malloc(sizeof(int)*comboCount);
+    s_results.results = calloc(comboCount,sizeof(int*));
     int cSize = 5;
-    s_results.results[0] = malloc(sizeof(int)*cSize);
+    s_results.results[0] = calloc(cSize,sizeof(int));
     int c[cSize];
     memset(c, 0, sizeof(c[0]) * cSize);
     int i = 1;
@@ -53,7 +53,15 @@ combo permutator(int *arr, int length, int comboCount) {
             s_results.resultsCount = comboCount;
             break;
         }
+        
+        for (int n = 0; n < 5; n++) {
+            printf("%d ", s_results.results[resultsCount-1][n]);
+ 
+        }
+                   printf("\n");
     }
+    
+
     
     return s_results;
 }

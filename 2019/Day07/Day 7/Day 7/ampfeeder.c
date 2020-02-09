@@ -42,7 +42,7 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
                 }
             } else if (intCodes[j] == 4) {
                 tmpStruct.inputValue = -1;
-                totalThrust += parameterMode(tmpStruct);
+                totalThrust = parameterMode(tmpStruct);
                 break;
             }
             else {

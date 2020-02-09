@@ -9,7 +9,7 @@
 #include "getmax.h"
 
 int getMax(int *thrustArray, int sizeOfArray) {
-    int maxThrust = 0;
+    int maxThrust = thrustArray[0];
     
     for (int i = 0; i<sizeOfArray-1;i++) {
         if (maxThrust < thrustArray[i+1]) {

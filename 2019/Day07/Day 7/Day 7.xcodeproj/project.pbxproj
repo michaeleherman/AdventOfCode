@@ -30,23 +30,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4C73B64623EF7B850070C97C /* factorial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = factorial.h; sourceTree = "<group>"; };
-		4C73B64723EF7B850070C97C /* factorial.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = factorial.c; sourceTree = "<group>"; };
-		4CAB76D623EFD2E600638816 /* getmax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = getmax.h; sourceTree = "<group>"; };
-		4CAB76D723EFD2E600638816 /* getmax.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = getmax.c; sourceTree = "<group>"; };
-		6B04D95F23E4F0E400B1DC98 /* ampfeeder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ampfeeder.h; sourceTree = "<group>"; };
-		6B04D96023E4F0E400B1DC98 /* ampfeeder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ampfeeder.c; sourceTree = "<group>"; };
+		4C73B64623EF7B850070C97C /* factorial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = factorial.h; path = "Day 7/factorial.h"; sourceTree = SOURCE_ROOT; };
+		4C73B64723EF7B850070C97C /* factorial.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = factorial.c; path = "Day 7/factorial.c"; sourceTree = SOURCE_ROOT; };
+		4CAB76D623EFD2E600638816 /* getmax.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = getmax.h; path = "Day 7/getmax.h"; sourceTree = SOURCE_ROOT; };
+		4CAB76D723EFD2E600638816 /* getmax.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = getmax.c; path = "Day 7/getmax.c"; sourceTree = SOURCE_ROOT; };
+		6B04D95F23E4F0E400B1DC98 /* ampfeeder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ampfeeder.h; path = "Day 7/ampfeeder.h"; sourceTree = SOURCE_ROOT; };
+		6B04D96023E4F0E400B1DC98 /* ampfeeder.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ampfeeder.c; path = "Day 7/ampfeeder.c"; sourceTree = SOURCE_ROOT; };
 		6B04D96223E63DFE00B1DC98 /* pseudocode.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = pseudocode.md; sourceTree = "<group>"; };
 		6B6C96B123E3771A00CACA4B /* Day 7 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Day 7"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B6C96BB23E3776D00CACA4B /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = opcodes.h; path = ../../opcodes.h; sourceTree = "<group>"; };
-		6B6C96BC23E3776D00CACA4B /* switchboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = switchboard.c; path = ../../switchboard.c; sourceTree = "<group>"; };
-		6B6C96BE23E3776D00CACA4B /* inputparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputparser.h; path = ../../inputparser.h; sourceTree = "<group>"; };
-		6B6C96BF23E3776D00CACA4B /* opcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = opcodes.c; path = ../../opcodes.c; sourceTree = "<group>"; };
-		6B6C96C023E3776D00CACA4B /* inputparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inputparser.c; path = ../../inputparser.c; sourceTree = "<group>"; };
-		6B6C96C123E3776D00CACA4B /* part1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = part1.c; path = ../../part1.c; sourceTree = "<group>"; };
-		6B6C96C223E3776D00CACA4B /* switchboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switchboard.h; path = ../../switchboard.h; sourceTree = "<group>"; };
-		6B6C96C823E3799E00CACA4B /* combinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = combinator.h; path = ../../combinator.h; sourceTree = "<group>"; };
-		6B6C96C923E3799E00CACA4B /* combinator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = combinator.c; path = ../../combinator.c; sourceTree = "<group>"; };
+		6B6C96BB23E3776D00CACA4B /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = opcodes.h; path = "Day 7/opcodes.h"; sourceTree = SOURCE_ROOT; };
+		6B6C96BC23E3776D00CACA4B /* switchboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = switchboard.c; path = "Day 7/switchboard.c"; sourceTree = SOURCE_ROOT; };
+		6B6C96BE23E3776D00CACA4B /* inputparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputparser.h; path = "Day 7/inputparser.h"; sourceTree = SOURCE_ROOT; };
+		6B6C96BF23E3776D00CACA4B /* opcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = opcodes.c; path = "Day 7/opcodes.c"; sourceTree = SOURCE_ROOT; };
+		6B6C96C023E3776D00CACA4B /* inputparser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inputparser.c; path = "Day 7/inputparser.c"; sourceTree = SOURCE_ROOT; };
+		6B6C96C123E3776D00CACA4B /* part1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = part1.c; path = "Day 7/part1.c"; sourceTree = SOURCE_ROOT; };
+		6B6C96C223E3776D00CACA4B /* switchboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switchboard.h; path = "Day 7/switchboard.h"; sourceTree = SOURCE_ROOT; };
+		6B6C96C823E3799E00CACA4B /* combinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = combinator.h; path = "Day 7/combinator.h"; sourceTree = SOURCE_ROOT; };
+		6B6C96C923E3799E00CACA4B /* combinator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = combinator.c; path = "Day 7/combinator.c"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

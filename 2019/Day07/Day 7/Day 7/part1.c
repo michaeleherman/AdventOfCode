@@ -6,6 +6,7 @@
 #include "ampfeeder.h"
 #include <string.h>
 #include "factorial.h"
+#include "getmax.h"
 
 #define ARRSIZE 5
 
@@ -23,14 +24,19 @@ int main() {
     //    find greatest signal in array of thrusts
     
     
-    char str[] = "3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0";
+    char str[] = "3,31,3,32,1002,32,10,32,1001,31,-2,31,1007,31,0,33,1002,33,7,33,1,33,31,31,1,32,31,31,4,31,99,0,0,0";
     int *arr = malloc(sizeof(int) * ARRSIZE);
     int countOfAmpCombos = factorial(ARRSIZE); //Get total number of amplifier combos
     
     //populate amplifier array
-    for (int i = ARRSIZE - 1; i >= 0; --i) {
+    for (int i = ARRSIZE-1; i >= 0; --i) {
         arr[i] = i;
+        printf("%d - %d\n",i,arr[i]);
+        
     }
+    printf("\n");
+    
+    
     
     //turn string of opcodes into array of opcodes
     int *intCodes;
@@ -41,21 +47,32 @@ int main() {
     
     //get combinations
     combo results; //initialize results struct
+    results.results = calloc(countOfAmpCombos,sizeof(int*));
     results.resultsCount = 0;
     results = permutator(arr, ARRSIZE, countOfAmpCombos);
     
     
-    int *thrustArray = malloc(sizeof(int)); //initialize array for returned thrusts
+    for (int m = 0; m < countOfAmpCombos;m++) {
+        printf("%d - ",m);
+         for (int n = 0; n < 5; n++) {
+               printf("%d ", results.results[m][n]);
+    
+           }
+                      printf("\n");
+    }
+    
+    
+    int *thrustArray = calloc(countOfAmpCombos,sizeof(int)); //initialize array for returned thrusts
     
     //Loop through each array of amplifier combinations
     for (int i = 0; i < countOfAmpCombos;i++) {
         
         int maxThrust = processArray(results.results[i],ARRSIZE,intCodes,intCodesSize);
         thrustArray[i] = maxThrust;
-        thrustArray = realloc(thrustArray, sizeof(int) * (i + 2));
+
     }
     
-    int maxThrust = getMax(thrustArray);
+    int maxThrust = getMax(thrustArray,countOfAmpCombos);
     
     //print contents of thrustarray
     for (int i = 0; i< countOfAmpCombos;i++) {

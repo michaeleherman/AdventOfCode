@@ -1,10 +1,15 @@
 #  PseudoCode
 
-1. parse opcodes
-2. create combinations
-3. How to pass the data
-4. when the opcode is 3, pass parameter but how to pass when second 3 comes along?
-a. stuff into an array and pass array?
-use an if and a counter - there are only two data points to pass
-pass a struct to a function? the struct with all possible options?
+1. parse opcode string into array
+2. create array of amplifier combinations
+    For each set of amplifier combinations 
+        for each amplifier (pass current amp combo and codes)
+            opcode value, pass to opcode computer
+                if opcode = 3, pass input value (first amplifier, second thrust)
+                if opcode = 4, expect thrust return
+        add thrust value to thrust value for set
+    insert thrust into array of thrusts
+find greatest signal in array of thrusts
+
+
 

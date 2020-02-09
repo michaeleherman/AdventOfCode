@@ -12,8 +12,9 @@
 #include "combinator.h"
 
 
-combo permutator(int *arr, int length) {
+combo permutator(int *arr, int length, int comboCount) {
     combo s_results;
+    s_results.results = malloc(sizeof(int));
     int cSize = 5;
     int c[cSize];
     memset(c, 0, sizeof(c[0]) * cSize);
@@ -39,6 +40,7 @@ combo permutator(int *arr, int length) {
             arr[k] = p;
             ++c[i];
             i = 1;
+            s_results.results = realloc(s_results.results, sizeof(int) * (resultsCount + 1));
             memcpy(s_results.results[resultsCount], arr, sizeof(int)*cSize);
             resultsCount++;
         } else {
@@ -46,8 +48,8 @@ combo permutator(int *arr, int length) {
             ++i;
         }
         
-        if (resultsCount == 120) {
-            s_results.resultsCount = 120;
+        if (resultsCount == comboCount) {
+            s_results.resultsCount = comboCount;
             break;
         }
     }

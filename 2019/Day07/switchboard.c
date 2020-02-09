@@ -69,7 +69,7 @@ int parameterMode(intcodes tmpStruct)
         int output;
         output = opcode4(pos, pos1, intCodes);
         return output;
-        break;c
+        break;
     }
     case 5:
     {

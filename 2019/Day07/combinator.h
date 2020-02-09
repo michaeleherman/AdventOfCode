@@ -10,10 +10,10 @@
 #define combinator_h
 
 typedef struct comboStruct {
-    int results[120][5];
+    int **results;
     int resultsCount;
 } combo;
 
 #endif /* combinator_h */
 
-combo permutator(int *arr, int length);
+combo permutator(int *arr, int length, int comboCount);

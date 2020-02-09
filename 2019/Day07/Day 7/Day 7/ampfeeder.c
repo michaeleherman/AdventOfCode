@@ -9,50 +9,44 @@
 #include "ampfeeder.h"
 #include "switchboard.h"
 #include "opcodes.h"
+#include <stdlib.h>
 
-
-int ampInput(int phaseSettings[120][5], int pSSize, int *intCodes, int iCodesSize){
-    
-    //send first phase setting and inputSignal to switchboard
-    //switchboard should return the thrust output
-    // thrustInput = (switchboard(a, b)
-    //send next phase setting and thrustinput to switchboard
-    //loop it
-    //return final thrust input back to main
+int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
     
     int totalThrust = 0;
+    inputs tmpInputs;
     
-    for (int i = 0; i < pSSize;i++) { //loop through amplifiers
-        
-        inputs tmpInputs;
-        tmpInputs.inputSignal = 0;
-        tmpInputs.thrustSignal = 0;
-        int inputStep = 0;
-        
-        for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
-            intcodes tmpStruct;
-            tmpStruct.intCodes = intCodes;
-            tmpStruct.pos = j;
-            if (intCodes[j] == 3) {
-                if (inputStep == 0) {
-                    tmpStruct.inputValue = tmpInputs.inputSignal;
-                    inputStep++;
-                } else {
-                    tmpStruct.inputValue = tmpInputs.thrustSignal;
-                }
-            } else if (intCodes[j] == 4) {
-                tmpStruct.inputValue = -1;
-                totalThrust += parameterMode(tmpStruct);
-
-            }
-                else {
-                tmpStruct.inputValue = -1;
-            }
-                
+    //loop through amplifier array
+    for (int i = 0; i < sizeOfArray;i++) { //loop through amplifiers
+           
+           tmpInputs.inputSignal = 0;
+           tmpInputs.thrustSignal = 0;
+           int inputStep = 0;
+           
+            //Send each amplifier to the computer
+           for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
+               intcodes tmpStruct;
+               tmpStruct.intCodes = intCodes;
+               tmpStruct.pos = j;
+               if (intCodes[j] == 3) {
+                   if (inputStep == 0) {
+                       tmpStruct.inputValue = tmpInputs.inputSignal;
+                       inputStep++;
+                   } else {
+                       tmpStruct.inputValue = tmpInputs.thrustSignal;
+                   }
+               } else if (intCodes[j] == 4) {
+                   tmpStruct.inputValue = -1;
+                   totalThrust += parameterMode(tmpStruct);
+                   break;
+               }
+               else {
+                   tmpStruct.inputValue = -1;
+               }
+               
                j = parameterMode(tmpStruct)-1;
-            
-            }
-        }
-    return 0;
-        
+               
+           }
+       }
+       return totalThrust;
 }

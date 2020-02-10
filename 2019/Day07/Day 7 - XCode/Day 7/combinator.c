@@ -53,12 +53,6 @@ combo permutator(int *arr, int length, int comboCount) {
             s_results.resultsCount = comboCount;
             break;
         }
-        
-        for (int n = 0; n < 5; n++) {
-            printf("%d ", s_results.results[resultsCount-1][n]);
- 
-        }
-                   printf("\n");
     }
     
 

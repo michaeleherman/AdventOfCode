@@ -7,10 +7,14 @@
 #include <string.h>
 #include "factorial.h"
 #include "getmax.h"
+#include <time.h>
 
 #define ARRSIZE 5
 
 int main() {
+    
+    clock_t start, end;
+    start = clock();
     
     //    1. parse opcode string into array
     //    2. create array of amplifier combinations
@@ -24,17 +28,15 @@ int main() {
     //    find greatest signal in array of thrusts
     
     
-    char str[] = "3,31,3,32,1002,32,10,32,1001,31,-2,31,1007,31,0,33,1002,33,7,33,1,33,31,31,1,32,31,31,4,31,99,0,0,0";
+    char str[] = "3,8,1001,8,10,8,105,1,0,0,21,46,55,76,89,106,187,268,349,430,99999,3,9,101,4,9,9,1002,9,2,9,101,5,9,9,1002,9,2,9,101,2,9,9,4,9,99,3,9,1002,9,5,9,4,9,99,3,9,1001,9,2,9,1002,9,4,9,101,2,9,9,1002,9,3,9,4,9,99,3,9,1001,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,4,9,1001,9,4,9,102,5,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,1,9,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,99,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,99";
     int *arr = malloc(sizeof(int) * ARRSIZE);
     int countOfAmpCombos = factorial(ARRSIZE); //Get total number of amplifier combos
     
     //populate amplifier array
     for (int i = ARRSIZE-1; i >= 0; --i) {
         arr[i] = i;
-        printf("%d - %d\n",i,arr[i]);
         
     }
-    printf("\n");
     
     
     
@@ -52,16 +54,6 @@ int main() {
     results = permutator(arr, ARRSIZE, countOfAmpCombos);
     
     
-    for (int m = 0; m < countOfAmpCombos;m++) {
-        printf("%d - ",m);
-         for (int n = 0; n < 5; n++) {
-               printf("%d ", results.results[m][n]);
-    
-           }
-                      printf("\n");
-    }
-    
-    
     int *thrustArray = calloc(countOfAmpCombos,sizeof(int)); //initialize array for returned thrusts
     
     //Loop through each array of amplifier combinations
@@ -75,14 +67,17 @@ int main() {
     int maxThrust = getMax(thrustArray,countOfAmpCombos);
     
     //print contents of thrustarray
-    for (int i = 0; i< countOfAmpCombos;i++) {
-        printf("%d\n",thrustArray[i]);
-        
-    }
+//    for (int i = 0; i< countOfAmpCombos;i++) {
+//        printf("%d\n",thrustArray[i]);
+//        
+//    }
     
     printf("Max thrust is: %d\n",maxThrust);
     
-    
+    end = clock();
+    double time_taken = end - start;
+    printf("Time: %f\n",time_taken/CLOCKS_PER_SEC);
     
     return 0;
+    
 }

@@ -16,27 +16,22 @@ int main() {
     clock_t start, end;
     start = clock();
     
-    //    1. parse opcode string into array
-    //    2. create array of amplifier combinations
-    //        For each set of amplifier combinations
-    //            for each amplifier (pass current amp combo and codes)
-    //                opcode value, pass to opcode computer
-    //                    if opcode = 3, pass input value (first amplifier, second thrust)
-    //                    if opcode = 4, expect thrust return
-    //            add thrust value to thrust value for set
-    //        insert thrust into array of thrusts
-    //    find greatest signal in array of thrusts
+    //Provide each amplifier its phase setting at its first input instruction; all further input/output instructions are for signals.
+    //Don't restart the Amplifier Controller Software on any amplifier during this process.
+    //To start the process, a 0 signal is sent to amplifier A's input exactly once.
     
     
-    char str[] = "3,8,1001,8,10,8,105,1,0,0,21,46,55,76,89,106,187,268,349,430,99999,3,9,101,4,9,9,1002,9,2,9,101,5,9,9,1002,9,2,9,101,2,9,9,4,9,99,3,9,1002,9,5,9,4,9,99,3,9,1001,9,2,9,1002,9,4,9,101,2,9,9,1002,9,3,9,4,9,99,3,9,1001,9,3,9,1002,9,2,9,4,9,99,3,9,1002,9,4,9,1001,9,4,9,102,5,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,99,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,99,3,9,101,1,9,9,4,9,3,9,101,1,9,9,4,9,3,9,101,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,1001,9,2,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,99,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1002,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,2,9,4,9,3,9,102,2,9,9,4,9,3,9,101,1,9,9,4,9,99,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,102,2,9,9,4,9,3,9,102,2,9,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1001,9,1,9,4,9,3,9,1002,9,2,9,4,9,3,9,101,2,9,9,4,9,3,9,101,1,9,9,4,9,99";
+    char str[] = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5";
     int *arr = malloc(sizeof(int) * ARRSIZE);
     int countOfAmpCombos = factorial(ARRSIZE); //Get total number of amplifier combos
     
     //populate amplifier array
+    //the amplifiers need totally different phase settings: integers from 5 to 9
     for (int i = ARRSIZE-1; i >= 0; --i) {
-        arr[i] = i;
+        arr[i] = i+5;
         
     }
+    
     
     
     
@@ -61,16 +56,16 @@ int main() {
         
         int maxThrust = processArray(results.results[i],ARRSIZE,intCodes,intCodesSize);
         thrustArray[i] = maxThrust;
-
+        
     }
     
     int maxThrust = getMax(thrustArray,countOfAmpCombos);
     
     //print contents of thrustarray
-//    for (int i = 0; i< countOfAmpCombos;i++) {
-//        printf("%d\n",thrustArray[i]);
-//        
-//    }
+    //    for (int i = 0; i< countOfAmpCombos;i++) {
+    //        printf("%d\n",thrustArray[i]);
+    //
+    //    }
     
     printf("Max thrust is: %d\n",maxThrust);
     

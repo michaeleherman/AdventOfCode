@@ -32,9 +32,6 @@ int main() {
         
     }
     
-    
-    
-    
     //turn string of opcodes into array of opcodes
     int *intCodes;
     int intCodesSize;

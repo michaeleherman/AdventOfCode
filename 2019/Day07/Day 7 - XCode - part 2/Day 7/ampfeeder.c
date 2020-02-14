@@ -17,21 +17,30 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
     
     int totalThrust = 0;
     inputs tmpInputs;
+    int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
+    
+    //create the arrays of intcodes
+    for (int i = 0; i < sizeOfArray;i++) {
+        ampIntcodes[array[i]] = malloc(sizeof(int) * iCodesSize);
+        memcpy(ampIntcodes[array[i]], intCodes,sizeof(int)*iCodesSize);
+    }
     
     //loop through amplifier array
     for (int i = 0; i < sizeOfArray;i++) { //loop through amplifiers
         
-        tmpInputs.inputSignal = array[i];
+        int currentAmp = array[i];
+        
+        tmpInputs.inputSignal = currentAmp;
         tmpInputs.thrustSignal = totalThrust;
+        
+        
         
         int inputStep = 0;
         
         //Send each amplifier to the computer
         for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
             intcodes tmpStruct;
-            tmpStruct.intCodes=malloc(sizeof(int)*iCodesSize);
-            memcpy(tmpStruct.intCodes,intCodes,sizeof(int)*iCodesSize);
-            tmpStruct.intCodes = intCodes;
+            tmpStruct.intCodes=ampIntcodes[currentAmp];
             tmpStruct.pos = j;
             if (intCodes[j] == 3) {
                 if (inputStep == 0) {
@@ -51,6 +60,10 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
             
             j = parameterMode(tmpStruct)-1;
             
+        }
+        
+        if (i == 4) {
+            i = -1;
         }
     }
     return totalThrust;

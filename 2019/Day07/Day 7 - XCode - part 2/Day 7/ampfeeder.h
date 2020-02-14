@@ -24,6 +24,7 @@ typedef struct intcodes {
 
 
 
+
 #endif /* ampfeeder_h */
 
 int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize);

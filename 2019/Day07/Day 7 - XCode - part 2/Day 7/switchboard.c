@@ -5,6 +5,17 @@
 #include "opcodes.h"
 #include "inputparser.h"
 
+typedef int OpCode;
+const OpCode ADD = 1;
+const OpCode MULTIPLY = 2;
+const OpCode INPUT = 3;
+const OpCode OUTPUT = 4;
+const OpCode JUMP_IF_TRUE = 5;
+const OpCode JUMP_IF_FALSE = 6;
+const OpCode LESS_THAN = 7;
+const OpCode EQUALS = 8;
+const OpCode END = 99;
+
 int parameterMode(intcodes tmpStruct)
 {
 
@@ -14,7 +25,7 @@ int parameterMode(intcodes tmpStruct)
     int opcode3Input = 0;
 
     
-    if (intCodes[pos] == 3) {
+    if (intCodes[pos] == INPUT) {
         opcode3Input = inputValue;
     }
     
@@ -35,7 +46,7 @@ int parameterMode(intcodes tmpStruct)
     modeOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));
     pos1 = (modeOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
 
-    if (instruction != 3 && instruction != 4 && instruction != 99)
+    if (instruction != INPUT && instruction != OUTPUT && instruction != END)
     {
 
         int modeTwo = 0;
@@ -46,47 +57,47 @@ int parameterMode(intcodes tmpStruct)
     switch (instruction)
     {
 
-    case 1:
+    case ADD:
     {
         pos3 = intCodes[pos + 3];
         pos = opcode1(pos, pos1, pos2, pos3, intCodes);
         break;
     }
-    case 2:
+    case MULTIPLY:
     {
         pos3 = intCodes[pos + 3];
         pos = opcode2(pos, pos1, pos2, pos3, intCodes);
         break;
     }
-    case 3:
+    case INPUT:
     {
         pos = opcode3(opcode3Input, pos, intCodes);
         break;
     }
-    case 4:
+    case OUTPUT:
     {
         int output;
         output = opcode4(pos, pos1, intCodes);
         return output;
         break;
     }
-    case 5:
+    case JUMP_IF_TRUE:
     {
         pos = opcode5(pos, pos1, pos2, intCodes);
         break;
     }
-    case 6:
+    case JUMP_IF_FALSE:
     {
         pos = opcode6(pos, pos1, pos2, intCodes);
         break;
     }
-    case 7:
+    case LESS_THAN:
     {
         pos3 = intCodes[pos + 3];
         pos = opcode7(pos, pos1, pos2, pos3, intCodes);
         break;
     }
-    case 8:
+    case EQUALS:
     {
         pos3 = intCodes[pos + 3];
         pos = opcode8(pos, pos1, pos2, pos3, intCodes);

@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "84986DD9-CBA5-4319-9E6F-D79ADD80968C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Day 7/ampfeeder.c"
@@ -24,14 +24,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "26DD1ED4-3189-4407-AFC1-ECE4BC56E17F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Day 7/ampfeeder.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
             landmarkType = "9">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Day 7/ampfeeder.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
             landmarkType = "9">
          </BreakpointContent>
@@ -55,15 +55,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DDE58C35-7CC8-4D9C-8C41-BA2C90D1E140"
-            shouldBeEnabled = "Yes"
+            uuid = "E0E0E3E4-2DBD-4768-8D78-FDC742B2261D"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Day 7/ampfeeder.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
             landmarkType = "9">
          </BreakpointContent>

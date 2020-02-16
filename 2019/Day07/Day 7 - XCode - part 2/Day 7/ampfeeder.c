@@ -25,22 +25,23 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
         memcpy(ampIntcodes[array[i]], intCodes,sizeof(int)*iCodesSize);
     }
     
+    
+    
     //loop through amplifier array
     for (int i = 0; i < sizeOfArray;i++) { //loop through amplifiers
-        
+        int breakout = 0;
         int currentAmp = array[i];
         
         tmpInputs.inputSignal = currentAmp;
         tmpInputs.thrustSignal = totalThrust;
         
-        
+        intcodes tmpStruct;
+        tmpStruct.intCodes=ampIntcodes[currentAmp];
         
         int inputStep = 0;
         
         //Send each amplifier to the computer
         for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
-            intcodes tmpStruct;
-            tmpStruct.intCodes=ampIntcodes[currentAmp];
             tmpStruct.pos = j;
             if (intCodes[j] == 3) {
                 if (inputStep == 0) {
@@ -53,6 +54,9 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
                 tmpStruct.inputValue = -1;
                 totalThrust = parameterMode(tmpStruct);
                 break;
+            } else if (intCodes[j] == 99) {
+                breakout = 1;
+                break;
             }
             else {
                 tmpStruct.inputValue = -1;
@@ -62,9 +66,15 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
             
         }
         
+        if (breakout == 1) {
+            break;
+        }
+        
         if (i == 4) {
             i = -1;
         }
+        
+        
     }
     return totalThrust;
 }

@@ -18,19 +18,21 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
     int totalThrust = 0;
     int inputCounter = 0;
     inputs tmpInputs;
-    int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
+//    int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
+    struct s_arrs ampIntcodes[sizeOfArray*2];
     
     //create the arrays of intcodes
     for (int i = 0; i < sizeOfArray;i++) {
-        ampIntcodes[array[i]] = malloc(sizeof(int) * iCodesSize);
-        memcpy(ampIntcodes[array[i]], intCodes,sizeof(int)*iCodesSize);
+        ampIntcodes[array[i]].intCodes = malloc(sizeof(int) * iCodesSize);
+        ampIntcodes[array[i]].startPos = 0;
+        memcpy(ampIntcodes[array[i]].intCodes, intCodes,sizeof(int)*iCodesSize);
     }
     
     tmpInputs.inputSignal = array[0];
     tmpInputs.thrustSignal = 0;
     for (int n = 0;n<sizeOfArray;n++) {
         intcodes tmpCodes;
-        tmpCodes.intCodes = ampIntcodes[array[n]];
+        tmpCodes.intCodes = ampIntcodes[array[n]].intCodes;
         tmpCodes.iCodesSize = iCodesSize;
         
         for (int i = 0;i<iCodesSize;i++){

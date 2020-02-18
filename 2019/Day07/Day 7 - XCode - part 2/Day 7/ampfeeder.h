@@ -11,6 +11,11 @@
 
 #include <stdio.h>
 
+typedef struct s_arrs {
+    int *intCodes;
+    int startPos;
+} s_arrs;
+
 typedef struct inputs {
     int inputSignal;
     int thrustSignal;

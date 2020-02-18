@@ -7,96 +7,128 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FD119A7A-1EBC-48FB-BF88-3F48CE224568"
-            shouldBeEnabled = "Yes"
+            uuid = "DE98FFF4-06EA-4961-A37D-063A53D88BF2"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
+            condition = "i == 7"
             continueAfterRunningActions = "No"
-            filePath = "Day 7/ampfeeder.c"
+            filePath = "Day 7/part1.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "main()"
+            landmarkType = "9">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent>
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB23195F-4FF8-4AB3-95D6-B2A6E8CD328E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Day 7/part1.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "main()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E2B6A24B-70B0-4FC8-9F5B-2063AB550D5E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Day 7/ampfeeder.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "02C37F6C-C044-4CEF-9A8D-1270DC28C0C3"
+            uuid = "B824D281-9AD6-4F73-B1A4-85A3FFD24BD1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Day 7/ampfeeder.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
             landmarkType = "9">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "par 5 array">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A1126D0C-EC1A-4DB2-A9ED-C7BCDA9BF454"
+            uuid = "44420EDE-D97E-4376-A6B4-8844B00D4BD6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Day 7/switchboard.c"
+            filePath = "Day 7/combinator.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "parameterMode(tmpStruct)"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "permutator(arr, length, comboCount)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "81B031E8-9A4E-4A88-BAD3-E1B9C88716FC"
-            shouldBeEnabled = "Yes"
+            uuid = "3FABB653-86DA-417A-B269-3C00E00C153E"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Day 7/switchboard.c"
+            filePath = "Day 7/combinator.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "parameterMode(tmpStruct)"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "permutator(arr, length, comboCount)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6470CE71-1C4C-4392-9631-643C3141D299"
-            shouldBeEnabled = "Yes"
+            uuid = "36E8414E-354C-4F11-B374-EC26BE965544"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Day 7/ampfeeder.c"
+            filePath = "Day 7/getmax.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "processArray(array, sizeOfArray, intCodes, iCodesSize)"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "getMax(thrustArray, sizeOfArray)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E9D73572-86AD-4576-9338-C41EAC4026CB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Day 7/getmax.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "getMax(thrustArray, sizeOfArray)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

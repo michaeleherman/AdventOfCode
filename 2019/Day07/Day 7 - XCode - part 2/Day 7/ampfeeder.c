@@ -16,6 +16,7 @@
 int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
     
     int totalThrust = 0;
+    int inputCounter = 0;
     inputs tmpInputs;
     int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
     
@@ -25,56 +26,46 @@ int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
         memcpy(ampIntcodes[array[i]], intCodes,sizeof(int)*iCodesSize);
     }
     
-    
-    
-    //loop through amplifier array
-    for (int i = 0; i < sizeOfArray;i++) { //loop through amplifiers
-        int breakout = 0;
-        int currentAmp = array[i];
+    tmpInputs.inputSignal = array[0];
+    tmpInputs.thrustSignal = 0;
+    for (int n = 0;n<sizeOfArray;n++) {
+        intcodes tmpCodes;
+        tmpCodes.intCodes = ampIntcodes[array[n]];
+        tmpCodes.iCodesSize = iCodesSize;
         
-        tmpInputs.inputSignal = currentAmp;
-        tmpInputs.thrustSignal = totalThrust;
-        
-        intcodes tmpStruct;
-        tmpStruct.intCodes=ampIntcodes[currentAmp];
-        
-        int inputStep = 0;
-        
-        //Send each amplifier to the computer
-        for (int j = 0; j < iCodesSize; j++) { // loop through Intcodes
-            tmpStruct.pos = j;
-            if (intCodes[j] == 3) {
-                if (inputStep == 0) {
-                    tmpStruct.inputValue = tmpInputs.inputSignal;
-                    inputStep++;
-                } else {
-                    tmpStruct.inputValue = tmpInputs.thrustSignal;
+        for (int i = 0;i<iCodesSize;i++){
+            
+            tmpCodes.pos = i;
+            
+            if (intCodes[i] == 3 && inputCounter < 2) {
+                if (inputCounter == 0) {
+                    tmpCodes.inputValue = tmpInputs.inputSignal;
+                    inputCounter++;
+                } else if (inputCounter == 1) {
+                    tmpCodes.inputValue = tmpInputs.thrustSignal;
+                    inputCounter++;
                 }
-            } else if (intCodes[j] == 4) {
-                tmpStruct.inputValue = -1;
-                totalThrust = parameterMode(tmpStruct);
-                break;
-            } else if (intCodes[j] == 99) {
-                breakout = 1;
-                break;
-            }
-            else {
-                tmpStruct.inputValue = -1;
             }
             
-            j = parameterMode(tmpStruct)-1;
+            if (intCodes[i] == 4) {
+                totalThrust = parameterMode(tmpCodes);
+                i++;
+                tmpInputs.thrustSignal = totalThrust;
+                inputCounter--;
+                break;
+            }
             
+            if (intCodes[i] == 99) {
+                return totalThrust;
+            }
+            
+            i = parameterMode(tmpCodes)-1;
         }
-        
-        if (breakout == 1) {
-            break;
-        }
-        
-        if (i == 4) {
-            i = -1;
-        }
-        
-        
     }
-    return totalThrust;
+    
+    
+    
+    
+    
+    return 0;
 }

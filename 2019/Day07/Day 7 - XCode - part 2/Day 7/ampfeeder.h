@@ -20,6 +20,7 @@ typedef struct intcodes {
     int pos;
     int *intCodes;
     int inputValue;
+    int iCodesSize;
 } intcodes;
 
 

@@ -16,12 +16,10 @@ const OpCode LESS_THAN = 7;
 const OpCode EQUALS = 8;
 const OpCode END = 99;
 
-int parameterMode(intcodes tmpStruct)
+int parameterMode(int i, int *intCodes, int inputValue, int iCodesSize)
 {
 
-    int *intCodes = tmpStruct.intCodes;
-    int pos = tmpStruct.pos;
-    int inputValue = tmpStruct.inputValue;
+    int pos = i;
     int opcode3Input = 0;
 
     

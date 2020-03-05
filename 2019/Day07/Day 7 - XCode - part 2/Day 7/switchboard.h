@@ -6,4 +6,4 @@
 
 #endif
 
-int parameterMode(intcodes tmpStruct);
+int parameterMode(int i, int *intCodes, int inputValue, int iCodesSize);

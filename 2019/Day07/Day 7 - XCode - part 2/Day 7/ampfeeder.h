@@ -14,6 +14,7 @@
 typedef struct s_arrs {
     int *intCodes;
     int startPos;
+    int ranOnce;
 } s_arrs;
 
 typedef struct inputs {

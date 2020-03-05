@@ -15,53 +15,73 @@
 
 int processArray(int *array, int sizeOfArray, int *intCodes, int iCodesSize){
     
-    int totalThrust = 0;
+//    array[0] = 9;
+//    array[1] = 8;
+//    array[2] = 7;
+//    array[3] = 6;
+//    array[4] = 5;
+    int thrust = 0;
     int inputCounter = 0;
-    inputs tmpInputs;
-//    int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
+    int thrustSignal = 0;
+    int counter = 0;
+    //    inputs tmpInputs;
+    //    int *ampIntcodes[sizeOfArray*2];//to store the intcodes for each amplifiier use the amplifier number as the index
     struct s_arrs ampIntcodes[sizeOfArray*2];
     
     //create the arrays of intcodes
     for (int i = 0; i < sizeOfArray;i++) {
         ampIntcodes[array[i]].intCodes = malloc(sizeof(int) * iCodesSize);
         ampIntcodes[array[i]].startPos = 0;
+        ampIntcodes[array[i]].ranOnce = 0;
         memcpy(ampIntcodes[array[i]].intCodes, intCodes,sizeof(int)*iCodesSize);
     }
     
-    tmpInputs.inputSignal = array[0];
-    tmpInputs.thrustSignal = 0;
-    for (int n = 0;n<sizeOfArray;n++) {
-        intcodes tmpCodes;
-        tmpCodes.intCodes = ampIntcodes[array[n]].intCodes;
-        tmpCodes.iCodesSize = iCodesSize;
+    
+    //    tmpInputs.thrustSignal = 0;
+    
+    int inputValue = 0;
+    int n = 0;
+    
+    while ( n < 6 ) {
+         
+        int *ranOnce = &ampIntcodes[array[n]].ranOnce;
+        //        tmpCodes.intCodes = ampIntcodes[array[n]].intCodes;
+        //        tmpCodes.iCodesSize = iCodesSize;
+        int *intCodes = ampIntcodes[array[n]].intCodes;
+        int *i = &ampIntcodes[array[n]].startPos;
         
-        for (int i = 0;i<iCodesSize;i++){
+        if (*ranOnce == 0) {
+            inputCounter = 0;
+        }
+        
+        while (intCodes[*i] != 100){
             
-            tmpCodes.pos = i;
-            
-            if (intCodes[i] == 3 && inputCounter < 2) {
-                if (inputCounter == 0) {
-                    tmpCodes.inputValue = tmpInputs.inputSignal;
+            if (intCodes[*i] == 3) {
+                if (inputCounter == 0 && *ranOnce == 0) {
+                    inputValue = array[n];
                     inputCounter++;
-                } else if (inputCounter == 1) {
-                    tmpCodes.inputValue = tmpInputs.thrustSignal;
-                    inputCounter++;
+                    *ranOnce += 1;
+                } else {
+                    inputValue = thrustSignal;
                 }
             }
             
-            if (intCodes[i] == 4) {
-                totalThrust = parameterMode(tmpCodes);
-                i++;
-                tmpInputs.thrustSignal = totalThrust;
-                inputCounter--;
+            if (intCodes[*i] == 4) {
+                thrust = parameterMode(*i, intCodes, inputValue, iCodesSize );
+                *i += 2;
+                thrustSignal = thrust;
+                ampIntcodes[array[n]].startPos = *i;
+                n = (n + 1) % sizeOfArray;
+                counter++;
                 break;
+                
             }
             
-            if (intCodes[i] == 99) {
-                return totalThrust;
+            if (intCodes[*i] == 99) {
+                return thrustSignal;
             }
             
-            i = parameterMode(tmpCodes)-1;
+            *i = parameterMode(*i, intCodes, inputValue, iCodesSize);
         }
     }
     

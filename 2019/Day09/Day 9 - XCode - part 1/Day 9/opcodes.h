@@ -1,4 +1,17 @@
+#ifndef opcodes_h
 
+#define opcodes_h
+
+typedef struct obj {
+    int *intCodes;
+    int intCodesSize;
+    int pos;
+    int base;
+    
+} obj;
+
+
+#endif
 
 void printStuff(const char source[14], int pos, int instruction, int val1, int val2, int val3);
 

@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "switchboard.h"
 #include "opcodes.h"
-#include "inputparser.h"
+#include "switchboard.h"
 
 typedef int OpCode;
 const OpCode ADD = 1;
@@ -17,98 +16,147 @@ const OpCode EQUALS = 8;
 const OpCode REBASE = 9;
 const OpCode END = 99;
 
-int parameterMode(int i, int *intCodes, int inputValue, int iCodesSize)
+typedef int Mode;
+const Mode NA = -1;
+const Mode POSITION = 0;
+const Mode IMMEDIATE = 1;
+const Mode RELATIVE = 2;
+
+struct intCodes parameterMode( intCodes dict )
 {
+    long *pos = &dict.pos;
+    long *base = &dict.base;
+    long val1 = 0;
+    long val2 = 0;
+    long storePosition = 0;
+    long readPosition = 0;
     
-    int pos = i;
-    int opcode3Input = 0;
+    
+    //get the mode and opcode
+    long instruction = dict.intCodes[*pos];
+    long opCode = instruction % 100;
+    //first instruction is in the hundreds place
+    long firstInstruction = (instruction >= 100) ? (instruction/100) % 10: 0;
+    //second instruction is in the thousands place, if it exists
+    long secondInstruction = (instruction >= 1000) ? instruction/1000 : -1;
     
     
-    if (intCodes[pos] == INPUT) {
-        opcode3Input = inputValue;
+    if (opCode == INPUT){
+        storePosition = dict.intCodes[*pos + 1];
+    }
+    else if ( opCode == OUTPUT && firstInstruction == IMMEDIATE) {
+        readPosition = *pos + 1;
+    }
+        else if ( opCode == OUTPUT && firstInstruction != IMMEDIATE) {
+            readPosition = dict.intCodes[*pos + 1];
+        }
+     else if ( opCode == REBASE ) {
+        storePosition = 0;
+    } else {
+        storePosition = dict.intCodes[*pos + 3];
     }
     
-    // printf("In function %s\n", __FUNCTION__);
-    int currOpcode = intCodes[pos];
-    char opCodeString[5] = {'\0'};
-    
-    sprintf(opCodeString, "%04d", currOpcode);
-    
-    // char *opCodeString = itoa(currOpcode);
-    int instruction = currOpcode % 100;
-    
-    char charOne[2];
-    char charTwo[2];
-    int pos1=0, pos2 = 0, pos3 = 0;
-    
-    int modeOne = 0;
-    modeOne = atoi(strncpy(charOne, &opCodeString[1], sizeof(char)));
-    pos1 = (modeOne == 0) ? (intCodes[intCodes[pos + 1]]) : (intCodes[pos + 1]);
-    
-    if (instruction != INPUT && instruction != OUTPUT && instruction != END)
-    {
-        
-        int modeTwo = 0;
-        modeTwo = atoi(strncpy(charTwo, &opCodeString[0], sizeof(char)));
-        pos2 = (modeTwo == 0) ? (intCodes[intCodes[pos + 2]]) : (intCodes[pos + 2]);
+    if (storePosition > dict.sizeOfIntcodes) {
+        dict.intCodes = realloc(dict.intCodes, sizeof(long) * (storePosition + 1));
+        for (long i = dict.sizeOfIntcodes;i<storePosition;i++) {
+            dict.intCodes[i] = 0;
+        }
+        dict.sizeOfIntcodes = storePosition;
     }
     
-    switch (instruction)
-    {
-            
+    if ( firstInstruction == IMMEDIATE ) {
+        val1 = dict.intCodes[*pos + 1];
+    } else if ( firstInstruction == RELATIVE ) {
+        readPosition = dict.intCodes[*pos + 1] + *base;
+    } else {
+        val1 = dict.intCodes[dict.intCodes[*pos +1]];
+    }
+    
+    if ( secondInstruction == IMMEDIATE ) {
+        val2 = dict.intCodes[*pos + 2];
+    } else if ( secondInstruction == RELATIVE ) {
+        val2 = dict.intCodes[dict.intCodes[*pos +2]] + *base;
+    }
+    else if ( secondInstruction != NA ){
+        val2 = dict.intCodes[dict.intCodes[*pos + 2]];
+    }
+    
+    switch (opCode) {
         case ADD:
         {
-            pos3 = intCodes[pos + 3];
-            pos = opcode1(pos, pos1, pos2, pos3, intCodes);
+            dict.intCodes[storePosition] = val1 + val2;
+            *pos = *pos + 4;
             break;
         }
         case MULTIPLY:
-        {
-            pos3 = intCodes[pos + 3];
-            pos = opcode2(pos, pos1, pos2, pos3, intCodes);
+            dict.intCodes[storePosition] = val1 * val2;
+            *pos = *pos + 4;
             break;
+        {
+            
         }
         case INPUT:
         {
-            pos = opcode3(opcode3Input, pos, intCodes);
+            dict.intCodes[*pos + *base] = 1;
             break;
+            
         }
         case OUTPUT:
         {
-            int output;
-            output = opcode4(pos, pos1, intCodes);
-            return output;
+            printf("%li ", dict.intCodes[readPosition]);
+            *pos = *pos + 2;
             break;
         }
         case JUMP_IF_TRUE:
         {
-            pos = opcode5(pos, pos1, pos2, intCodes);
+            *pos = (val1 != 0) ? dict.intCodes[dict.intCodes[*pos + 1]] : *pos+3;
             break;
+            
         }
         case JUMP_IF_FALSE:
         {
-            pos = opcode6(pos, pos1, pos2, intCodes);
+            *pos = (val1 == 0) ? dict.intCodes[dict.intCodes[*pos + 2]] : *pos+3;
             break;
+            
         }
         case LESS_THAN:
         {
-            pos3 = intCodes[pos + 3];
-            pos = opcode7(pos, pos1, pos2, pos3, intCodes);
+            dict.intCodes[storePosition] = (val1 < val2 ) ? 1 : 0;
+            *pos = *pos + 4;
             break;
+            
         }
         case EQUALS:
         {
-            pos3 = intCodes[pos + 3];
-            pos = opcode8(pos, pos1, pos2, pos3, intCodes);
+            dict.intCodes[storePosition] = (val1 == val2 ) ? 1 : 0;
+            *pos = *pos + 4;
             break;
         }
         case REBASE:
         {
-            int base = intCodes[pos + 1];
-            return base;
+            *base = *base + dict.intCodes[readPosition];
+            *pos = *pos + 2;
+            break;
+            
         }
+        case END:
+        {
+            printf("Hit the end. Exiting...\n");
+            exit(0);
+        }
+            
+        default:
+            break;
     }
     
     
-    return pos;
+    
+    
+    
+    
+    
+    
+    //execute and then return next position
+    
+    return dict;
 }

@@ -17,7 +17,7 @@ int opcode1(int pos, int pos1, int pos2, int pos3, int *intCodes)
 {
     // printf("In function %s\n", __FUNCTION__);
 
-    intCodes[pos3] = pos1 + pos2;
+    intCodes[pos + 3] = pos1 + pos2;
 
     return pos + 4;
 }
@@ -95,3 +95,4 @@ int opcode8(int pos, int pos1, int pos2, int pos3, int *intCodes)
     intCodes[pos3] = (pos1 == pos2) ? 1 : 0;
     return pos + 4;
 }
+

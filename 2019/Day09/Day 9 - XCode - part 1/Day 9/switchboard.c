@@ -26,10 +26,9 @@ struct intCodes parameterMode( intCodes dict )
 {
     long *pos = &dict.pos;
     long *base = &dict.base;
-    long val1 = 0;
-    long val2 = 0;
-    long storePosition = 0;
-    long readPosition = 0;
+    long opcodePosition = 0;
+    long firstPosition = 0;
+    long secondPosition = 0;
     
     
     //get the mode and opcode
@@ -40,56 +39,51 @@ struct intCodes parameterMode( intCodes dict )
     //second instruction is in the thousands place, if it exists
     long secondInstruction = (instruction >= 1000) ? instruction/1000 : -1;
     
+    if (opCode == ADD || opCode == MULTIPLY || opCode == LESS_THAN || opCode == EQUALS) {
+        opcodePosition = dict.intCodes[*pos + 3];
+    }
     
-    if (opCode == INPUT){
-        storePosition = dict.intCodes[*pos + 1];
+    if ( firstInstruction == IMMEDIATE) {
+        firstPosition = *pos + 1;
     }
-    else if ( opCode == OUTPUT && firstInstruction == IMMEDIATE) {
-        readPosition = *pos + 1;
+    else if ( firstInstruction == RELATIVE) {
+        firstPosition = dict.intCodes[*pos + 1] + *base;
     }
-        else if ( opCode == OUTPUT && firstInstruction != IMMEDIATE) {
-            readPosition = dict.intCodes[*pos + 1];
+    else {
+        firstPosition = dict.intCodes[*pos + 1];
+    }
+    
+    if ( secondInstruction != -1 ) {
+        if ( secondInstruction == IMMEDIATE) {
+            secondPosition = *pos + 2;
         }
-     else if ( opCode == REBASE ) {
-        storePosition = 0;
-    } else {
-        storePosition = dict.intCodes[*pos + 3];
+        else if ( secondInstruction == RELATIVE) {
+            secondPosition = dict.intCodes[*pos + 2] + *base;
+        }
+        else {
+            secondPosition = dict.intCodes[*pos + 2];
+        }
+        
     }
     
-    if (storePosition > dict.sizeOfIntcodes) {
-        dict.intCodes = realloc(dict.intCodes, sizeof(long) * (storePosition + 1));
-        for (long i = dict.sizeOfIntcodes;i<storePosition;i++) {
+    
+    if ((opCode == ADD || opCode == MULTIPLY || opCode == INPUT) && opcodePosition > dict.sizeOfIntcodes) {
+        dict.intCodes = realloc(dict.intCodes, sizeof(long) * (opcodePosition + 1));
+        for (long i = dict.sizeOfIntcodes;i<opcodePosition;i++) {
             dict.intCodes[i] = 0;
         }
-        dict.sizeOfIntcodes = storePosition;
-    }
-    
-    if ( firstInstruction == IMMEDIATE ) {
-        val1 = dict.intCodes[*pos + 1];
-    } else if ( firstInstruction == RELATIVE ) {
-        readPosition = dict.intCodes[*pos + 1] + *base;
-    } else {
-        val1 = dict.intCodes[dict.intCodes[*pos +1]];
-    }
-    
-    if ( secondInstruction == IMMEDIATE ) {
-        val2 = dict.intCodes[*pos + 2];
-    } else if ( secondInstruction == RELATIVE ) {
-        val2 = dict.intCodes[dict.intCodes[*pos +2]] + *base;
-    }
-    else if ( secondInstruction != NA ){
-        val2 = dict.intCodes[dict.intCodes[*pos + 2]];
+        dict.sizeOfIntcodes = opcodePosition + 1;
     }
     
     switch (opCode) {
         case ADD:
         {
-            dict.intCodes[storePosition] = val1 + val2;
+            dict.intCodes[opcodePosition] = dict.intCodes[firstPosition] + dict.intCodes[secondPosition];
             *pos = *pos + 4;
             break;
         }
         case MULTIPLY:
-            dict.intCodes[storePosition] = val1 * val2;
+            dict.intCodes[opcodePosition] = dict.intCodes[firstPosition] * dict.intCodes[secondPosition];
             *pos = *pos + 4;
             break;
         {
@@ -97,44 +91,45 @@ struct intCodes parameterMode( intCodes dict )
         }
         case INPUT:
         {
-            dict.intCodes[*pos + *base] = 1;
+            dict.intCodes[firstPosition] = 1;
+            *pos = *pos + 2;
             break;
             
         }
         case OUTPUT:
         {
-            printf("%li ", dict.intCodes[readPosition]);
+            printf("%li ", dict.intCodes[opcodePosition]);
             *pos = *pos + 2;
             break;
         }
         case JUMP_IF_TRUE:
         {
-            *pos = (val1 != 0) ? dict.intCodes[dict.intCodes[*pos + 1]] : *pos+3;
+            *pos = (dict.intCodes[firstPosition] != 0) ? dict.intCodes[secondPosition] : *pos+3;
             break;
             
         }
         case JUMP_IF_FALSE:
         {
-            *pos = (val1 == 0) ? dict.intCodes[dict.intCodes[*pos + 2]] : *pos+3;
+            *pos = (dict.intCodes[firstPosition == 0]) ? dict.intCodes[secondPosition] : *pos+3;
             break;
             
         }
         case LESS_THAN:
         {
-            dict.intCodes[storePosition] = (val1 < val2 ) ? 1 : 0;
+            dict.intCodes[opcodePosition] = (dict.intCodes[firstPosition] < dict.intCodes[secondPosition] ) ? 1 : 0;
             *pos = *pos + 4;
             break;
             
         }
         case EQUALS:
         {
-            dict.intCodes[storePosition] = (val1 == val2 ) ? 1 : 0;
+            dict.intCodes[opcodePosition] = (dict.intCodes[firstPosition] == dict.intCodes[secondPosition] ) ? 1 : 0;
             *pos = *pos + 4;
             break;
         }
         case REBASE:
         {
-            *base = *base + dict.intCodes[readPosition];
+            *base = dict.intCodes[firstPosition] + *base;
             *pos = *pos + 2;
             break;
             

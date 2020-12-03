@@ -24,16 +24,17 @@ int main(void){
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
         ret = sscanf(chunk,"%d-%d %c%*c %s", &min, &max,&letter,password);
-        printf("%d %d %c %s\n",min,max, letter, password);
-        int counter = 0;
-        for (int i = 0; i<strlen(password);i++) {
-            if (password[i] == letter) {
-                counter++;
-            }
-        }
-
-        if (counter <= max && counter >= min) {
+ 
+      
+        if (password[min-1] == letter && password[max-1] != letter) {
+           valid++;
+            printf("Valid: %d %d %c %s\n", min, max, letter, password);
+            
+        } else if (password[min-1] != letter && password[max-1] == letter) {
             valid++;
+             printf("Valid: %d %d %c %s\n", min, max, letter, password);
+        } else {
+             printf("Invalid: %d %d %c %s\n", min, max, letter, password);
         }
 
 

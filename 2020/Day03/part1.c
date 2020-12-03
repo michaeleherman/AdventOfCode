@@ -17,11 +17,13 @@ int main(void){
     int counter = 0;
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
-        long rowLen = strlen(chunk);
-        forest[counter] = malloc(sizeof(int));
+        int rowLen = strlen(chunk);
+        if (strcmp(&chunk[rowLen],"\n")) {
+            rowLen = rowLen -1;
+        }
+        forest[counter] = malloc(sizeof(int)*rowLen);
 
         for (int i = 0; i<rowLen;i++) {
-
             if (strcmp(&chunk[i],".")) {
                 forest[counter][i] = 0;
             } else {
@@ -30,7 +32,7 @@ int main(void){
         }
 
         counter++;
-        forest = realloc(*forest, sizeof(int*) * counter+2 );
+        forest = realloc(forest, sizeof(int*) * counter+2 );
 
 
     }

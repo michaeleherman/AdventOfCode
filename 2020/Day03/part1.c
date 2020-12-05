@@ -12,7 +12,7 @@ int main(void){
         return(-1);
     }
 
-    int **forest = malloc(sizeof(int*));
+    char **forest = malloc(sizeof(char*));
     char chunk[256];
     int counter = 0;
     
@@ -20,15 +20,16 @@ int main(void){
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
         int rowLen = strlen(chunk);
         chunk[rowLen -1] = '\0';
-        forest[counter] = malloc(sizeof(int)*rowLen);
+        forest[counter] = malloc(rowLen-2 * sizeof(int));
         char item;
 
         // printf("first character is %s\n",&chunk[0]);
         // printf("strcmp test is %d\n",strcmp(&chunk[0],"."));
 
-        for (int i = 0; i<rowLen;i++) {
+        for (int i = 0; i<rowLen-2;i++) {
             item = chunk[i];
-            if (strcmp(&item,".") == 0) {
+            // printf("length of item %lu",strlen(&item));
+            if (strcmp(&item,". ") == 0) {
                 forest[counter][i] = 0;
             } else {
                 forest[counter][i] = 1;

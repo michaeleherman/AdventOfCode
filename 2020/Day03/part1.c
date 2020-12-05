@@ -12,42 +12,48 @@ int main(void){
         return(-1);
     }
 
-    char **forest = malloc(sizeof(char*));
     char chunk[256];
     int counter = 0;
+    int position = 0;
+    int opens = 0;
+    int trees = 0;
     
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
+        if (counter == 0) {
+            position = position + 3;
+            counter++;
+            continue;
+        }
+
         int rowLen = strlen(chunk);
-        chunk[rowLen -1] = '\0';
-        forest[counter] = malloc(rowLen-2 * sizeof(int));
-        char item;
-
-        // printf("first character is %s\n",&chunk[0]);
-        // printf("strcmp test is %d\n",strcmp(&chunk[0],"."));
-
-        for (int i = 0; i<rowLen-2;i++) {
-            item = chunk[i];
-            // printf("length of item %lu",strlen(&item));
-            if (strcmp(&item,". ") == 0) {
-                forest[counter][i] = 0;
-            } else {
-                forest[counter][i] = 1;
-            }
+        chunk[rowLen-1] = '\0';
+        printf("%d - row: %d position: %d - %c\n",rowLen, counter, position, chunk[position]);
+        if ( chunk[position] == '.') {
+            opens++;
+        } else {
+            trees++;
         }
 
-        counter++;
-        forest = realloc(forest, sizeof(int*) * counter+2 );
+        //29 wraps to 1
+        //28 wraps to 0
+        //30 wraps to 2
+        //31 wraps to 3
 
+        if (position >= rowLen -4) {
+            position = position - rowLen + 4;
+            counter++;
+        } else {
+            position = position + 3;
+            counter++;
+        }
+        
 
     }
 
-    for (int i = 0;i<counter;i++) {
-        for (int j = 0;j<32;j++) {
-            printf("%d", forest[i][j]);
-        }
-        printf("\n");
-    }
+    printf("Trees: %d Open %d\n",trees, opens);
+
+       
     return 0;
 
 }

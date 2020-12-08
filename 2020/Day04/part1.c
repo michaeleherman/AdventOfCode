@@ -5,8 +5,8 @@
 #include <time.h>
 
 int charCount(char *chunk);
-char *getField(char *chunk);
-
+void getField(char *chunk,char *passport[8],int fieldCount);
+void searchArray(char *passport[8],int *valid, int fieldCount, int *recordCount) ;
 
 int main(void){
 
@@ -16,18 +16,34 @@ int main(void){
         return(-1);
     }
 
-    char *codes[8]= {
-        "byr","iyr","eyr","hgt","hcl","ecl","pid","cid"
-    };
+    // char *codes[8]= {
+    //     "byr","iyr","eyr","hgt","hcl","ecl","pid","cid"
+    // };
 
     char chunk[256];
-    int fieldCounter = 0;
+    int valid = 0;
+    int fieldCount = 0;
+    char *currentPassport[8];
+    memset(&currentPassport[0], 0, sizeof(currentPassport));
+    int recordCount = 0;
 
-    while (fgets(chunk, sizeof(chunk), fp) != NULL){    
-            char *currentPassport = malloc(sizeof(char) * 3);
+    while (fgets(chunk, sizeof(chunk), fp) != NULL){
+            printf("%s",chunk);
             if (chunk[0] == '\n') {
-                fieldCounter = 0;
-                printf("Empty line\n\n");
+                recordCount++;
+                if (fieldCount == 7) {
+                    searchArray(currentPassport, &valid, fieldCount, &recordCount);
+                } else if (fieldCount == 8) {
+                    valid++;
+                    printf("Record %d is valid\n\n",recordCount);
+                    recordCount++;
+                } else {
+                    printf ("Record %d is invalid\n\n",recordCount);
+                }
+                
+                fieldCount = 0;
+                memset(&currentPassport[0], 0, sizeof(currentPassport));
+                fieldCount = 0;
             } else
             {
                 // int characterCount = charCount(chunk);
@@ -36,19 +52,16 @@ int main(void){
                 char *token = strtok_r(chunk, " ",&savePtr);
 
                 while ( token != NULL) {
-                    char *field = getField(token);  
-                    strcpy(currentPassport[fieldCounter], field);
+                    getField(token, currentPassport,fieldCount);
                     // currentPassport[fieldCounter] = field;
-                    fieldCounter++; 
-                    printf("chunk token %s",token);
+                    fieldCount++;
                     token = strtok_r(NULL, " ",&savePtr);
                 }
             }
-            currentPassport = realloc(currentPassport,sizeof(char) * (3 + fieldCounter +2));
             
         }
 
-   
+    printf("Valid passports: %d\n", valid);
        
     return 0;
 
@@ -67,8 +80,24 @@ int charCount(char *chunk) {
 
 }
 
-char *getField(char *field) {
+void getField(char *field, char *passport[8], int fieldCount) {
     char *localSave;
     char *fieldToken = strtok_r(field,":",&localSave);
-    return fieldToken;
+    // memcpy(&passport[fieldCount],fieldToken,strlen(fieldToken));
+    passport[fieldCount] = strdup(fieldToken);
+//    strcpy(passport[fieldCount],fieldToken);
+
+    // passport[fieldCount] = *fieldToken;
+
+}
+
+void searchArray(char *passport[8],int *valid, int fieldCount, int *recordCount) {
+    for (int i = 0; i<fieldCount;i++) {
+        if (strcmp(passport[i],"cid") == 0) {
+            return;
+        }
+    }
+    printf("Record %d is valid\n\n",*recordCount);
+    (*valid)++;
+    (*recordCount)++;
 }

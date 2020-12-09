@@ -36,7 +36,6 @@ int main(void){
                 } else if (fieldCount == 8) {
                     valid++;
                     printf("Record %d is valid\n\n",recordCount);
-                    recordCount++;
                 } else {
                     printf ("Record %d is invalid\n\n",recordCount);
                 }
@@ -94,10 +93,10 @@ void getField(char *field, char *passport[8], int fieldCount) {
 void searchArray(char *passport[8],int *valid, int fieldCount, int *recordCount) {
     for (int i = 0; i<fieldCount;i++) {
         if (strcmp(passport[i],"cid") == 0) {
+            printf("Record %d is invalid\n\n",*recordCount);
             return;
         }
     }
     printf("Record %d is valid\n\n",*recordCount);
     (*valid)++;
-    (*recordCount)++;
 }

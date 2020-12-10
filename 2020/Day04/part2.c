@@ -3,12 +3,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include "valuecheck.h"
 
-int charCount(char *chunk);
-void getField(char *chunk,char *passport[8],int fieldCount);
-void searchArray(char *passport[8],int *valid, int fieldCount, int *recordCount) ;
 
-struct passports {
+struct passport {
     int fieldCount;
     char *byr;
     char *iyr;
@@ -19,6 +17,11 @@ struct passports {
     char *pid;
     char *cid;
 } passport;
+
+
+
+void getField(char *chunk,struct passport *currentPassport,int fieldCount);
+char searchArray(struct passport *currentPassport,int *valid, int fieldCount, int *recordCount) ;
 
 
 int main(void){
@@ -36,25 +39,28 @@ int main(void){
     char chunk[256];
     int valid = 0;
     int fieldCount = 0;
-    char *currentPassport[8];
-    memset(&currentPassport[0], 0, sizeof(currentPassport));
+    struct passport currentPassport;
+    // memset(&currentPassport[0], 0, sizeof(currentPassport));
     int recordCount = 0;
+    char complete;
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL){
             printf("%s",chunk);
             if (chunk[0] == '\n') {
                 recordCount++;
                 if (fieldCount == 7) {
-                    searchArray(currentPassport, &valid, fieldCount, &recordCount);
+                     complete = searchArray(&currentPassport, &valid, fieldCount, &recordCount);
+                    // if ( complete == "t") {
+                    //     valid++;
+                    // }
                 } else if (fieldCount == 8) {
-                    valid++;
+                    complete = "t";
+                    // valid++;
                     printf("Record %d is valid\n\n",recordCount);
                 } else {
                     printf ("Record %d is invalid\n\n",recordCount);
                 }
                 
-                fieldCount = 0;
-                memset(&currentPassport[0], 0, sizeof(currentPassport));
                 fieldCount = 0;
             } else
             {
@@ -64,50 +70,63 @@ int main(void){
                 char *token = strtok_r(chunk, " ",&savePtr);
 
                 while ( token != NULL) {
-                    getField(token, currentPassport,fieldCount);
+                    getField(token, &currentPassport,fieldCount);
                     // currentPassport[fieldCounter] = field;
-                    fieldCount++;
+                    currentPassport.fieldCount++;
                     token = strtok_r(NULL, " ",&savePtr);
                 }
             }
             
         }
 
-    printf("Valid passports: %d\n", valid);
-       
-    return 0;
-
-    }
-
-int charCount(char *chunk) {
-    int characterCount = 0;
-    for (int i = 0;i<strlen(chunk);i++) {
-        if (chunk[i] == '\0') {
-            break;
-        }
-        characterCount++;
-    }
-
-    return characterCount;
-
 }
 
-void getField(char *field, char *passport[8], int fieldCount) {
+void getField(char *field, struct passport *currentPassport, int fieldCount) {
     char *localSave;
     char *fieldToken = strtok_r(field,":",&localSave);
-    passport[fieldCount] = strdup(fieldToken);
+    while ( fieldToken != NULL) {
+        char *field = fieldToken;
+        fieldToken = strtok_r(NULL, ":",&localSave);
+        if (strcmp(field,"byr")) {
+            passport.byr = fieldToken;
+        }
+        if (strcmp(field,"iyr")) {
+            passport.iyr = fieldToken;
+        }
+        if (strcmp(field,"eyr")) {
+            passport.eyr = fieldToken;
+        }
+        if (strcmp(field,"hgt")) {
+            passport.hgt = fieldToken;
+        }
+        if (strcmp(field,"hcl")) {
+            passport.hcl = fieldToken;
+        }
+        if (strcmp(field,"ecl")) {
+            passport.ecl = fieldToken;
+        }
+        if (strcmp(field,"pid")) {
+            passport.pid = fieldToken;
+        }
+        if (strcmp(field,"cid")) {
+            passport.cid = fieldToken;
+        }
+
+
+    }
 
 }
 
-void searchArray(char *passport[8],int *valid, int fieldCount, int *recordCount) {
+char searchArray(struct passport *currentPassport,int *valid, int fieldCount, int *recordCount) {
     for (int i = 0; i<fieldCount;i++) {
         if (strcmp(passport[i],"cid") == 0) {
             printf("Record %d is invalid\n\n",*recordCount);
-            return;
+            return "f";
         }
     }
     printf("Record %d is valid\n\n",*recordCount);
-    (*valid)++;
+    return "t";
+    // (*valid)++;
 }
 
 void checkParams(char *param, char *value) {

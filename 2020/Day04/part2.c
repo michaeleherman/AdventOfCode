@@ -18,10 +18,10 @@ struct passport {
     char *cid;
 } passport;
 
+typedef enum { False, True } boolean; 
 
-
-void getField(char *chunk,struct passport *currentPassport,int fieldCount);
-char searchArray(struct passport *currentPassport,int *valid, int fieldCount, int *recordCount) ;
+void getField(char *chunk,struct passport *currentPassport);
+char searchArray(struct passport *currentPassport,int *valid, int *recordCount) ;
 
 
 int main(void){
@@ -38,30 +38,30 @@ int main(void){
 
     char chunk[256];
     int valid = 0;
-    int fieldCount = 0;
-    struct passport currentPassport;
+    struct passport currentPassport = {0};
+
     // memset(&currentPassport[0], 0, sizeof(currentPassport));
     int recordCount = 0;
-    char complete;
+    boolean complete;
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL){
             printf("%s",chunk);
             if (chunk[0] == '\n') {
                 recordCount++;
-                if (fieldCount == 7) {
-                     complete = searchArray(&currentPassport, &valid, fieldCount, &recordCount);
+                if (currentPassport.fieldCount == 7) {
+                    complete = searchArray(&currentPassport, &valid, &recordCount);
                     // if ( complete == "t") {
                     //     valid++;
                     // }
-                } else if (fieldCount == 8) {
-                    complete = "t";
+                } else if (currentPassport.fieldCount == 8) {
+                    complete = True;
                     // valid++;
                     printf("Record %d is valid\n\n",recordCount);
                 } else {
                     printf ("Record %d is invalid\n\n",recordCount);
+                    complete = False;
                 }
-                
-                fieldCount = 0;
+                struct passport currentPassport = {0};
             } else
             {
                 // int characterCount = charCount(chunk);
@@ -70,7 +70,7 @@ int main(void){
                 char *token = strtok_r(chunk, " ",&savePtr);
 
                 while ( token != NULL) {
-                    getField(token, &currentPassport,fieldCount);
+                    getField(token, &currentPassport);
                     // currentPassport[fieldCounter] = field;
                     currentPassport.fieldCount++;
                     token = strtok_r(NULL, " ",&savePtr);
@@ -81,51 +81,57 @@ int main(void){
 
 }
 
-void getField(char *field, struct passport *currentPassport, int fieldCount) {
-    char *localSave;
-    char *fieldToken = strtok_r(field,":",&localSave);
+void getField(char *field, struct passport *currentPassport) {
+    char *fieldValue;
+    char *fieldToken = strtok_r(field,":",&fieldValue);
     while ( fieldToken != NULL) {
-        char *field = fieldToken;
-        fieldToken = strtok_r(NULL, ":",&localSave);
-        if (strcmp(field,"byr")) {
-            passport.byr = fieldToken;
+        char *fieldKey = fieldToken;
+        fieldToken = strtok_r(NULL, ":",&fieldValue);
+        if (strcmp(fieldKey,"byr") == 0) {
+            currentPassport->byr = fieldToken;
+            return;
         }
-        if (strcmp(field,"iyr")) {
-            passport.iyr = fieldToken;
+        if (strcmp(fieldKey,"iyr") == 0) {
+            currentPassport->iyr = fieldToken;
+            return;
         }
-        if (strcmp(field,"eyr")) {
-            passport.eyr = fieldToken;
+        if (strcmp(fieldKey,"eyr") == 0) {
+            currentPassport->eyr = fieldToken;
+            return;
         }
-        if (strcmp(field,"hgt")) {
-            passport.hgt = fieldToken;
+        if (strcmp(fieldKey,"hgt") == 0) {
+            currentPassport->hgt = fieldToken;
+            return;
         }
-        if (strcmp(field,"hcl")) {
-            passport.hcl = fieldToken;
+        if (strcmp(fieldKey,"hcl") == 0) {
+            currentPassport->hcl = fieldToken;
+            return;
         }
-        if (strcmp(field,"ecl")) {
-            passport.ecl = fieldToken;
+        if (strcmp(fieldKey,"ecl") == 0) {
+            currentPassport->ecl = fieldToken;
+            return;
         }
-        if (strcmp(field,"pid")) {
-            passport.pid = fieldToken;
+        if (strcmp(fieldKey,"pid") == 0) {
+            currentPassport->pid = fieldToken;
+            return;
         }
-        if (strcmp(field,"cid")) {
-            passport.cid = fieldToken;
+        if (strcmp(fieldKey,"cid") == 0) {
+            currentPassport->cid = fieldToken;
+            return;
         }
-
-
     }
-
 }
 
-char searchArray(struct passport *currentPassport,int *valid, int fieldCount, int *recordCount) {
-    for (int i = 0; i<fieldCount;i++) {
-        if (strcmp(passport[i],"cid") == 0) {
+char searchArray(struct passport *currentPassport,int *valid, int *recordCount) {
+    for (int i = 0; i<currentPassport->fieldCount;i++) {
+        if (passport.cid == NULL) {
             printf("Record %d is invalid\n\n",*recordCount);
-            return "f";
+            return False;
         }
     }
     printf("Record %d is valid\n\n",*recordCount);
-    return "t";
+
+    return True;
     // (*valid)++;
 }
 

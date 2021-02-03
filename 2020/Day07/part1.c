@@ -1,9 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-char *getLeftBag (char *chunk);
-char *getRightBag (char *chunk);
+
+
+#define myBag "shiny gold" 
+
+void deleteItem (char **array, int *position, int *counter);
+void findBags(char **chunks, int counter, char **bags, int *bagCounter);
 
 
 int main() {
@@ -16,49 +21,44 @@ int main() {
     }
 
     char chunk[512];
-    char delim[5] = "bags"; 
-    char *bag = malloc(sizeof(char));
-    char *leftBag;
-    char *right1;
-    char *right2;
-    int numRight1, numRight2;
+    char *bags[1] = {myBag};
+    int bagCounter = 1;
+    char color[25];
+    char bag[50];
+    bool exists = false;
+    char **chunks;
+    int counter = 0;
+
+    chunks = calloc(strlen(bag), sizeof(char) * sizeof(bag));
 
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
-        // char *leftBag = getLeftBag(chunk);
-        // printf("leftBag: %s\n",leftBag);
-        // printf("%s\n",strstr(chunk,"contain") + strlen("contain "));
-        // char *rightBags = getRightBag(chunk);
-        // printf("rightBag: %s\n",rightBags);
-    //     chunk[strlen(chunk)-1] = '\0';
-    //     char *delim = " bags contain ";
-    //     char *ret = strstr(chunk, delim);
-    //     int startPos = strlen(ret) - strlen(delim);
-    //     char *test = malloc(sizeof(char) * startPos);
-    //     memcpy(test,ret[startPos],strlen())
-    //     printf("chunk: %s\nsubchunk: %s\n", chunk,);
-    //     printf("strlen chunk: %lu strlen ret: %lu\n", strlen(chunk),strlen(ret)-strlen(delim));
-    // light red bags contain 1 bright white bag, 2 muted yellow bags.
-        sscanf(chunk,"%s bags contain %d %s bag%*c, %d %s bag",leftBag, &numRight1, right1, &numRight2, right2);
-        printf("%s - %d %s %d %s", leftBag,numRight1,right1,numRight2,right2);
+    //     char *contains = strstr(chunk,"contain");
 
+    //     for (int i = 0; i < bagCounter; i++) {
+    //         if(strstr(contains, bags[i])) {
+    //             printf("found your bag in %s", chunks[i]);
+    //             sscanf(chunks[i], "%s %s",bag,color);
+    //             strcat(bag, " ");
+    //             strcat(bag, color);
+    //             bags[bagCounter] = malloc(sizeof(bag));
+    //             strcpy(bags[bagCounter], bag);
+    //             bagCounter++;
+    //             bags = realloc(bags, sizeof(bag) * (bagCounter + 1));
+    //         }
+    //     }
+    // }
+        chunks[counter] = calloc(strlen(chunk),sizeof(char));
+        strcpy(chunks[counter],chunk);
+
+        chunks = realloc(chunks,sizeof(char) * (counter + 1));
+        printf("file line %d size of chunk %lu size of chunk %lu\n", counter,strlen(chunk),sizeof(chunks[counter]));
+        counter++;
 
     }
 
+    for (int i = 0; i < counter; i++) {
+        printf("%d %s\n",i, chunks[i]);
+    }
 
-    return 0;
+return 0;
 }
-
-
-// char *getLeftBag (char *chunk) {
-//         char *subChunk = strstr(chunk,"bags contain");
-//         char *leftBag = malloc(sizeof(char) * (strlen(chunk) - strlen(subChunk)));
-//         for (int i = 0; i < strlen(chunk) - strlen(subChunk); i++) {
-//             leftBag[i] = chunk[i];
-//         }
-//         return leftBag;
-// }
-
-// char *getRightBag (char *chunk) {
-//     char *subChunk = strstr(chunk, "contain ") + strlen("contain");
-//     return subChunk;
-// }

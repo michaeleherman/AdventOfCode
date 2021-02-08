@@ -5,19 +5,16 @@
 
 #define myBag "shiny gold"
 
-struct package {
-    char **chunks;
-    char *chunk;
-    int counter;
-} ;
 
-void deleteItem (char **array, int *position, int *counter);
-void findBags(char **chunks, int counter, char **bags, int *bagCounter);
-struct makeBagList( package tmpContainer);
+void makeBagsArray(char **chunks, char *chunk, int *counter);
+bool canHold(char *chunk, char **bags, int *countOfBags);
+char * getExteriorBag (char *chunk);
+bool checkForDupBags (char **bags, char *bag, int bagCount);
 
 int main() {
+    
 
-    FILE *fp = fopen("/Users/michael/Code/AdventOfCode/2020/Day07/test.txt","r");
+    FILE *fp = fopen("/Users/michael/Code/AdventOfCode/2020/Day07/data.txt","r");
 
 
     if (fp == NULL) {
@@ -25,53 +22,101 @@ int main() {
         return(-1);
     }
 
-    char chunk[512];
-    char *bags[1] = {myBag};
-    int bagCounter = 1;
-    char color[25];
-    char bag[50];
-    bool exists = false;
+    char *chunk;
+    int countOfBags = 1;
     char **chunks;
     int counter = 0;
-    struct package tmpContainer; 
+    char **bags;
 
-    chunks = malloc(sizeof(char));
+    chunks = malloc(sizeof(char) * (counter + 1));
+    chunk = calloc(512, sizeof(char));
+    
+    bags = malloc(sizeof(char) * countOfBags);
+    bags[0] = malloc(sizeof(char) * strlen(myBag));
+    strcpy(bags[0],myBag);
 
-    while (fgets(chunk, sizeof(chunk), fp) != NULL) {
-
-        tmpContainer.chunk = chunk;
-        tmpContainer.counter = counter;
-        tmpContainer.chunks = chunks;
-
-        makeBagList(tmpContainer);
-
-        printf("chunk: %d chunk 0: %s\n", counter-1, chunks[0]);
-    } 
-
-
-
-
+    while (fgets(chunk, sizeof(chunk) * 512, fp) != NULL) {
+//        makeBagsArray(chunks, chunk, &counter);
+        if (chunk[strlen(chunk) -1]== '\n') {
+            chunk[strlen(chunk) -1] = '\0';
+        }
+        printf("mem allocated %lu strlen(chunk) %lu\n",strlen(chunk) * sizeof(char), strlen(chunk));
+        chunks[counter] = malloc(strlen(chunk) * sizeof(char*));
+        printf("making - %d %s\n", counter, chunk);
+        memcpy(chunks[counter], chunk, strlen(chunk)+1);
+//        strcpy(chunks[counter], chunk);
+        counter++;
+        chunks = realloc(chunks,sizeof(char*) * (counter + 1));
+    }
+    
+    
     for (int i = 0; i < counter; i++) {
-        printf("%d %s\n",i, chunks[i]);
-        // free(chunks[i]);
+        bool doesHold = canHold(chunks[i], bags, &countOfBags);
+        printf("doeshold: %d\n", doesHold);
+        printf("Chunk %d - %s\n", i,chunks[i]);
+        if ( doesHold == 1) {
+            i = -1;
+        }
     }
 
-    // free (chunks);
+    for (int i = 0; i < countOfBags; i++) {
+        printf("%d %s\n",i, bags[i]);
+    }
+
 
 return 0;
 }
 
-struct makeBagList ( package tmpContainer){
+void makeBagsArray(char **chunks, char *chunk, int *counter){
 
-        if (chunk[strlen(chunk) - 1] == '\n') {
-            chunk[strlen(chunk) - 1] = '\0';
+    if (chunk[strlen(chunk) -1]== '\n') {
+        chunk[strlen(chunk) -1] = '\0';
+    }
+
+    chunks[*counter] = malloc(strlen(chunk) * sizeof(char*));
+    printf("making - %d %s\n", *counter, chunk);
+    strcpy(chunks[*counter], chunk);
+}
+
+bool canHold(char *chunk, char **bags, int *countOfBags) {
+    bool doesHold = false;
+    for (int i = 0; i < *countOfBags; i++) {
+        char *interiorBags = strstr(chunk,"contain");
+        if (strstr(interiorBags, bags[i])) {
+            bags = realloc(bags, sizeof(char*) * (*countOfBags));
+            char *exteriorBag = getExteriorBag(chunk);
+//            bool dupBag = checkForDupBags(bags, exteriorBag, *countOfBags);
+//            if ( dupBag == 0 ) {
+                bags[*countOfBags] = malloc(sizeof(char*) * (strlen(exteriorBag) + 1));
+//                strcpy(bags[*countOfBags],exteriorBag);
+                memcpy(bags[*countOfBags], exteriorBag, strlen(exteriorBag) + 1);
+                *countOfBags = *countOfBags + 1;
+                doesHold = true;
+//            }
+
+//            dupBag = false;
         }
-        chunks = realloc(chunks, (*counter + 1) * sizeof(char));
-        chunks[*counter] = malloc(strlen(chunk) * sizeof(char));
-        strcpy(chunks[*counter],chunk);
+    }
+    return doesHold;
+}
 
+char * getExteriorBag (char *chunk) {
+    char exteriorBagColor[25];
+    char tmpExteriorBag[25];
+    sscanf(chunk,"%s %s",tmpExteriorBag,exteriorBagColor);
+    strcat(tmpExteriorBag, " ");
+    strcat(tmpExteriorBag, exteriorBagColor);
+    char *exteriorBag = malloc(sizeof(char*) * strlen(tmpExteriorBag));
+    memcpy(exteriorBag, tmpExteriorBag, strlen(tmpExteriorBag) + 1);
+//    strcpy(exteriorBag, tmpExteriorBag);
+    return exteriorBag;
+}
 
-        // printf("chunk is: %s\n", chunks[*counter]);
-        *counter = *counter + 1;
-        // chunks = realloc(chunks,sizeof(*chunks) * (*counter + 1));
+bool checkForDupBags (char **bags, char *bag, int bagCount) {
+    for (int i = 0; i < bagCount; i++) {
+        if (strcmp(bags[i],bag) == 0) {
+            return true;
+        }
+    }
+    return false;
 }

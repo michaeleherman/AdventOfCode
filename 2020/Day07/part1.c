@@ -11,6 +11,11 @@ bool canHold(char *chunk, char **bags, int *countOfBags);
 char * getExteriorBag (char *chunk);
 bool checkForDupBags (char **bags, char *bag, int bagCount);
 
+struct node {
+    char *bag;
+    struct node *next
+};
+
 int main() {
     
 
@@ -27,6 +32,7 @@ int main() {
     char **chunks;
     int counter = 0;
     char **bags;
+
 
     chunks = malloc(sizeof(char) * (counter + 1));
     chunk = calloc(512, sizeof(char));

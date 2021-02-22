@@ -30,6 +30,7 @@ struct bucket {
 
 void doSeats(struct bucket container);
 int checkAdjacents (int adjacents[8], int currentState);
+void getAdjacents (struct bucket container);
 
 
 
@@ -94,11 +95,8 @@ void doSeats(struct bucket container){
                         adjacents[e] = tmpSeats[row][seat + 1];
                         adjacents[se] = tmpSeats[row + 1][seat + 1];
                         adjacents[s] = tmpSeats[row + 1][seat];
+                        getAdjacents(container);
                         container.seats[row][seat] = checkAdjacents(adjacents,tmpSeats[row][seat]);
-//                        if (e != '#' && se != '#' && s != '#') {
-//                            container.seats[row][seat] = '#';
-//                            change = 1;
-//                        }
                     } else if (seat == rowLength - 1) {
                         adjacents[w] = tmpSeats[row][seat - 1];
                         adjacents[sw] = tmpSeats[row + 1][seat - 1];
@@ -167,7 +165,6 @@ void doSeats(struct bucket container){
                         }
                     }
                 }
-                
                 if ( row == rowsOfSeats - 1) {
                     if ( seat == 0) {
                         adjacents[e] = tmpSeats[row][seat + 1];
@@ -245,6 +242,23 @@ int checkAdjacents (int adjacents[8], int currentState){
     }
     
     return 99;
+}
+
+void getAdjacents (struct bucket container) {
+    int adjacents[8];
+    memset(adjacents, 0, 8 * sizeof(int));
+    int i = 0;
+    int row = 0;
+    int seat = 0;
+    int dx, dy;
+    for (dx = -1; dx <= 1; ++dx) {
+        for (dy = -1; dy <= 1; ++dy) {
+            if ((dx != 0 || dy != 0) && ((seat + dx > 0 && seat + dx < rowLength) || (row + dy > 0 && row -dy < rowsOfSeats ))) {
+                adjacents[i] = container.seats[seat + dx][row + dy];
+                i++;
+            }
+        }
+    }
 }
 
 //L = 76

@@ -165,29 +165,30 @@ int checkAdjacents (struct adjacents *adjacent){
 
 void getAdjacents (struct adjacents *adjacent) {
     int i = 0;
-    int j = 2;
+    int jx = 2;
+    int jy = 2;
     int row = adjacent->row;
     int seat = adjacent->seat;
     int dx, dy;
     for (dx = -1; dx <= 1; ++dx) {
         for (dy = -1; dy <= 1; ++dy) {
-            if (dx == 0 && dy == 0) {
-                continue;
-            } else if ( seat + dx < 0 || row + dy < 0) {
-                continue;
-            } else if (seat + dx > rowLength -1 || row + dy > rowsOfSeats -1) {
+            while (adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
+                dx = dx * jx;
+                dy = dy * jy;
+            }
+            if ((dx == 0 && dy == 0) || seat + dx > rowLength -1 || row + dy > rowsOfSeats -1 || seat + dx < 0 || row + dy < 0) {
                 continue;
             } else {
-                while ( adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
-                    if (seat + dx > rowLength -1 || row + dy > rowsOfSeats -1 || seat + dx < 0 || row + dy < 0) {
-                        break;
-                    }
-                    dy = dy * j;
-                    dx = dx * j;
-                    j++;
-                }
                 adjacent->adjacentSeats[i] = adjacent->tmpSeats[row + dy][seat + dx];
                 i++;
+                if ( abs(dx) > 1) {
+                    dx = dx / jx;
+                    jx = 2;
+                }
+                if ( abs(dy) > 1) {
+                    dy = dy / jy;
+                    jy = 2;
+                }
             }
         }
     }

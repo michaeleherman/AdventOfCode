@@ -25,13 +25,13 @@ enum action {
 };
 
 struct bucket {
-    char seats[rowsOfSeats][rowLength];
+    int seats[rowsOfSeats][rowLength-1];
     int end;
 };
 
 struct adjacents {
     int adjacentSeats[8];
-    char tmpSeats[rowsOfSeats][rowLength];
+    int tmpSeats[rowsOfSeats][rowLength-1];
     int currentState;
     int row;
     int seat;
@@ -67,11 +67,13 @@ int main() {
         printf("stringlen chunk %lu\n", strlen(chunk));
         chunk[strcspn(chunk, "\n")] = 0;
         
-        
-        for (int i = 0; i < rowLength;i++) {
-            printf("%d - %c\n",i, chunk[i]);
+
+        for (int i = 0; i < rowLength - 1; i++ ) {
+            container->seats[container->end][i] = chunk[i];
         }
-        strcpy(container->seats[container->end],chunk);
+        for (int i = 0; i < rowLength - 1;i++) {
+            printf("%d - %c\n",i, container->seats[container->end][i]);
+        }
         container->end++;
         
     }
@@ -87,10 +89,9 @@ int main() {
 
 void doSeats(struct bucket *container){
     printf("entering do seats\n");
-    //    int e, w, n, s, ne, nw, se, sw;
     int loop = 0;
-    //    char tmpSeats[rowsOfSeats][rowLength];
     for (int i = 0; i < rowsOfSeats;i++) {
+        memset(adjacent->tmpSeats[i], 0, sizeof(int) * rowLength);
         for (int j = 0; j < rowLength; j++) {
             adjacent->tmpSeats[i][j] = container->seats[i][j];
         }
@@ -99,7 +100,7 @@ void doSeats(struct bucket *container){
         adjacent->changed = false;
         for (int row = 0; row < container->end; row++){
             for (int seat = 0; seat< rowLength-1; seat++) {
-                if (adjacent->tmpSeats[row][seat] == '.') {
+                if (adjacent->tmpSeats[row][seat] == FLOOR) {
                     continue;
                 }
                 adjacent->row = row;

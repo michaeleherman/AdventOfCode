@@ -14,39 +14,46 @@ enum seatState {
     NOVALUE = 0
 };
 
-enum direction {
-    n, s, e, w, se, sw, ne, nw
-};
+//enum direction {
+//    n, s, e, w, se, sw, ne, nw
+//};
 
 enum action {
     SIT = 35,
-    VACATE = 76
+    VACATE = 76,
+    DONOTHING = 999
 };
 
 struct bucket {
-    char seats[rowsOfSeats][rowLength];
+    int seats[rowsOfSeats][rowLength-1];
     int end;
 };
 
 struct adjacents {
     int adjacentSeats[8];
+    int tmpSeats[rowsOfSeats][rowLength-1];
     int currentState;
     int row;
     int seat;
+    bool changed;
 };
 
-void doSeats(struct bucket container);
-int checkAdjacents (struct adjacents adjacent);
-void getAdjacents (struct adjacents adjacent);
+void doSeats(struct bucket *container);
+int checkAdjacents (struct adjacents *adjacent);
+void getAdjacents (struct adjacents *adjacent);
+void countSeats(struct bucket *container);
 
-struct bucket container;
+struct bucket * container = NULL;
+struct adjacents * adjacent = NULL;
 
 int main() {
-
-    char chunk[chunkLength];
-    container.end = 0;
     
-    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day11/test.txt","r");
+    char chunk[chunkLength];
+    container = malloc(sizeof(container));
+    container->end = 0;
+    adjacent = malloc(sizeof(adjacent));
+    adjacent->changed = 1;
+    FILE *fp = fopen("/Users/michael/Code/AdventOfCode/2020/Day11/test.txt","r");
     
     
     if (fp == NULL) {
@@ -61,11 +68,13 @@ int main() {
         chunk[strcspn(chunk, "\n")] = 0;
         
         
-        for (int i = 0; i < rowLength;i++) {
-            printf("%d - %c\n",i, chunk[i]);
+        for (int i = 0; i < rowLength - 1; i++ ) {
+            container->seats[container->end][i] = chunk[i];
         }
-        strcpy(container.seats[container.end],chunk);
-        container.end++;
+        for (int i = 0; i < rowLength - 1;i++) {
+            printf("%d - %c\n",i, container->seats[container->end][i]);
+        }
+        container->end++;
         
     }
     
@@ -78,51 +87,54 @@ int main() {
     
 }
 
-void doSeats(struct bucket container){
-
-    bool change = 1;
-    //    int e, w, n, s, ne, nw, se, sw;
+void doSeats(struct bucket *container){
+    printf("entering do seats\n");
     int loop = 0;
-    char tmpSeats[rowsOfSeats][rowLength];
     for (int i = 0; i < rowsOfSeats;i++) {
+        memset(adjacent->tmpSeats[i], 0, sizeof(int) * rowLength);
         for (int j = 0; j < rowLength; j++) {
-            tmpSeats[i][j] = container.seats[i][j];
+            adjacent->tmpSeats[i][j] = container->seats[i][j];
         }
     }
-    while ( change == 1) {
-        change = 0;
-        for (int row = 0; row < container.end; row++){
+    while ( adjacent->changed == true) {
+        adjacent->changed = false;
+        for (int row = 0; row < container->end; row++){
             for (int seat = 0; seat< rowLength-1; seat++) {
-                if (tmpSeats[row][seat] == '.') {
+                if (adjacent->tmpSeats[row][seat] == FLOOR) {
                     continue;
                 }
-                struct adjacents *adjacent = NULL;
                 adjacent->row = row;
                 adjacent->seat = seat;
-                adjacent->currentState = tmpSeats[row][seat];
+                adjacent->currentState = adjacent->tmpSeats[row][seat];
                 memset(adjacent->adjacentSeats, 0, 8*sizeof(int));
-                getAdjacents(*adjacent);
-                container.seats[row][seat] = checkAdjacents(*adjacent);
+                getAdjacents(adjacent);
+                container->seats[row][seat] = checkAdjacents(adjacent);
             }
-             for (int i = 0; i < rowsOfSeats;i++) {
-                for (int j = 0; j < rowLength; j++) {
-                    tmpSeats[i][j] = container.seats[i][j];
-                }
-            }
-            loop++;
+            
+            
         }
-        printf("finally changed");
+        for (int i = 0; i < rowsOfSeats;i++) {
+            for (int j = 0; j < rowLength; j++) {
+                adjacent->tmpSeats[i][j] = container->seats[i][j];
+            }
+        }
+        
+        loop++;
+        printf("loop count %d\n",loop);
     }
-}
     
-int checkAdjacents (struct adjacents adjacent){
+    
+    countSeats(container);
+}
+
+int checkAdjacents (struct adjacents *adjacent){
     int floor = 0;
     int occupied = 0;
     int empty = 0;
-    int noValue = 0;
     
-    for (int i = 0; i < 8; i++) {
-        switch (adjacent.adjacentSeats[i]) {
+    
+    for ( int i = 0; i < 8; i++){
+        switch (adjacent->adjacentSeats[i]) {
             case EMPTY:
                 empty++;
                 break;
@@ -133,45 +145,80 @@ int checkAdjacents (struct adjacents adjacent){
                 floor++;
                 break;
             case NOVALUE:
-                noValue++;
                 break;
             default:
                 break;
         }
+        if ( adjacent->adjacentSeats[i] == NOVALUE) {
+            break;
+        }
     }
-    if (adjacent.currentState == EMPTY && occupied == 0) {
+    if (adjacent->currentState == EMPTY && occupied == 0) {
+        adjacent->changed = true;
         return SIT;
-    } else if (adjacent.currentState == OCCUPIED && occupied >= 4) {
+    } else if (adjacent->currentState == OCCUPIED && occupied >= 5) {
+        adjacent->changed = true;
         return VACATE;
+    } else {
+        return adjacent->currentState;
     }
-    
-    return 99;
 }
 
-void getAdjacents (struct adjacents adjacent) {
+void getAdjacents (struct adjacents *adjacent) {
     int i = 0;
-    int row = adjacent.row;
-    int seat = adjacent.seat;
+    int jx = 2;
+    int jy = 2;
+    int row = adjacent->row;
+    int seat = adjacent->seat;
     int dx, dy;
     for (dx = -1; dx <= 1; ++dx) {
         for (dy = -1; dy <= 1; ++dy) {
-            if (dx == 0 && dy == 0) {
+            printf (" row %d seat %d dx %d dy %d\n",row, seat, dx, dy);
+            if (dx == 0 && dy == 0 ) {
                 continue;
-            } else if ( seat + dx < 0 || row + dy < 0) {
+            }
+            if (seat + dx > rowLength -1 || row + dy > rowsOfSeats -1 || seat + dx < 0 || row + dy < 0) {
                 continue;
-            } else if (seat + dx > rowLength || row + dy > rowsOfSeats) {
-                continue;
-            } else {
-                adjacent.adjacentSeats[i] = container.seats[seat + dx][row + dy];
-                i++;
+            }
+            while (adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
+                dx = (seat + dx >= 0 || seat + dx < rowLength) ? dx * jx : dx;
+                dy = (seat + dy >= 0 || seat + dy < rowsOfSeats) ? dy * jy : dy;
+                
+            }
+            adjacent->adjacentSeats[i] = adjacent->tmpSeats[row + dy][seat + dx];
+            i++;
+            if ( abs(dx) > 1) {
+                dx = dx / jx;
+                jx = 2;
+            }
+            if ( abs(dy) > 1) {
+                dy = dy / jy;
+                jy = 2;
             }
         }
     }
 }
-    
-    //L = 76
-    //# = 35
-    //. = 46
-    //if ((dx != 0 || dy != 0) && ((seat + dx > 0 && seat + dx < rowLength) || (row + dy > 0 && row -dy < rowsOfSeats ))) {
-    
-    //}
+
+//while ( adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
+//    dy = dy * j;
+//    dx = dx * j;
+//}
+
+void countSeats(struct bucket *container) {
+    int occupied = 0;
+    for (int i = 0; i < rowsOfSeats; i++) {
+        for (int j = 0; j < rowLength; j++) {
+            if ( container->seats[i][j] == OCCUPIED) {
+                occupied++;
+            }
+        }
+    }
+    printf("Occupied seats %d\n",occupied);
+}
+
+//L = 76
+//# = 35
+//. = 46
+//if ((dx != 0 || dy != 0) && ((seat + dx > 0 && seat + dx < rowLength) || (row + dy > 0 && row -dy < rowsOfSeats ))) {
+
+//}

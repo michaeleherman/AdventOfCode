@@ -67,7 +67,7 @@ int main() {
         printf("stringlen chunk %lu\n", strlen(chunk));
         chunk[strcspn(chunk, "\n")] = 0;
         
-
+        
         for (int i = 0; i < rowLength - 1; i++ ) {
             container->seats[container->end][i] = chunk[i];
         }
@@ -131,7 +131,7 @@ int checkAdjacents (struct adjacents *adjacent){
     int floor = 0;
     int occupied = 0;
     int empty = 0;
-
+    
     
     for ( int i = 0; i < 8; i++){
         switch (adjacent->adjacentSeats[i]) {
@@ -173,23 +173,27 @@ void getAdjacents (struct adjacents *adjacent) {
     int dx, dy;
     for (dx = -1; dx <= 1; ++dx) {
         for (dy = -1; dy <= 1; ++dy) {
-            while (adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
-                dx = dx * jx;
-                dy = dy * jy;
-            }
-            if ((dx == 0 && dy == 0) || seat + dx > rowLength -1 || row + dy > rowsOfSeats -1 || seat + dx < 0 || row + dy < 0) {
+            printf (" row %d seat %d dx %d dy %d\n",row, seat, dx, dy);
+            if (dx == 0 && dy == 0 ) {
                 continue;
-            } else {
-                adjacent->adjacentSeats[i] = adjacent->tmpSeats[row + dy][seat + dx];
-                i++;
-                if ( abs(dx) > 1) {
-                    dx = dx / jx;
-                    jx = 2;
-                }
-                if ( abs(dy) > 1) {
-                    dy = dy / jy;
-                    jy = 2;
-                }
+            }
+            if (seat + dx > rowLength -1 || row + dy > rowsOfSeats -1 || seat + dx < 0 || row + dy < 0) {
+                continue;
+            }
+            while (adjacent->tmpSeats[row + dy][seat + dx] == FLOOR) {
+                dx = (seat + dx >= 0 || seat + dx < rowLength) ? dx * jx : dx;
+                dy = (seat + dy >= 0 || seat + dy < rowsOfSeats) ? dy * jy : dy;
+                
+            }
+            adjacent->adjacentSeats[i] = adjacent->tmpSeats[row + dy][seat + dx];
+            i++;
+            if ( abs(dx) > 1) {
+                dx = dx / jx;
+                jx = 2;
+            }
+            if ( abs(dy) > 1) {
+                dy = dy / jy;
+                jy = 2;
             }
         }
     }

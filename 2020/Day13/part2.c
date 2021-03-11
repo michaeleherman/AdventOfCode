@@ -5,6 +5,7 @@
 
 #define chunkLength 250
 #define DELAY(ts) (timeStamp % ts)
+#define stage 0
 
 enum DISCOVER {NOTFOUND, FOUND};
 
@@ -19,7 +20,22 @@ int checkDeparture(int timestamp, struct bus *buses, int pos);
 int multiplyBuses(int multiplier[9]);
 
 int main() {
-    
+    char *home;
+    home = getenv("HOME");
+    char fileName[25];
+    char myPath[100];
+    strcpy(myPath,"/Code/AdventOfCode/2020/Day13/");
+
+    if ( stage == 0) {
+        strcpy(fileName, "test.txt");
+
+    } else {
+        strcpy(fileName, "data.txt");
+    }
+    char pathAndFile[200];
+    strcat(myPath,fileName);
+    strcat(home,myPath);
+
     buses = malloc(sizeof(struct bus));
     int end = 0;
     int counter = 0;
@@ -27,7 +43,7 @@ int main() {
     char sep[2] = ",";
     char chunk[chunkLength];
     long long timeStamp = 1;
-    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day13/data.txt","r");
+    FILE *fp = fopen(home,"r");
     
     
     if (fp == NULL) {

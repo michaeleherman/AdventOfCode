@@ -1,6 +1,7 @@
 {
     "files.associations": {
         ".ssh_alias": "shellscript",
-        "iterator": "c"
+        "iterator": "c",
+        "algorithm": "c"
     }
 }

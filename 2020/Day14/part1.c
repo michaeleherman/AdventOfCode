@@ -13,16 +13,21 @@
 
 struct memAddValue {
     long location;
-    long value;
+    uint64_t value:36;
 };
+
 
 
 void makeMaskArray (char chunk[chunkLength], int maskArray[maskLength]);
 void getMemLocation(struct memAddValue *record, char chunk[chunkLength]);
+void evaluate(struct memAddValue *record);
+
+int maskArray[maskLength];
+struct memAddValue *memArray;
 
 int main() {
-    int maskArray[maskLength];
-    struct memAddValue *memArray;
+
+
     memArray = malloc(sizeof(struct memAddValue));
     long memLocation;
     long maxMemLocation;
@@ -60,6 +65,7 @@ int main() {
             memArray[end] = record;
             memArray = realloc(memArray, sizeof(struct memAddValue) * (end + 2));
             end++;
+            evaluate(rptr);
         }
        
     }
@@ -93,6 +99,28 @@ void getMemLocation(struct memAddValue *record, char chunk[chunkLength]){
     strcpy(delim,"=");
     token = strtok_r(NULL, delim, &ptr);
     token = strtok_r(NULL, delim, &ptr);
+    // sscanf(record->value,"%d",atoi(token));
     record->value = atoi(token);
+}
+
+void evaluate(struct memAddValue *record) {
+    // printf("%ld %lld\n",record->location,record->value);
+    // for (int j = 0; j < maskLength;j++) {
+    //      int bit = ((record->value >> j) & 0x1);
+    //     printf("%d ",bit);
+    // }
+    // printf("\n");
+    for (int i = 0; i < maskLength; i++) {
+        int inverse = 36 - i;
+        int bit = ((record->value >> i) & 0x1);
+        printf("%d ",bit);
+        if (bit == 0) {
+            continue;
+        }
+        if (bit == 1) {
+            printf("\nGot a match at %d\n",i);
+        }
+    }
+    printf("\n");
 }
 

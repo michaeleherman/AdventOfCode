@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#define stage 1
+#define stage 0
 #define chunkLength 255
 #define maskLength 36
 
@@ -124,14 +124,14 @@ void evaluate(struct memAddValue *record) {
     }
     printf("\n");
     printf("\n");
-    for (int i = 0; i < maskLength; i++) {
-        int inverse = 35 -i;
-        int bit = record->value & (1 << inverse);
-        printf("%d ",bit);
+    for (int i = 0; i <= maskLength; i++) {
+        int inverse = 36 -i;
+        long long bit = record->value & (1 << inverse);
+        printf("%llu ",bit);
         if (maskArray[i] == 1) {
-            memArr[record->location] |= 1 << inverse;
+            memArr[record->location] |= 1ULL << inverse;
         } else if (maskArray[i] == 0) {
-            memArr[record->location] |= 0 << inverse;
+            memArr[record->location] &= ~(1ULL << inverse);
         } else {
             continue;
         }
@@ -144,7 +144,7 @@ void evaluate(struct memAddValue *record) {
 void sumIt (long long *memArr, long long maxMemLocation) {
     long long sum = 0;
     for (long long i = 0; i <= maxMemLocation; i++) {
-        printf("memArr %lld is %lld\n",i,memArr[i]);
+        // printf("memArr %lld is %lld\n",i,memArr[i]);
         sum += memArr[i];
     }
     printf("final sum is: %lld\n",sum);

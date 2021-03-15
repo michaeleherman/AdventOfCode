@@ -48,7 +48,7 @@ int main() {
 
     for (int i = 0; i < 36; i++) {
         long long unsigned maskPos = abs (i - BITS + 1);
-        long long unsigned bit = (N.value >> i) & 0x1;
+        long long unsigned bit = (N.value >> maskPos) & 0x1;
         if ( i % 4 == 0) {
             printf(" ");
         }

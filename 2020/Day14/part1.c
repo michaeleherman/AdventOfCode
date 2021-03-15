@@ -4,26 +4,26 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#define stage 0
+#define stage 1
 #define chunkLength 255
-#define maskLength 36
+#define BITS 36
 
 #define IS_BIT_SET(BF, N) ((BF >> N) & 0x1)
 #define SET_BIT(BF, N) BF |= (1<< N);   
 
 struct memAddValue {
     long location;
-    uint64_t value:36;
+    long long value:36;
 };
 
 
 
-void makeMaskArray (char chunk[chunkLength], int maskArray[maskLength]);
+void makeMaskArray (char chunk[chunkLength], int maskArray[BITS]);
 void getMemLocation(struct memAddValue *record, char chunk[chunkLength]);
 void evaluate(struct memAddValue *record);
 void sumIt (long long *memArr, long long maxMemLocation);
 
-int maskArray[maskLength];
+int maskArray[BITS];
 struct memAddValue *memArray;
 long long *memArr;
 
@@ -70,7 +70,7 @@ int main() {
                 memArr = realloc(memArr, sizeof(long long) * (record.location + 2));
                 long long oldMax = maxMemLocation;
                 maxMemLocation = record.location;
-                for (int i = oldMax; i<maxMemLocation; i++) {
+                for (int i = oldMax+1; i<maxMemLocation; i++) {
                     memArr[i] = 0;
                 }
             }
@@ -84,10 +84,10 @@ int main() {
     
 }
 
-void makeMaskArray (char chunk[chunkLength], int maskArray[maskLength]) {
+void makeMaskArray (char chunk[chunkLength], int maskArray[BITS]) {
     char tmpChunk[chunkLength];
     strcpy(tmpChunk,strstr(chunk, "= ")+2);
-    for(int i = 0; i < maskLength;i++){
+    for(int i = 0; i < BITS;i++){
         if (tmpChunk[i] == 49 ) {
             maskArray[i] = 1;
         } else if (tmpChunk[i] == 48) {
@@ -115,7 +115,7 @@ void getMemLocation(struct memAddValue *record, char chunk[chunkLength]){
 
 void evaluate(struct memAddValue *record) {
     // printf("%ld %lld\n",record->location,record->value);
-    for (int j = 0; j < maskLength;j++) {
+    for (int j = 0; j < BITS;j++) {
         if ( maskArray[j] == 0 || maskArray[j] == 1) {
             printf("%d ",maskArray[j]);
         } else {
@@ -124,14 +124,14 @@ void evaluate(struct memAddValue *record) {
     }
     printf("\n");
     printf("\n");
-    for (int i = 0; i <= maskLength; i++) {
-        int inverse = 36 -i;
-        long long bit = record->value & (1 << inverse);
+    for (int i = 0; i < BITS; i++) {
+        int maskPos = abs(i - BITS + 1);
+        long long bit = record->value & (1 << i);
         printf("%llu ",bit);
-        if (maskArray[i] == 1) {
-            memArr[record->location] |= 1ULL << inverse;
-        } else if (maskArray[i] == 0) {
-            memArr[record->location] &= ~(1ULL << inverse);
+        if (maskArray[maskPos] == 1) {
+            memArr[record->location] |= 1ULL << i;
+        } else if (maskArray[maskPos] == 0) {
+            memArr[record->location] &= ~(1ULL << i);
         } else {
             continue;
         }

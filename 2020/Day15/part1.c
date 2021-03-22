@@ -44,9 +44,11 @@ int main(void){
         }
         numArray = realloc(numArray, sizeof(int) * ( end + 2));
         end++;
-        printf("%d - %d\n", i, numArray[i]);
+        printf("%d,%d\n", i, numArray[i]);
         i++;
     }
+
+
 
     return 0;
 

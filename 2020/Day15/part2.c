@@ -10,53 +10,77 @@ struct obj {
     int currentPos;
 };
 
-struct obj **numArray;
+void updateArray(int *end, int *tmpLoc);
+
+struct obj *numArray;
 
 int main(void){
-
+    
     FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day15/test.txt", "r");
     if (fp == NULL) {
         perror("error opening file");
         return(-1);
     }
     char chunk[CHUNK_SIZE];
-    numArray = malloc(sizeof(struct obj));
     int end = 0;
-
+    int tokenCount = 0;
+    numArray = malloc(sizeof(struct obj));
+    
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
         char delim[2] = ",";
         char *token = strtok(chunk,delim);
         while (token != NULL){
             int tmpLoc = atoi(token);
-            struct obj numArray[tmpLoc];
-            numArray[tmpLoc].lastPos = end;
+            if (end < tmpLoc) {
+                updateArray(&end, &tmpLoc);
+            }
+            numArray[tmpLoc].currentPos = tokenCount;
+            numArray[tmpLoc].lastPos = tokenCount;
+            tokenCount++;
             token = strtok(NULL,delim);
-            *numArray = (struct obj *) realloc(numArray,sizeof(struct obj *) * (end + 2));
             end++;
         }
     }
+    
+    int loop = tokenCount-1;
+    int arrayLoc = end -1;
+    int nextArrayLoc = 0;
+    int spokenNumber = 0;
+    
+    while (loop != TARGET -1 ) {
 
-    // int i = end;
-    // int num = 0;
-    // while (i < TARGET ) {
-    //     int j;
-    //     for (j = end -2; j >= 0; j--) {
-    //         if (numArray[i -1] == numArray[j]) {
-    //             numArray[i] = i - 1 - j;
-    //             break;
-    //         }
-    //     }
-    //     if (j == -1) {
-    //         numArray[i] = 0;
-    //     }
-    //     numArray = realloc(numArray, sizeof(int) * ( end + 2));
-    //     end++;
-    //     printf("%d,%d\n", i, numArray[i]);
-    //     i++;
-    // }
+        if (numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos == 0) {
+            numArray[arrayLoc].lastPos = numArray[arrayLoc].currentPos;
+            numArray[arrayLoc].currentPos = loop;
+            nextArrayLoc = numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos;
+            printf("%d - %d\n", loop, arrayLoc);
+        } else {
+            numArray[arrayLoc].lastPos = numArray[arrayLoc].currentPos;
+            numArray[arrayLoc].currentPos = loop;
+            arrayLoc = numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos;
+        }
 
-
-
+        
+        
+        loop++;
+        if (loop == 10) {
+            exit(0);
+        }
+    }
+    
     return 0;
-
+    
 }
+
+void updateArray(int *end, int *tmpLoc) {
+    int oldEnd = *end;
+    *end = *tmpLoc;
+    numArray = realloc(numArray,sizeof(struct obj) * (*end + 2));
+    for (int i = oldEnd;i < *end;i++) {
+        numArray[i].currentPos = i;
+        numArray[i].lastPos = i;
+    }
+}
+
+
+//numArray[prevNum].currentPos - numArray[prevNum].lastPos == 0

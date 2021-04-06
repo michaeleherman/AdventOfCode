@@ -9,7 +9,7 @@ int *numArray;
 
 int main(void){
 
-    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day15/test.txt", "r");
+    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day15/data.txt", "r");
     if (fp == NULL) {
         perror("error opening file");
         return(-1);

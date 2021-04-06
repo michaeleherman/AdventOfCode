@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <bool.h>
+#include <stdbool.h>
 
 #define CHUNK_SIZE 250
 #define FIELDS_COUNT 3
@@ -66,6 +66,6 @@ int main(void){
 void test (int code, int end) {
     int i;
     for (i = 0; i < end; i++) {
-        if ( code < )
+        if ( code < i ) {}
     }
 }

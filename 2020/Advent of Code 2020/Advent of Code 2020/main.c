@@ -1,86 +1,97 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-#define CHUNK_SIZE 512
-#define TARGET 30000000
+#define CHUNK_SIZE 250
+#define FIELDS_COUNT 3
+#define VALUES_COUNT 2
 
-struct obj {
-    int lastPos;
-    int currentPos;
-};
+enum inRange {YES, NO};
 
-void updateArray(int *end, int *tmpLoc);
+void addToArray(char range[10]);
+int checkValue(int value);
 
-struct obj *numArray;
+int valuesArray[100] = {0};
+int nearbyTixArr[200] = {0};
 
 int main(void){
     
-    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day15/test.txt", "r");
+    FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day16/data.txt", "r");
     if (fp == NULL) {
         perror("error opening file");
         return(-1);
     }
     char chunk[CHUNK_SIZE];
     int end = 0;
-    int tokenCount = 0;
-    numArray = malloc(sizeof(struct obj));
+    int invalid = 0;
     
+    // first get ticket fields
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
+        if (strcmp(chunk,"\n") == 0){
+            break;
+        }
+        char field[25];
+        char range1[10];
+        char range2[10];
+        sscanf(chunk,"%s %s or %s",field,range1, range2);
+        addToArray(range1);
+        addToArray(range2);
+        ++end;
+    }
+    
+    // now get my ticket
+    char myTicket[250];
+    while (fgets(chunk, sizeof(chunk), fp) != NULL) {
+        if (strcmp(chunk,"\n") == 0){
+            break;
+        }
+        if (strstr(chunk,"your ticket")) {
+            continue;
+        }
+        strcpy(myTicket,chunk);
+    }
+    
+    // now get the nearby tickets
+
+    while (fgets(chunk, sizeof(chunk), fp) != NULL) {
+        if (strstr(chunk,"nearby tickets")) {
+            continue;
+        }
+        char *token;
         char delim[2] = ",";
-        char *token = strtok(chunk,delim);
-        while (token != NULL){
-            int tmpLoc = atoi(token);
-            if (end < tmpLoc) {
-                updateArray(&end, &tmpLoc);
+        token = strtok(chunk,delim);
+        while (token != NULL) {
+            int tixNum = atoi(token);
+            if ( checkValue(tixNum) == NO) {
+                invalid += tixNum;
             }
-            numArray[tmpLoc].currentPos = tokenCount;
-            numArray[tmpLoc].lastPos = tokenCount;
-            tokenCount++;
             token = strtok(NULL,delim);
-            end++;
         }
+        
     }
     
-    int loop = tokenCount-1;
-    int arrayLoc = end -1;
-    int nextArrayLoc = 0;
-    int spokenNumber = 0;
     
-    while (loop != TARGET -1 ) {
-
-        if (numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos == 0) {
-            numArray[arrayLoc].lastPos = numArray[arrayLoc].currentPos;
-            numArray[arrayLoc].currentPos = loop;
-            nextArrayLoc = numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos;
-            printf("%d - %d\n", loop, arrayLoc);
-        } else {
-            numArray[arrayLoc].lastPos = numArray[arrayLoc].currentPos;
-            numArray[arrayLoc].currentPos = loop;
-            arrayLoc = numArray[arrayLoc].currentPos - numArray[arrayLoc].lastPos;
-        }
-
-        
-        
-        loop++;
-        if (loop == 10) {
-            exit(0);
-        }
+    for (int i = 0; i<100; i++) {
+        printf("%d %d\n",i,valuesArray[i]);
     }
     
+    printf("invalid sum %d\n",invalid);
     return 0;
     
 }
 
-void updateArray(int *end, int *tmpLoc) {
-    int oldEnd = *end;
-    *end = *tmpLoc;
-    numArray = realloc(numArray,sizeof(struct obj) * (*end + 2));
-    for (int i = oldEnd;i < *end;i++) {
-        numArray[i].currentPos = i;
-        numArray[i].lastPos = i;
+void addToArray(char range[10]) {
+    int start,end;
+    sscanf(range,"%d-%d",&start,&end);
+    for (int i = start;i <= end; i++) {
+        valuesArray[i] = 1;
     }
 }
 
-
-//numArray[prevNum].currentPos - numArray[prevNum].lastPos == 0
+int checkValue(int value){
+    if (valuesArray[value] == 1) {
+        return YES;
+    }
+    return NO;
+}

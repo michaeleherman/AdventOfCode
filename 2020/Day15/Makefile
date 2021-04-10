@@ -1,9 +1,9 @@
 CC = gcc
 
-all: part2
+all: part1
 
-part2: part2.c
-	$(CC) -o part2 part2.c
+part2: part1.c
+	$(CC) -o part1 part1.c
 
 clean:
-	rm part2
+	rm part1

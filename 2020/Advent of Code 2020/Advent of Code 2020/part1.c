@@ -1,15 +1,10 @@
 #include "part1.h"
 
-#define CHUNK_SIZE 250
-#define FIELDS_COUNT 3
-#define VALUES_COUNT 2
-#define ARRAYSIZE 1000
-
 enum inRange {YES, NO};
 
 int valuesArray[ARRAYSIZE] = {0};
 int nearbyTixArr[ARRAYSIZE] = {0};
-int validTix[ARRAYSIZE][ARRAYSIZE] = {0};
+extern int validTix[ARRAYSIZE][FIELDS_COUNT];
 
 
 int part1(void){
@@ -28,12 +23,7 @@ int part1(void){
         if (strcmp(chunk,"\n") == 0){
             break;
         }
-        char field[50];
-        char range1[50];
-        char range2[50];
-        sscanf(chunk,"%s %s or %s",field,range1, range2);
-        addToArray(range1);
-        addToArray(range2);
+        sscanf(chunk,"%s %d-%d or %d-%d",fields[end].fieldName,&fields[end].start1,&fields[end].end1,&fields[end].start2,&fields[end].end2);
         ++end;
     }
     
@@ -51,6 +41,7 @@ int part1(void){
     
     // now get the nearby tickets
     int validEnd = 0;
+    bool invalidValue = false;
     while (fgets(chunk, sizeof(chunk), fp) != NULL) {
         if (strstr(chunk,"nearby tickets")) {
             continue;
@@ -62,6 +53,7 @@ int part1(void){
         while (token != NULL) {
             int tixNum = atoi(token);
             if ( checkValue(tixNum) == NO) {
+                invalidValue = true;
                 invalid += tixNum;
                 break;
             } else {
@@ -70,7 +62,11 @@ int part1(void){
             }
             token = strtok(NULL,delim);
         }
-        
+        if (invalidValue == false){
+            validEnd++;
+        } else {
+            invalidValue = false;
+        }
     }
     
     
@@ -78,7 +74,7 @@ int part1(void){
     //     printf("%d %d\n",i,valuesArray[i]);
     // }
     
-    printf("invalid sum %d\n",invalid);
+//
     return 0;
     
 }

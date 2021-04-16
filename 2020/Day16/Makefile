@@ -1,9 +1,9 @@
-CC = gcc
+CC = clang
 
-all: part1
+all: part2
 
-part2: part1.c
-	$(CC) -o part1 part1.c
+part2: part2.c functions.c
+	$(CC) -o part2 part2.c functions.c -g
 
 clean:
-	rm part1
+	rm part2

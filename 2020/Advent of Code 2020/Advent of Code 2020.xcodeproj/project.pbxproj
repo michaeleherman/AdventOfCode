@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B56B0A22627C4DC00BE186A /* part1.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B56B0A12627C4DC00BE186A /* part1.c */; };
 		6BB128F225DEDAAC0053D4C8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BB128F125DEDAAC0053D4C8 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6B56B0A02627C4DC00BE186A /* part1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = part1.h; sourceTree = "<group>"; };
+		6B56B0A12627C4DC00BE186A /* part1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = part1.c; sourceTree = "<group>"; };
+		6B8F7F982627D6E00011DB9E /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		6BB128EE25DEDAAC0053D4C8 /* Advent of Code 2020 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2020"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BB128F125DEDAAC0053D4C8 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,7 +61,10 @@
 		6BB128F025DEDAAC0053D4C8 /* Advent of Code 2020 */ = {
 			isa = PBXGroup;
 			children = (
+				6B56B0A02627C4DC00BE186A /* part1.h */,
+				6B56B0A12627C4DC00BE186A /* part1.c */,
 				6BB128F125DEDAAC0053D4C8 /* main.c */,
+				6B8F7F982627D6E00011DB9E /* main.h */,
 			);
 			path = "Advent of Code 2020";
 			sourceTree = "<group>";
@@ -118,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B56B0A22627C4DC00BE186A /* part1.c in Sources */,
 				6BB128F225DEDAAC0053D4C8 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

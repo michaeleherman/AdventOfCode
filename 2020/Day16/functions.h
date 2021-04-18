@@ -5,8 +5,8 @@
 //  Created by Michael.Herman on 4/14/21.
 //
 
-#ifndef part1_h
-#define part1_h
+#ifndef functions_h
+#define functions_h
 
 #include <stdio.h>
 #include <string.h>
@@ -19,19 +19,20 @@
 #define CHUNK_SIZE 250
 
 
-struct ticketField {
+typedef struct ticketField {
     char fieldName[50];
     int start1;
     int end1;
     int start2;
     int end2;
+    int position;
     
-};
+} _field;
 
 int checkValue(int value);
 int part1(void);
 void addToArray(int start, int end);
 
-struct ticketField fields[ARRAYSIZE];
+_field fields[ARRAYSIZE];
 
-#endif /* part1_h */
+#endif /* functions_h */

@@ -22,7 +22,9 @@ enum state {FALSE, TRUE};
 
 int validTix[ARRAYSIZE][FIELDS_COUNT];
 
-int checkFields(int value);
+int checkFields(int f, int value);
+int fieldsEnd = 0;
+
 
 
 #endif /* part2_h */

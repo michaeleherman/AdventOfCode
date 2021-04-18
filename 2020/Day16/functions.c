@@ -5,6 +5,7 @@ enum inRange {YES, NO};
 int valuesArray[ARRAYSIZE] = {0};
 int nearbyTixArr[ARRAYSIZE] = {0};
 extern int validTix[ARRAYSIZE][FIELDS_COUNT];
+extern struct ticketField fields[ARRAYSIZE];
 
 
 int part1(void){
@@ -15,7 +16,7 @@ int part1(void){
         return(-1);
     }
     char chunk[CHUNK_SIZE];
-    int fieldsEnd = 0;
+    extern int fieldsEnd;
     int invalid = 0;
     
     // first get ticket fields
@@ -34,6 +35,7 @@ int part1(void){
         fields[fieldsEnd].start2 = start2;
         fields[fieldsEnd].end1= end1;
         fields[fieldsEnd].end2 = end2;
+        fields[fieldsEnd].position = -1;
         addToArray(start1,end1);
         addToArray(start2,end2);
         ++fieldsEnd;

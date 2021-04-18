@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B56B0A22627C4DC00BE186A /* part1.c in Sources */ = {isa = PBXBuildFile; fileRef = 6B56B0A12627C4DC00BE186A /* part1.c */; };
-		6BB128F225DEDAAC0053D4C8 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BB128F125DEDAAC0053D4C8 /* main.c */; };
+		6BB3639F262BBFD600D53B12 /* functions.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BB3639B262BBFD600D53B12 /* functions.c */; };
+		6BB363A0262BBFD600D53B12 /* part2.c in Sources */ = {isa = PBXBuildFile; fileRef = 6BB3639E262BBFD600D53B12 /* part2.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,11 +24,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6B56B0A02627C4DC00BE186A /* part1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = part1.h; sourceTree = "<group>"; };
-		6B56B0A12627C4DC00BE186A /* part1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = part1.c; sourceTree = "<group>"; };
-		6B8F7F982627D6E00011DB9E /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		6BB128EE25DEDAAC0053D4C8 /* Advent of Code 2020 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advent of Code 2020"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BB128F125DEDAAC0053D4C8 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		6BB3639B262BBFD600D53B12 /* functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = functions.c; path = ../../Day16/functions.c; sourceTree = "<group>"; };
+		6BB3639C262BBFD600D53B12 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = functions.h; path = ../../Day16/functions.h; sourceTree = "<group>"; };
+		6BB3639D262BBFD600D53B12 /* part2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = part2.h; path = ../../Day16/part2.h; sourceTree = "<group>"; };
+		6BB3639E262BBFD600D53B12 /* part2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = part2.c; path = ../../Day16/part2.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,10 +61,10 @@
 		6BB128F025DEDAAC0053D4C8 /* Advent of Code 2020 */ = {
 			isa = PBXGroup;
 			children = (
-				6B56B0A02627C4DC00BE186A /* part1.h */,
-				6B56B0A12627C4DC00BE186A /* part1.c */,
-				6BB128F125DEDAAC0053D4C8 /* main.c */,
-				6B8F7F982627D6E00011DB9E /* main.h */,
+				6BB3639B262BBFD600D53B12 /* functions.c */,
+				6BB3639C262BBFD600D53B12 /* functions.h */,
+				6BB3639E262BBFD600D53B12 /* part2.c */,
+				6BB3639D262BBFD600D53B12 /* part2.h */,
 			);
 			path = "Advent of Code 2020";
 			sourceTree = "<group>";
@@ -125,8 +125,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B56B0A22627C4DC00BE186A /* part1.c in Sources */,
-				6BB128F225DEDAAC0053D4C8 /* main.c in Sources */,
+				6BB3639F262BBFD600D53B12 /* functions.c in Sources */,
+				6BB363A0262BBFD600D53B12 /* part2.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

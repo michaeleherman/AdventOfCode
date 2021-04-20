@@ -14,7 +14,7 @@
 #include <stdbool.h>
 #include "functions.h"
 
-enum state {FALSE, TRUE};
+bool valid;
 
 #define CHUNK_SIZE 250
 #define FIELDS_COUNT 20
@@ -22,7 +22,7 @@ enum state {FALSE, TRUE};
 
 int validTix[ARRAYSIZE][FIELDS_COUNT];
 
-int checkFields(int f, int value);
+// int checkFields(int field, int value);
 int fieldsEnd = 0;
 
 

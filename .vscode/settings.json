@@ -16,6 +16,7 @@
         "system_error": "c",
         "type_traits": "c",
         "utility": "c",
-        "vector": "c"
+        "vector": "c",
+        "part2.h": "c"
     }
 }

@@ -21,8 +21,13 @@ bool valid;
 #define ARRAYSIZE 1000
 
 int validTix[ARRAYSIZE][FIELDS_COUNT];
+int myTix[FIELDS_COUNT];
 
 // int checkFields(int field, int value);
+void checkFields();
+void zeroOutField(int pos);
+void findMySums();
+
 int fieldsEnd = 0;
 
 

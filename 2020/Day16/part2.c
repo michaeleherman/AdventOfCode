@@ -5,7 +5,7 @@ extern _field fields[ARRAYSIZE];
 int main(void)
 {
     int validEnd = part1();
-    printf("valid end is %d\n", validEnd);
+    // printf("valid end is %d\n", validEnd);
 
     int i, j, k;
     for (i = 0; i < fieldsEnd; i++)
@@ -25,47 +25,72 @@ int main(void)
                 {
                     valid = false;
                     fields[i].position[j] = 0;
-                    printf("position %d invalid for %s\n", j, fields[i].fieldName);
+                    // printf("position %d invalid for %s\n", j, fields[i].fieldName);
                     break;
                 }
             }
             if (valid == true)
             {
-                printf("position %d valid for %s\n", j, fields[i].fieldName);
+                // printf("position %d valid for %s\n", j, fields[i].fieldName);
+                fields[i].onesCount++;
             }
         }
     }
 
-    for (int k = 0; k < fieldsEnd; ++k)
-    {
-        printf("%s,", fields[k].fieldName);
-        for (int i = 0; i < FIELDS_COUNT; ++i)
-        {
-            printf("%2d,", fields[k].position[i]);
-        }
-        printf("\n");
+    // for (int k = 0; k < fieldsEnd; ++k)
+    // {
+    //     printf("%s,", fields[k].fieldName);
+    //     for (int i = 0; i < FIELDS_COUNT; ++i)
+    //     {
+    //         printf("%2d,", fields[k].position[i]);
+    //     }
+    //     printf("\n");
+    // }
+
+    checkFields();
+    for (int i = 0;i<fieldsEnd;i++) {
+        printf("%s - %d\n",fields[i].fieldName,fields[i].ticketPos);
     }
+
+    for (int i = 0; i < FIELDS_COUNT; i++) {
+        printf("%d ",myTix[i]);
+    }
+    printf("\n");
+
+    findMySums();
 
     return 0;
 }
 
-// int checkFields(int field, int value)
-// {
-//     for (int i = 0; i < fieldsEnd; i++)
-//     {
-//         printf("Checking field %s for value %d - ", fields[i].fieldName,
-//         value); if ((value >= fields[i].start1 && value <= fields[i].end1) ||
-//         (value >= fields[i].start2 && value <= fields[i].end2))
-//         {
-//             valid = true;
-//             printf("valid\n");
-//         }
-//         else
-//         {
-//             valid = false;
-//             printf("invalid\n");
-//             break;
-//         }
-//     }
-//     return valid;
-// }
+void checkFields(){
+    for (int i = 0; i < fieldsEnd; i++) {
+        if (fields[i].onesCount == 1) {
+            for (int j = 0; j < FIELDS_COUNT; j++) {
+                if (fields[i].position[j] == 1) {
+                    fields[i].ticketPos = j;
+                    zeroOutField(j);
+                    fields[i].onesCount = -2;
+                    i = -1;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void zeroOutField(int pos) {
+    for (int i = 0; i < fieldsEnd; i++) {
+        fields[i].onesCount--;
+        fields[i].position[pos] = 0;
+    }
+}
+
+void findMySums(){
+    long mySum = 1;
+    for (int i = 0; i < fieldsEnd; i++) {
+        if (strstr(fields[i].fieldName,"departure")) {
+            mySum = mySum * myTix[fields[i].ticketPos];
+        }
+    }
+    printf("Your sum is %ld\n",mySum);
+}

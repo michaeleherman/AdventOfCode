@@ -26,6 +26,8 @@ typedef struct ticketField {
     int start2;
     int end2;
     int position[FIELDS_COUNT];
+    int onesCount;
+    int ticketPos;
     
 } _field;
 

@@ -9,6 +9,7 @@ enum inRange
 int valuesArray[ARRAYSIZE] = {0};
 int nearbyTixArr[ARRAYSIZE] = {0};
 extern int validTix[ARRAYSIZE][FIELDS_COUNT];
+extern int myTix[FIELDS_COUNT];
 extern struct ticketField fields[ARRAYSIZE];
 
 int part1(void)
@@ -43,13 +44,15 @@ int part1(void)
         fields[fieldsEnd].end1 = end1;
         fields[fieldsEnd].end2 = end2;
         memset(fields[fieldsEnd].position,0,sizeof(int) * FIELDS_COUNT);
+        fields[fieldsEnd].onesCount = 0;
+        fields[fieldsEnd].ticketPos = -1;
         addToArray(start1, end1);
         addToArray(start2, end2);
         ++fieldsEnd;
     }
 
     // now get my ticket
-    char myTicket[CHUNK_SIZE];
+    // char myTicket[CHUNK_SIZE];
     while (fgets(chunk, sizeof(chunk), fp) != NULL)
     {
         if (strcmp(chunk, "\n") == 0)
@@ -60,7 +63,16 @@ int part1(void)
         {
             continue;
         }
-        strcpy(myTicket, chunk);
+        // strcpy(myTicket, chunk);
+        int i = 0;
+        char *token;
+        char delim[2] = ",";
+        token = strtok(chunk,delim);
+        while (token != NULL ) {
+            myTix[i] = atoi(token);
+            token = strtok(NULL,delim);
+            i++;
+        }
     }
 
     // now get the nearby tickets
@@ -102,11 +114,14 @@ int part1(void)
         }
     }
 
-    // for (int i = 0; i<100; i++) {
-    //     printf("%d %d\n",i,valuesArray[i]);
+    // for (int i = 0; i<validEnd; i++) {
+    //     for (int j = 0; j < FIELDS_COUNT; j++) {
+    //         printf("%d, ",validTix[i][j]);
+    //     }
+    //     printf("\n");
     // }
 
-    //
+    
     return validEnd;
 }
 

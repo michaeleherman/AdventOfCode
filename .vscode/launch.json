@@ -9,7 +9,7 @@
             "name": "Launch",
             "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/2020/Day16/part2",
+            "program": "${workspaceFolder}/2020/Day17/part1",
             "args": ["-arg1", "-arg2"],
         }
     ]

@@ -2,21 +2,16 @@
 #ifndef part1_h
 #define part1_h
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "fileparser.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-enum state
-{
-    ACTIVE = 35,
-    INACTIVE = 46
-};
 int ***grid3d;
 int ***snapShot;
-int xSize;
-int ySize;
-int zSize;
+int xSize = 1000;
+int ySize = 1000;
+int zSize = 1000;
 
 void copyGrid(int xSize, int ySize, int zSize);
 

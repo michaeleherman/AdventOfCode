@@ -3,6 +3,13 @@
 extern int ***grid3d;
 extern int ***snapShot;
 
+int x = 0;
+int y = 0;
+int z = 0;
+extern int xSize;
+extern int ySize;
+extern int zSize;
+
 int parseFile(){
     FILE *fp = fopen("/Users/michael.herman/Code/AdventOfCode/2020/Day17/test.txt", "r");
     if (fp == NULL)

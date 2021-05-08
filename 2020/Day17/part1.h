@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "fileparser.h"
 
 enum state
 {
@@ -13,8 +14,10 @@ enum state
 };
 int ***grid3d;
 int ***snapShot;
+int xSize;
+int ySize;
+int zSize;
 
 void copyGrid(int xSize, int ySize, int zSize);
-void parseFile();
 
 #endif /* part1_h */
